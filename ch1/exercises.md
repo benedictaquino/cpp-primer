@@ -20,7 +20,7 @@ int main()
 ## Exercises Section 1.2
 **Exercise 1.3:** Write a program to print `Hello, World` on the standard output.
 
-[helloworld.cpp](helloworld.cpp)
+[helloworld.cpp](src/helloworld.cpp)
 
 ```cpp
 #include <iostream>
@@ -33,7 +33,7 @@ int main()
 
 **Exercise 1.4:** Our program used the addition operator, `+`, to add two numbers. Write a program that uses the multiplication operator, `*`, to print the product instead.
 
-[multiply.cpp](multiply.cpp)
+[multiply.cpp](src/multiply.cpp)
 
 ```cpp
 #include <iostream>
@@ -50,7 +50,7 @@ int main()
 
 **Exercise 1.5:** We wrote the output in one large statement. Rewrite the program to use a separate statement to print each operand.
 
-[main2.cpp](main2.cpp)
+[main2.cpp](src/main2.cpp)
 
 ```cpp
 #include <iostream>
@@ -90,7 +90,7 @@ The above program fragment would be legal.
 ## Exercises Section 1.3
 **Exercise 1.7:** Compile a program that has incorrectly nested comments.
 
-[comments.cpp](comments.cpp)
+[comments.cpp](src/comments.cpp)
 
 ```cpp
 /*
@@ -115,7 +115,7 @@ std::cout << /* "*/" /* "/*" */;
 
 The first two output statements are legal.
 
-[ex1_8.cpp](ex1_8.cpp)
+[ex1_8.cpp](src/ex1_8.cpp)
 
 ```cpp
 #include <iostream>
@@ -125,6 +125,67 @@ int main()
     std::cout << "*/";
     std::cout << "*/";
     std::cout << "*/" "/*" << std::endl;
+    return 0;
+}
+```
+## Exercises Section 1.4.1
+**Exercise 1.9:** Write a program that uses a `while` to sum the numbers from 50 to 100.
+
+[ex1_9.cpp](src/ex1_9.cpp)
+
+```cpp
+// This program uses a while loop to sum the numbers from 50 to 100
+#include <iostream>
+int main()
+{
+    int sum = 0, i = 50;
+    // keep executing the while as long as i is less than or equal to 100
+    while (i <= 100) {
+	sum += i;
+	i++;
+    }
+    std::cout << "Sum of 50 to 100 inclusive is " << sum << std::endl;
+    return 0;
+}
+```
+
+**Exercise 1.10:** In addition to the `++` operator that adds 1 to its operands, there is a decrement operator (`--`) that subtracts 1. Use the decrement operator to write a `while` that prints the numbers from ten down to zero.
+
+[ex1_10.cpp](src/ex1_10.cpp)
+
+```cpp
+// This program prints the numbers from 10 down to zero
+#include <iostream>
+int main()
+{
+    int i = 10;
+    while (i >= 0) {
+	std::cout << i << " ";
+	i--;
+    }
+    std::cout << std::endl;
+    return 0;
+}
+```
+
+**Exercise 1.11:** Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
+
+[ex1_11.cpp](src/ex1_10.cpp)
+
+```cpp
+/* This program prompts the user for two integers then prints each number in 
+ * the range specified by those two integers */
+#include <iostream>
+int main()
+{
+    std::cout << "Enter two integers: " << std::endl;
+    int v1 = 0, v2 = 0;
+    std::cin >> v1 >> v2;
+    while (v1 <= v2) {
+	std::cout << v1 << " ";
+	v1++;
+    }
+    std::cout << std::endl;
     return 0;
 }
 ```
