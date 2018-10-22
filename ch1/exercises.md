@@ -89,6 +89,21 @@ The above program fragment would be legal.
 
 ## Exercises Section 1.3
 **Exercise 1.7:** Compile a program that has incorrectly nested comments.
+
+[comments.cpp](comments.cpp)
+
+```cpp
+/*
+ * comment pairs /* */ cannot nest,
+ * "cannot nest" is considered source code,
+ * as is the rest of the program
+ */
+int main()
+{
+    return 0;
+}
+```
+
 **Exercise 1.8:** Indicate which, if any, of the following output statements are legal:
 
 ```cpp
@@ -96,4 +111,20 @@ std::cout << "/*";
 std::cout << "*/";
 std::cout << /* "*/" */;
 std::cout << /* "*/" /* "/*" */;
+```
+
+The first two output statements are legal.
+
+[ex1_8.cpp](ex1_8.cpp)
+
+```cpp
+#include <iostream>
+int main()
+{
+    std::cout << "/*";
+    std::cout << "*/";
+    std::cout << "*/";
+    std::cout << "*/" "/*" << std::endl;
+    return 0;
+}
 ```
