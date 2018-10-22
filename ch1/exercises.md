@@ -318,3 +318,76 @@ int main()
     return 0;
 }
 ```
+## Exercises Section 1.5.1
+**Exercise 1.20:** Write a program that reads a set of book sales transactions, writing each transaction to the standard output.
+
+[ex1_20.cpp](src/ex1_20.cpp)
+
+```cpp
+/* This program reads a set of book sales transactions, writing each 
+ * transaction to the standard output */
+#include <iostream>
+#include "Sales_item.h"
+int main()
+{
+    Sales_item item;
+    while (std::cin >> item)
+	std::cout << item << std::endl;
+    return 0;
+}
+```
+
+**Exercise 1.21:** Write a program that reads two `Sales_item` objects that have the same ISBN and produces their sum.
+
+[ex1_21.cpp](src/ex1_21.cpp)
+
+```cpp
+/* This program reads two Sales_item objects with the same ISBN and produces 
+ * their sum */
+#include <iostream>
+#include "Sales_item.h"
+int main()
+{
+    Sales_item item1, item2;
+    std::cin >> item1 >> item2;
+    // check that item1 and item2 have the same ISBN
+    if (item1.isbn() == item2.isbn()) {
+	std::cout << item1 + item2 << std::endl;
+	return 0;
+    }
+    else {
+	std::cerr << "Data must refer to same ISBN" << std::endl;
+	return -1;
+    }
+}
+```
+
+**Exercise 1.22:** Write a program that reads several transactions for the same `ISBN`. Write the sum of all the transactions that were read.
+
+[ex1_22.cpp](src/ex1_22.cpp)
+
+```cpp
+/* This program reads several transactions for the same ISBN and writes the sum
+ * of all the transactions that were read */
+#include <iostream>
+#include "Sales_item.h"
+int main()
+{
+    Sales_item sum, item;
+    // read in first value as sum
+    std::cin >> sum;
+    // read in inputs as item
+    while(std::cin >> item) {
+	if (item.isbn() == sum.isbn()) {   // check that ISBN's match
+	    sum += item;                   // add item to sum
+	}
+	else {
+	    // Print error message
+	    std::cerr << "Data must refer to same ISBN" << std::endl;
+	    return -1;                     // indicate failure
+	}
+    } // end while loop
+    std::cout << sum << std::endl;
+    return 0;
+}
+```
