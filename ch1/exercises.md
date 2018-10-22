@@ -189,3 +189,51 @@ int main()
     return 0;
 }
 ```
+
+## Exercises Section 1.4.2
+**Exercise 1.12:** What does the following `for` loop do? What is the value of `sum`?
+
+```cpp
+int sum = 0;
+for (int i = -100; i <=100; ++i)
+    sum += i;
+```
+
+The for loop calculates the sum of the numbers -100 to 100 inclusive. The final value of sum is 0.
+
+**Exercise 1.13:** Rewrite the first two exercises from [1.4.1](#exercises-section-141) using `for` loops using `for` loops.
+
+[ex1_13_1.cpp](src/ex1_13_1.cpp)
+
+```cpp
+// This program uses a for loop to sum the numbers from 50 to 100
+#include <iostream>
+int main()
+{
+    int sum = 0;
+    for (int i = 50; i <= 100; i++)
+	sum += i;
+    std::cout << "Sum of 50 to 100 inclusive is " << sum << std::endl;
+    return 0;
+}
+```
+
+[ex1_13_2.cpp](src/ex1_13_2.cpp)
+
+```cpp
+// This program prints the numbers from 10 down to zero with a for loop
+#include <iostream>
+int main()
+{
+    for (int i = 10; i >= 0; i--)
+	std::cout << i << " ";
+    std::cout << std::endl;
+    return 0;
+}
+```
+
+**Exercise 1.14:** Compare and contrast the loops that used a for with those using a while. Are there advantages or disadvantages to using either form?
+
+The for loops allow for more concise code. While loops can be more flexible with the conditions. For loops are limited to incremental loops.
+
+**Exercise 1.15:** Write programs that contain the common errors discussed in the box on page 16. Familiarize your self with the messages the compiler generates.
