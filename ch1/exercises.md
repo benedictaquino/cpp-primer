@@ -255,3 +255,66 @@ int main()
     return 0;
 }
 ```
+
+## Exercises Section 1.4.4
+**Exercise 1.17:** What happens in the program presented in this section if the input values are all equal? What if there are no duplicated values?
+
+If the input values are all equal, then during the while loop the inner if statement is always true, then once the while loop ends, the count is printed.
+
+If there are no duplicate values, then the inner if statement is always false, so the the count is printed every iteration.
+
+**Exercise 1.18:** Compile and run the program from this section giving it only equal values as input. Run it again giving it values in which no number is repeated.
+
+[if.cpp](src/if.cpp)
+
+```cpp
+#include <iostream>
+int main()
+{
+    // currVal is the number we're counting; we'll read new values into val
+    int currVal = 0, val = 0;
+    // read first number and ensure we have data to process
+    if (std::cin >> currVal) {
+	int cnt = 1;  // store the count for the current value we're processing
+	while (std::cin >> val) { // read the remaining numbers
+	    if (val == currVal)   // if the values are the same
+		++cnt;            // add 1 to cnt
+	    else { // otherwise, print the count for the previous alue
+		    std::cout << currVal << " occurs " << cnt << " times "
+		              << std::endl;
+	            currVal = val;
+		    cnt = 1;
+		 }
+	} // while loop ends here
+	// remember to print the count for the last value in the file
+	std::cout << currVal << " occurs " << cnt << " times " << std::endl;
+    } // outermost if statement ends here
+    return 0;
+}
+```
+
+**Exercise 1.19:** Revise the program you wrote for exercises in [1.4.1](#exercises-section-141) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
+
+[ex1_19.cpp](src/ex1_19.cpp)
+
+```cpp
+/* This program prompts the user for two intergers then prints each number in 
+ * the range specified by those two integers */
+#include <iostream>
+int main()
+{
+    std::cout << "Enter two integers: " << std::endl;
+    int v1, v2;
+    std::cin >> v1 >> v2;
+    if (v1 <= v2) {
+	for (v1; v1 <= v2; v1++)
+	    std::cout << v1 << " ";
+    }
+    else {
+	for (v1; v1 >= v2; v1--)
+	    std::cout << v1 << " ";
+    }
+    std::cout <<std::endl;
+    return 0;
+}
+```
