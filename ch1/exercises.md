@@ -237,3 +237,21 @@ int main()
 The for loops allow for more concise code. While loops can be more flexible with the conditions. For loops are limited to incremental loops.
 
 **Exercise 1.15:** Write programs that contain the common errors discussed in the box on page 16. Familiarize your self with the messages the compiler generates.
+
+## Exercises Section 1.4.3
+**Exercise 1.16:** Write your own version of a program that prints the sum of a set of integers read from `cin`.
+
+[ex1_16.cpp](src/ex1_16.cpp)
+
+```cpp
+// This program prints the sum of a set of integers read from cin
+#include <iostream>
+int main()
+{
+    int sum = 0, val;
+    while (std::cin >> val) 
+	sum += val;
+    std::cout << "Sum: " << sum << std::endl;
+    return 0;
+}
+```
