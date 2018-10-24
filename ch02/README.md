@@ -144,3 +144,31 @@ int main()
     return 0;
 }
 ```
+
+## Exercises Section 2.2.1
+**Exercise 2.9:** Explain the following definitions. For those that are illegal, explain what's wrong and how to correct it.
+* (a) `std::cin >> int input_value;`
+* (b) `int i = { 3.14 };`
+* (c) `double salary = wage = 9999.99;`
+* (d) `int i = 3.14;`
+
+**Solution:**
+* (a) This definition is illegal. The object `input_value` must be declared before it can be assigned a value by `cin`. 
+* (b) This definition is illegal because a narrowing conversion is required.
+* (c) This definition is illegal because an object cannot be initialized to an undeclared object.
+* (d) This definition is legal. It will truncate `3.14` to `3`.
+
+**Exercise 2.10:** What are the initial values, if any, of each of the following variables?
+
+```cpp
+std::string global_str;
+int global_int;
+int main()
+{
+    int local_int;
+    std::string local_str;
+}
+
+**Solution:** The initial values of both `global_str` and `local_str` are the empty string because the `string` class says that if we do not supply an initializer, then the result is the empty string.
+
+The initial value of `global_int` is zero initialized since it is a global object. The `local_int` variable has an undefined behavior, it could be initialized to anything.
