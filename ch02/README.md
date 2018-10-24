@@ -207,3 +207,29 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (c) Invalid. `catch` is a reserved name and hyphens are invalid characters for identifiers.
 * (d) Invalid. Identifiers must begin with a letter or an underscore.
 * (e) Valid. Since identifiers are case-sensitive, `Double` is valid.
+
+## Exercises Section 2.2.4
+
+**Exercise 2.13:** What is the value of `j` in the following program?
+
+```cpp
+int i = 42;
+int main()
+{
+    int i = 100;
+    int j = i;
+}
+```
+
+**Solution:** The value of `j` in this program is `100`. The object `j` is defined and initialized as `i`, which has a value of `100` in the innter scope.
+
+**Exercise 2.14:** Is the following program legal? If so, what values are printed?
+
+```cpp
+int i = 100, sum = 0;
+for (int i = 0; i != 10; ++i)
+    sum += i;
+std::cout << i << " " << sum << std::endl;
+```
+
+**Solution:** This program is legal. The values printed should be `100 45`. inside the for loop, the object `i` in this inner scope is the iterator from 1 to 9. The object `i` in the outer scope remains `100`, then when the values are printed it prints `i` then `sum`.
