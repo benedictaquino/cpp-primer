@@ -146,13 +146,16 @@ int main()
 ```
 
 ## Exercises Section 2.2.1
+
 **Exercise 2.9:** Explain the following definitions. For those that are illegal, explain what's wrong and how to correct it.
+
 * (a) `std::cin >> int input_value;`
 * (b) `int i = { 3.14 };`
 * (c) `double salary = wage = 9999.99;`
 * (d) `int i = 3.14;`
 
 **Solution:**
+
 * (a) This definition is illegal. The object `input_value` must be declared before it can be assigned a value by `cin`. 
 * (b) This definition is illegal because a narrowing conversion is required.
 * (c) This definition is illegal because an object cannot be initialized to an undeclared object.
@@ -175,12 +178,32 @@ int main()
 The initial value of `global_int` is zero initialized since it is a global object. The `local_int` variable has an undefined behavior, it could be initialized to anything.
 
 ## Exercises Section 2.2.2
+
 **Exercise 2.11:** Explain whether each of the following is a declaration or a definition:
+
 * (a) `extern int ix = 1024;`
 * (b) `int iy;`
 * (c) `extern int ix;`
 
 **Solution:** 
+
 * (a) Definition. `extern` is used but since there is an initializer, so the `extern` is overrided and this statement is now a definition.
 * (b) Definition. `extern` is not used, so the object is defined.
 * (c) Declaration. `extern` is used and there is no initializer, so it is a declaration.
+
+## Exercises Section 2.2.3
+
+**Exercise 2.12:** Which, if any, of the following names are invalid?
+* (a) `int double 3.14;`
+* (b) `int _;`
+* (c) `int catch-22;`
+* (d) `int 1_or_2;`
+* (e) `double Double = 3.14;`
+
+**Solution:**
+
+* (a) Invalid. `double` is an invalid identifier because it is a C++ reserved name.
+* (b) Valid. Identifiers can begin with underscores.
+* (c) Invalid. `catch` is a reserved name and hyphens are invalid characters for identifiers.
+* (d) Invalid. Identifiers must begin with a letter or an underscore.
+* (e) Valid. Since identifiers are case-sensitive, `Double` is valid.
