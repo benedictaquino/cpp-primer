@@ -68,3 +68,79 @@ int main()
     return 0;
 }
 ```
+
+## Exercises Section 2.1.3
+**Exercise 2.5:** Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples:
+
+* (a) `'a'`, `L'a'`,`"a"`, `L"a"`
+* (b) `10`, `10u`, `10L`, `10uL`, `012`, `0xC`
+* (c) `3.14`, `3.14f`, `3.14L`
+* (d) `10`, `10u`, `10.`, `10e-2`
+
+**Solution:** 
+
+* (a) `char`, `wchar_t`, `const char*`, `const wchar_t*`
+
+  The first literal `'a'` is enclosed in single quotes so it is a literal of type `char`. The `L` prefix changes this to a literal of type `wchar_t`. The literal `"a"` is enclosed in double quotation marks so it is a string literal of `char`s. The `L` prefix changes this to a string literal of type `wchar_t`.
+
+* (b) `int`, `unsigned int`, `long`, `unsigned long`, `int`, `int`
+
+  The first literal `10` is written in decimal form, the second literal is `10` written in decimal form with the suffix `u` specifying it as an `unsigned` type, the third literal `10L` is written in decimal form with the suffix `L` specifying it as a `long` type. The fourth literal `012` is 10 written in octal form. The fifth literal is `12` written in hexadecimal form.
+
+* (b) `double`, `float`, `long double`
+
+  The first literal `3.14` is a floating point and they default to the `double` type. The second literal has the `f` suffix which specifies the type as `float`. The third literal has the `L` suffix which specifies the type as `long double`.
+
+* (d) `int`, `unsigned int`, `double`, `double`
+
+  The first literal is evidently of type `int`. The second literal had the `u` suffix which specifies the type as `unsigned int`. The third literal has the decimal point notation, so it is a floating-point literal of type `double`. The fourth literal has scientific notation, so it is a floating-point literal of type `double`.
+
+**Exercise 2.6:** What, if any, are the differences between the following definitions:
+
+```cpp
+int month = 9, day = 7;
+int month = 09, day = 07;
+```
+
+**Solution:** On the first line `month` and `day` are decimal notation and defined as `9` and `7` respectively. The second line `month` and `day` are in octal notation so the `09` is an invalid value and `07` is `7`.
+
+**Exercise 2.7:** What values do these literals represent? What type does each have?
+
+* (a) `"Who goes with F\145rgus?\012"`
+* (b) `3.14e1L`
+* (c) `1024f`
+* (d) `3.14L`
+
+**Solution:**
+
+* (a) This literal's value is `"Who goes with Fergus?\n"` and it is a string literal of type  `const char*`.
+* (b) This literal's value is `31.4` and it is a floating-point literal of type `long double`.
+* (c) This literal's value is invalid because `1024` is an integer literal of type `int` but the `f` suffix is for floating-point literals.
+* (d) This literal's value is `3.14` and it is a floating-point literal of type `long double`.
+
+**Exercise 2.8:** Using escape sequences, write a program to print `2M` followed by a newline. Modify the program to print `2`, then a tab, then an `M`, followed by a newline.
+
+[ex2_8_1.cpp](src/ex2_8_1.cpp)
+
+```cpp
+/* This program uses escape sequences to print 2M followed by a newline */
+#include <iostream>
+int main()
+{
+    std::cout << "\062\115\012" << std::endl;
+    return 0;
+}
+```
+
+[ex2_8_2.cpp](src/ex2_8_2.cpp)
+
+```cpp
+/* This program uses escape sequences to print 2, then a tab, then an M, 
+ * followed by a newline */
+#include <iostream>
+int main()
+{
+    std::cout << "\062\011\115\012" << std::endl;
+    return 0;
+}
+```
