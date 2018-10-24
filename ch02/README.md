@@ -168,6 +168,7 @@ int main()
     int local_int;
     std::string local_str;
 }
+```
 
 **Solution:** The initial values of both `global_str` and `local_str` are the empty string because the `string` class says that if we do not supply an initializer, then the result is the empty string.
 
