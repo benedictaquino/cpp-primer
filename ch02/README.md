@@ -173,3 +173,14 @@ int main()
 **Solution:** The initial values of both `global_str` and `local_str` are the empty string because the `string` class says that if we do not supply an initializer, then the result is the empty string.
 
 The initial value of `global_int` is zero initialized since it is a global object. The `local_int` variable has an undefined behavior, it could be initialized to anything.
+
+## Exercises Section 2.2.2
+**Exercise 2.11:** Explain whether each of the following is a declaration or a definition:
+* (a) `extern int ix = 1024;`
+* (b) `int iy;`
+* (c) `extern int ix;`
+
+**Solution:** 
+* (a) Definition. `extern` is used but since there is an initializer, the `extern` is overrided and this statement is now a definition.
+* (b) Definition. `extern` is not used, so the object is defined.
+* (c) Declaration. `extern` is used and there is no initializer, so it is a declaration.
