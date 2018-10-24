@@ -181,6 +181,6 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (c) `extern int ix;`
 
 **Solution:** 
-* (a) Definition. `extern` is used but since there is an initializer, the `extern` is overrided and this statement is now a definition.
+* (a) Definition. `extern` is used but since there is an initializer, so the `extern` is overrided and this statement is now a definition.
 * (b) Definition. `extern` is not used, so the object is defined.
 * (c) Declaration. `extern` is used and there is no initializer, so it is a declaration.
