@@ -289,7 +289,14 @@ std::cout << i << " " << r1 << std::endl;
 
 **Exercise 2.18:** Write code to change the value of a pointer. Write code to change the value to which the pointer points.
 
-[**Solution:**](src/ex2_18.cpp)
+**Solution:**
+
+```cpp
+int i = 0;            // Initialize integer object i with value 0
+int *pi = nullptr;    // Initialize null pointer pi 
+pi = &i               // Assign address of object i to pointer pi
+*pi = 10;             // Assign the value 10 to the object which pi points to
+```
 
 **Exercise 2.19:** Explain the key differences between pointers and references.
 
@@ -303,6 +310,8 @@ int *p1 = &i;
 *p1 = *p1 * *p1;
 ```
 
+**Solution:** The above program initializes integer object `i` with the value `42`. Then initializes the integer pointer `p1` with the address of `i`. Then the object that `p1` points to (`i`) is assigned the value of the expression `*p1 * *p1`. Since `p1` points to `i` which has a value of `42`, the final value is `1764`.
+
 **Exercise 2.21:** Assuming `p` is a pointer to `int`, explain the following code:
 
 ```cpp
@@ -310,18 +319,25 @@ if (p) // ...
 if (*p) // ...
 ```
 
-**Solution:**
+**Solution:** 
+
+```cpp
+if (p) // evaluates the value of the pointer
+if (*p) // evaluates the value of the object the pointer points to
+```
+
+If the pointer is the null pointer, then the `if` statement evaluates as `false`. For any non-zero pointer values, the condition is `true`.
 
 **Exercise 2.23:** Given a pointer `p`, can you determine whether `p` points to a valid object? If so, how? If not, why not?
 
-**Solution:**
+**Solution:** No. The pointer only contains an address of an object, it does not contain any information about whether or not the pointed object is valid.
 
 **Exercise 2.24:** Why is the initialization of `p` legal but that of `lp` illegal?
 
 ```cpp
 int i = 42;
-void *p = &il
+void *p = &i;
 long *lp = &i;
 ```
 
-**Solution:**
+**Solution:** The initialization of `p` is legal because a `void*` pointers can hold the address of any object. The initialization of `lp` is illegal because it is a `long` pointer so it must hold the address of a `long` object.
