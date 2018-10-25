@@ -300,7 +300,7 @@ pi = &i               // Assign address of object i to pointer pi
 
 **Exercise 2.19:** Explain the key differences between pointers and references.
 
-**Solution:** Unlike references, pointers do not need to be initialized at the time of definition. References refer to objects, but pointers point to the address of another object. As well, the address value stored in a pointer does not need to point to an object. Pointers can also be dereferenced, unlike references.
+**Solution:** Unlike references, pointers do not need to be initialized at the time of definition. References refer to objects, but pointers point to the address of another object. As well, the address value stored in a pointer does not need to point to an object.
 
 **Exercise 2.20:** What does the following program do?
 
@@ -341,3 +341,24 @@ long *lp = &i;
 ```
 
 **Solution:** The initialization of `p` is legal because a `void*` pointers can hold the address of any object. The initialization of `lp` is illegal because it is a `long` pointer so it must hold the address of a `long` object.
+
+### Section 2.3.3 Understanding Compound Type Declarations
+
+**Exercise 2.25:** Determine the types and values of each of the following variables.
+
+* (a) `int* ip, i, &r = i;`
+* (b) `int i, *ip = 0;`
+* (c) `int* ip, ip2;`
+
+**Solution:** 
+
+* (a) `int* ip, i, &r = i;`
+  * `ip` is an `int` pointer with an undefined value.
+  * `i` is an `int` object with an undefined value. 
+  * `r` is an `int` reference for `i`
+* (b) `int i, *ip = 0;`
+  * `i` is an `int` object with an undefined value
+  * `ip` is a null pointer 
+* (c) `int* ip, ip2;`
+  * `ip` is an `int` pointer with an undefined value
+  * `ip2` is an `int` object with an undefined value
