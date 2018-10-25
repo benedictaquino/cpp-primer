@@ -1,5 +1,9 @@
-# Chapter 1 Exercises
-## Exercises Section 1.1.1
+# Chapter 1: Getting Started 
+
+## Section 1: Writing a Simple C++ Program
+
+### Section 1.1.1: Compiling and Executing Our Program
+
 **Exercise 1.1:** Review the documentation for your compiler and determine what file naming convention it uses. Compile and run the `main` program from page 2.
 
 ```cpp
@@ -17,7 +21,7 @@ int main()
     return -1;
 }
 ```
-## Exercises Section 1.2
+### Section 1.2: A First Look at Input/Output
 **Exercise 1.3:** Write a program to print `Hello, World` on the standard output.
 
 [helloworld.cpp](src/helloworld.cpp)
@@ -87,7 +91,8 @@ std::cout << " is " << v1 + v2 << std::endl;
 
 The above program fragment would be legal.
 
-## Exercises Section 1.3
+### Section 1.3: A Word about Comments
+
 **Exercise 1.7:** Compile a program that has incorrectly nested comments.
 
 [comments.cpp](src/comments.cpp)
@@ -128,7 +133,10 @@ int main()
     return 0;
 }
 ```
-## Exercises Section 1.4.1
+## Section 1.4: Flow of Control
+
+### Section 1.4.1: The `while` Statement
+
 **Exercise 1.9:** Write a program that uses a `while` to sum the numbers from 50 to 100.
 
 [ex1_9.cpp](src/ex1_9.cpp)
@@ -190,7 +198,8 @@ int main()
 }
 ```
 
-## Exercises Section 1.4.2
+### Section 1.4.2: The `for` Statement
+
 **Exercise 1.12:** What does the following `for` loop do? What is the value of `sum`?
 
 ```cpp
@@ -238,7 +247,8 @@ The for loops allow for more concise code. While loops can be more flexible with
 
 **Exercise 1.15:** Write programs that contain the common errors discussed in the box on page 16. Familiarize your self with the messages the compiler generates.
 
-## Exercises Section 1.4.3
+### Section 1.4.3: Reading an Unknown Number of Inputs
+
 **Exercise 1.16:** Write your own version of a program that prints the sum of a set of integers read from `cin`.
 
 [ex1_16.cpp](src/ex1_16.cpp)
@@ -256,7 +266,8 @@ int main()
 }
 ```
 
-## Exercises Section 1.4.4
+### Section 1.4.4: The `if` Statement
+
 **Exercise 1.17:** What happens in the program presented in this section if the input values are all equal? What if there are no duplicated values?
 
 If the input values are all equal, then during the while loop the inner if statement is always true, then once the while loop ends, the count is printed.
@@ -318,7 +329,11 @@ int main()
     return 0;
 }
 ```
-## Exercises Section 1.5.1
+
+# Section 1.5: Introduction to Classes
+
+### Section 1.5.1: The `Sales_item` Class
+
 **Exercise 1.20:** Write a program that reads a set of book sales transactions, writing each transaction to the standard output.
 
 [ex1_20.cpp](src/ex1_20.cpp)
@@ -392,7 +407,8 @@ int main()
 }
 ```
 
-## Exercises Section 1.5.2
+### Section 1.5.2: A First Look at Member Functions
+
 **Exercise 1.23:** Write a program that reads several transactions and counts how many transactions occur for each ISBN.
 
 [ex1_23.cpp](src/ex1_23.cpp)
@@ -426,7 +442,8 @@ int main()
 ```
 **Exercise 1.24:** Test the previous program by giving multiple transactions representing multiple ISBNs. The records for each ISBN should be grouped together.
 
-## Exercises Section 1.6
+### Section 1.6: The Bookstore Program
+
 **Exercise 1.25:** Using the `Sales_item.h` header from the Web site, compile and execute the bookstore program presented in this section.
 
 [ex1_25.cpp](src/ex1_25.cpp)
