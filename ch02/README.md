@@ -291,3 +291,37 @@ std::cout << i << " " << r1 << std::endl;
 
 [**Solution:**](src/ex2_18.cpp)
 
+**Exercise 2.19:** Explain the key differences between pointers and references.
+
+**Solution:** Unlike references, pointers do not need to be initialized at the time of definition. References refer to objects, but pointers point to the address of another object. As well, the address value stored in a pointer does not need to point to an object. Pointers can also be dereferenced, unlike references.
+
+**Exercise 2.20:** What does the following program do?
+
+```cpp
+int i = 42;
+int *p1 = &i;
+*p1 = *p1 * *p1;
+```
+
+**Exercise 2.21:** Assuming `p` is a pointer to `int`, explain the following code:
+
+```cpp
+if (p) // ...
+if (*p) // ...
+```
+
+**Solution:**
+
+**Exercise 2.23:** Given a pointer `p`, can you determine whether `p` points to a valid object? If so, how? If not, why not?
+
+**Solution:**
+
+**Exercise 2.24:** Why is the initialization of `p` legal but that of `lp` illegal?
+
+```cpp
+int i = 42;
+void *p = &il
+long *lp = &i;
+```
+
+**Solution:**
