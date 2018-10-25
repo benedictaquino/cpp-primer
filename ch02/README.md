@@ -1,5 +1,9 @@
-# Chapter 2 Exercises
-## Exercises Section 2.1.1
+# Chapter 2: Variables and Basic Types
+
+## Section 2.1: Primitive Built-in Types
+
+### Exercises Section 2.1.1
+
 **Exercise 2.1:** What are the differences between `int`, `long`, `long long`, and `short`? Between an unsigned and signed type? Between a `float` and a `double`?
 
 **Solution:** The `int`, `long`, `long long`, and `short` types are integer types of different size. Unsigned types only represent values greater than or equal to zero, while signed types include positive, negative, and zero values. The `float` and `double` are floating point types of different sizes.
@@ -8,7 +12,8 @@
 
 **Solution:** I would use the `double` for all three since I'd likely be using these variables for calculations and with mixed calculations any smaller types would be promoted to the larger type.
 
-## Exercises Section 2.1.2
+### Exercises Section 2.1.2
+
 **Exercise 2.3:** What output will the following code produce?
 ```cpp
 unsigned u = 10, u2=42;
@@ -69,7 +74,8 @@ int main()
 }
 ```
 
-## Exercises Section 2.1.3
+### Exercises Section 2.1.3
+
 **Exercise 2.5:** Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples:
 
 * (a) `'a'`, `L'a'`,`"a"`, `L"a"`
@@ -145,7 +151,9 @@ int main()
 }
 ```
 
-## Exercises Section 2.2.1
+## Section 2.2: Variables
+
+### Exercises Section 2.2.1
 
 **Exercise 2.9:** Explain the following definitions. For those that are illegal, explain what's wrong and how to correct it.
 
@@ -177,7 +185,7 @@ int main()
 
 The initial value of `global_int` is zero initialized since it is a global object. The `local_int` variable has an undefined behavior, it could be initialized to anything.
 
-## Exercises Section 2.2.2
+### Exercises Section 2.2.2
 
 **Exercise 2.11:** Explain whether each of the following is a declaration or a definition:
 
@@ -191,7 +199,7 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (b) Definition. `extern` is not used, so the object is defined.
 * (c) Declaration. `extern` is used and there is no initializer, so it is a declaration.
 
-## Exercises Section 2.2.3
+### Exercises Section 2.2.3
 
 **Exercise 2.12:** Which, if any, of the following names are invalid?
 * (a) `int double 3.14;`
@@ -208,7 +216,7 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (d) Invalid. Identifiers must begin with a letter or an underscore.
 * (e) Valid. Since identifiers are case-sensitive, `Double` is valid.
 
-## Exercises Section 2.2.4
+### Exercises Section 2.2.4
 
 **Exercise 2.13:** What is the value of `j` in the following program?
 
@@ -221,7 +229,7 @@ int main()
 }
 ```
 
-**Solution:** The value of `j` in this program is `100`. The object `j` is defined and initialized as `i`, which has a value of `100` in the innter scope.
+**Solution:** The value of `j` in this program is `100`. The object `j` is defined and initialized as `i`, which has a value of `100` in the inner scope.
 
 **Exercise 2.14:** Is the following program legal? If so, what values are printed?
 
@@ -233,3 +241,46 @@ std::cout << i << " " << sum << std::endl;
 ```
 
 **Solution:** This program is legal. The values printed should be `100 45`. inside the for loop, the object `i` in this inner scope is the iterator from 1 to 9. The object `i` in the outer scope remains `100`, then when the values are printed it prints `i` then `sum`.
+
+## Section 2.3: Compound Types
+
+### Exercises Section 2.3.1
+
+**Exercise 2.15:** Which of the following definitions, if any, are invalid? Why?
+* (a) `int ival = 1.01;`
+* (b) `int &rval1 = 1.01;`
+* (c) `int &rval2 = ival;`
+* (d) `int &rval3;`
+
+**Solution:** 
+* (a) Valid. `ival` will be initialized with value `1` since `1.01` will be truncated.
+* (b) Invalid. `rval1` is preceded by the `&` and a reference's initializer must be an object.
+* (c) Assuming that `ival` is a defined integer object, then valid. `rval2` is preceded by the `&` symbol and the initializer is an object.
+* (d) Invalid. `rval3` is preceded by the `&` symbol and a reference must be initialized.
+
+**Exercise 2.16:** Which, if any, of the following assignments are invalid? IF they are valid, explain what they do.
+
+```cpp
+int i = 0, &r1 = i; double d = 0, &r2 = d;
+```
+
+* (a) `r2 = 3.14159;`
+* (b) `r2 = r1;`
+* (c) `i = r2;`
+* (d) `r1 = d;`
+
+**Solution:**
+* (a) Valid. `r2` references the floating-point object `d` and we are now assigned the floating-point value `3.14159` to `d`.
+* (b) Valid. `r1` references `i` with value `0` which is assigned to the object `d` and the type is converted from `int` to `float`.
+* (c) Valid. The object `i` is being assigned the value of `r2` which is a reference to `d`. The floating-point value is truncated and assigned to `i`.
+* (d) Valid. The reference `r1` refers to object `i` which is assigned the value of `d`. The floating-point value is truncated and assigned to `i`.
+
+**Exercise 2.17:** What does the following code print?
+
+```cpp
+int i, &ri = i;
+i = 5; r1 = 10;
+std::cout << i << " " << r1 << std::endl;
+```
+
+**Solution:** The code above prints `10 10`. The integer object `i` is defined and the reference `ri` is defined with initializer `i`. `i` is then assigned the value `5`, then the value `10` is assigned to `i`, because `ri` is a reference to `i`. `i` is then printed, followed by a space, then `i` is printed again because `ri` refers to `i`.
