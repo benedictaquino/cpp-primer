@@ -331,7 +331,7 @@ int main()
 }
 ```
 
-# Section 1.5: Introduction to Classes
+## Section 1.5: Introduction to Classes
 
 ### Section 1.5.1: The `Sales_item` Class
 
