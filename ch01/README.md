@@ -1,6 +1,6 @@
 # Chapter 1: Getting Started 
 
-## Section 1: Writing a Simple C++ Program
+## Section 1.1: Writing a Simple C++ Program
 
 ### Section 1.1.1: Compiling and Executing Our Program
 
@@ -22,6 +22,7 @@ int main()
 }
 ```
 ### Section 1.2: A First Look at Input/Output
+
 **Exercise 1.3:** Write a program to print `Hello, World` on the standard output.
 
 [**Solution:**](src/helloworld.cpp)
