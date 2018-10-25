@@ -24,7 +24,7 @@ int main()
 ### Section 1.2: A First Look at Input/Output
 **Exercise 1.3:** Write a program to print `Hello, World` on the standard output.
 
-[helloworld.cpp](src/helloworld.cpp)
+[**Solution:**](src/helloworld.cpp)
 
 ```cpp
 #include <iostream>
@@ -37,7 +37,7 @@ int main()
 
 **Exercise 1.4:** Our program used the addition operator, `+`, to add two numbers. Write a program that uses the multiplication operator, `*`, to print the product instead.
 
-[multiply.cpp](src/multiply.cpp)
+[**Solution:**](src/multiply.cpp)
 
 ```cpp
 #include <iostream>
@@ -54,7 +54,7 @@ int main()
 
 **Exercise 1.5:** We wrote the output in one large statement. Rewrite the program to use a separate statement to print each operand.
 
-[main2.cpp](src/main2.cpp)
+[**Solution:**](src/main2.cpp)
 
 ```cpp
 #include <iostream>
@@ -95,7 +95,7 @@ The above program fragment would be legal.
 
 **Exercise 1.7:** Compile a program that has incorrectly nested comments.
 
-[comments.cpp](src/comments.cpp)
+[**Solution:**](src/comments.cpp)
 
 ```cpp
 /*
@@ -120,7 +120,7 @@ std::cout << /* "*/" /* "/*" */;
 
 The first two output statements are legal.
 
-[ex1_8.cpp](src/ex1_8.cpp)
+[**Solution:**](src/ex1_8.cpp)
 
 ```cpp
 #include <iostream>
@@ -139,7 +139,7 @@ int main()
 
 **Exercise 1.9:** Write a program that uses a `while` to sum the numbers from 50 to 100.
 
-[ex1_9.cpp](src/ex1_9.cpp)
+[**Solution:**](src/ex1_9.cpp)
 
 ```cpp
 // This program uses a while loop to sum the numbers from 50 to 100
@@ -159,7 +159,7 @@ int main()
 
 **Exercise 1.10:** In addition to the `++` operator that adds 1 to its operands, there is a decrement operator (`--`) that subtracts 1. Use the decrement operator to write a `while` that prints the numbers from ten down to zero.
 
-[ex1_10.cpp](src/ex1_10.cpp)
+[**Solution:**](src/ex1_10.cpp)
 
 ```cpp
 // This program prints the numbers from 10 down to zero
@@ -178,7 +178,7 @@ int main()
 
 **Exercise 1.11:** Write a program that prompts the user for two integers. Print each number in the range specified by those two integers.
 
-[ex1_11.cpp](src/ex1_10.cpp)
+[**Solution:**](src/ex1_10.cpp)
 
 ```cpp
 /* This program prompts the user for two integers then prints each number in 
@@ -210,9 +210,9 @@ for (int i = -100; i <=100; ++i)
 
 The for loop calculates the sum of the numbers -100 to 100 inclusive. The final value of sum is 0.
 
-**Exercise 1.13:** Rewrite the first two exercises from [1.4.1](#exercises-section-141) using `for` loops using `for` loops.
+**Exercise 1.13:** Rewrite the first two exercises from [**Solution:**](#exercises-section-141) using `for` loops using `for` loops.
 
-[ex1_13_1.cpp](src/ex1_13_1.cpp)
+[**Solution:**](src/ex1_13_1.cpp)
 
 ```cpp
 // This program uses a for loop to sum the numbers from 50 to 100
@@ -227,7 +227,7 @@ int main()
 }
 ```
 
-[ex1_13_2.cpp](src/ex1_13_2.cpp)
+[**Solution:**](src/ex1_13_2.cpp)
 
 ```cpp
 // This program prints the numbers from 10 down to zero with a for loop
@@ -251,7 +251,7 @@ The for loops allow for more concise code. While loops can be more flexible with
 
 **Exercise 1.16:** Write your own version of a program that prints the sum of a set of integers read from `cin`.
 
-[ex1_16.cpp](src/ex1_16.cpp)
+[**Solution:**](src/ex1_16.cpp)
 
 ```cpp
 // This program prints the sum of a set of integers read from cin
@@ -276,7 +276,7 @@ If there are no duplicate values, then the inner if statement is always false, s
 
 **Exercise 1.18:** Compile and run the program from this section giving it only equal values as input. Run it again giving it values in which no number is repeated.
 
-[if.cpp](src/if.cpp)
+[**Solution:**](src/if.cpp)
 
 ```cpp
 #include <iostream>
@@ -304,9 +304,9 @@ int main()
 }
 ```
 
-**Exercise 1.19:** Revise the program you wrote for exercises in [1.4.1](#exercises-section-141) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
+**Exercise 1.19:** Revise the program you wrote for exercises in [**Solution:**](#exercises-section-141) that printed a range of numbers so that it handles input in which the first number is smaller than the second.
 
-[ex1_19.cpp](src/ex1_19.cpp)
+[**Solution:**](src/ex1_19.cpp)
 
 ```cpp
 /* This program prompts the user for two intergers then prints each number in 
@@ -336,7 +336,7 @@ int main()
 
 **Exercise 1.20:** Write a program that reads a set of book sales transactions, writing each transaction to the standard output.
 
-[ex1_20.cpp](src/ex1_20.cpp)
+[**Solution:**](src/ex1_20.cpp)
 
 ```cpp
 /* This program reads a set of book sales transactions, writing each 
@@ -354,7 +354,7 @@ int main()
 
 **Exercise 1.21:** Write a program that reads two `Sales_item` objects that have the same ISBN and produces their sum.
 
-[ex1_21.cpp](src/ex1_21.cpp)
+[**Solution:**](src/ex1_21.cpp)
 
 ```cpp
 /* This program reads two Sales_item objects with the same ISBN and produces 
@@ -379,7 +379,7 @@ int main()
 
 **Exercise 1.22:** Write a program that reads several transactions for the same `ISBN`. Write the sum of all the transactions that were read.
 
-[ex1_22.cpp](src/ex1_22.cpp)
+[**Solution:**](src/ex1_22.cpp)
 
 ```cpp
 /* This program reads several transactions for the same ISBN and writes the sum
@@ -411,7 +411,7 @@ int main()
 
 **Exercise 1.23:** Write a program that reads several transactions and counts how many transactions occur for each ISBN.
 
-[ex1_23.cpp](src/ex1_23.cpp)
+[**Solution:**](src/ex1_23.cpp)
 
 ```cpp
 /* This program reads several transactions and counts how many transactions 
@@ -446,7 +446,7 @@ int main()
 
 **Exercise 1.25:** Using the `Sales_item.h` header from the Web site, compile and execute the bookstore program presented in this section.
 
-[ex1_25.cpp](src/ex1_25.cpp)
+[**Solution:**](src/ex1_25.cpp)
 
 ```cpp
 #include <iostream>

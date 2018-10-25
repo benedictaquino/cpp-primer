@@ -51,7 +51,7 @@ The expressions `i - u` and `u - i` evaluate to `0` because it is in range of th
 
 **Exercise 2.4:** Write a program to check whether your predictions were correct. If not, study this section until you understand what the problem is.
 
-[ex2_4.cpp](src/ex2_4.cpp)
+[**Solution:**](src/ex2_4.cpp)
 
 ```cpp
 /* This program runs the code from exercise 2.3 to check if my predictions were
@@ -126,7 +126,7 @@ int month = 09, day = 07;
 
 **Exercise 2.8:** Using escape sequences, write a program to print `2M` followed by a newline. Modify the program to print `2`, then a tab, then an `M`, followed by a newline.
 
-[ex2_8_1.cpp](src/ex2_8_1.cpp)
+[**Solution:**](src/ex2_8_1.cpp)
 
 ```cpp
 /* This program uses escape sequences to print 2M followed by a newline */
@@ -138,7 +138,7 @@ int main()
 }
 ```
 
-[ex2_8_2.cpp](src/ex2_8_2.cpp)
+[**Solution:**](src/ex2_8_2.cpp)
 
 ```cpp
 /* This program uses escape sequences to print 2, then a tab, then an M, 
@@ -284,3 +284,10 @@ std::cout << i << " " << r1 << std::endl;
 ```
 
 **Solution:** The code above prints `10 10`. The integer object `i` is defined and the reference `ri` is defined with initializer `i`. `i` is then assigned the value `5`, then the value `10` is assigned to `i`, because `ri` is a reference to `i`. `i` is then printed, followed by a space, then `i` is printed again because `ri` refers to `i`.
+
+### Section 2.3.2 Pointers
+
+**Exercise 2.18:** Write code to change the value of a pointer. Write code to change the value to which the pointer points.
+
+[**Solution:**](src/ex2_18.cpp)
+
