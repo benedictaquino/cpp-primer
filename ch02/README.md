@@ -2,7 +2,7 @@
 
 ## Section 2.1: Primitive Built-in Types
 
-### Exercises Section 2.1.1
+### Section 2.1.1: Arithmetic Types
 
 **Exercise 2.1:** What are the differences between `int`, `long`, `long long`, and `short`? Between an unsigned and signed type? Between a `float` and a `double`?
 
@@ -12,7 +12,7 @@
 
 **Solution:** I would use the `double` for all three since I'd likely be using these variables for calculations and with mixed calculations any smaller types would be promoted to the larger type.
 
-### Exercises Section 2.1.2
+### Section 2.1.2: Type Conversions
 
 **Exercise 2.3:** What output will the following code produce?
 ```cpp
@@ -74,7 +74,7 @@ int main()
 }
 ```
 
-### Exercises Section 2.1.3
+### Section 2.1.3: Literals
 
 **Exercise 2.5:** Determine the type of each of the following literals. Explain the differences among the literals in each of the four examples:
 
@@ -153,7 +153,7 @@ int main()
 
 ## Section 2.2: Variables
 
-### Exercises Section 2.2.1
+### Section 2.2.1: Variable Definitions
 
 **Exercise 2.9:** Explain the following definitions. For those that are illegal, explain what's wrong and how to correct it.
 
@@ -185,7 +185,7 @@ int main()
 
 The initial value of `global_int` is zero initialized since it is a global object. The `local_int` variable has an undefined behavior, it could be initialized to anything.
 
-### Exercises Section 2.2.2
+### Section 2.2.2: Variable Declarations and Definitions
 
 **Exercise 2.11:** Explain whether each of the following is a declaration or a definition:
 
@@ -199,7 +199,7 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (b) Definition. `extern` is not used, so the object is defined.
 * (c) Declaration. `extern` is used and there is no initializer, so it is a declaration.
 
-### Exercises Section 2.2.3
+### Section 2.2.3: Identifiers
 
 **Exercise 2.12:** Which, if any, of the following names are invalid?
 * (a) `int double 3.14;`
@@ -216,7 +216,7 @@ The initial value of `global_int` is zero initialized since it is a global objec
 * (d) Invalid. Identifiers must begin with a letter or an underscore.
 * (e) Valid. Since identifiers are case-sensitive, `Double` is valid.
 
-### Exercises Section 2.2.4
+### Section 2.2.4: Scope of a Name
 
 **Exercise 2.13:** What is the value of `j` in the following program?
 
@@ -244,7 +244,7 @@ std::cout << i << " " << sum << std::endl;
 
 ## Section 2.3: Compound Types
 
-### Exercises Section 2.3.1
+### Section 2.3.1: References
 
 **Exercise 2.15:** Which of the following definitions, if any, are invalid? Why?
 * (a) `int ival = 1.01;`
