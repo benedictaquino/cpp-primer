@@ -27,3 +27,5 @@
     * [2.3.1 References](ch02#section-231-references)
     * [2.3.2 Pointers](ch02#section-232-pointers)
     * [2.3.3 Understanding Compound Type Declarations](ch02#section-233-understanding-compound-type-declarations)
+  * [2.4 `const` Qualifier](ch02#section-24-const-qualifier)
+    * [2.4.1 References to `const`](ch02#section-241-references-to-const)

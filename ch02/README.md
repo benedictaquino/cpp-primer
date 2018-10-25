@@ -362,3 +362,21 @@ long *lp = &i;
 * (c) `int* ip, ip2;`
   * `ip` is an `int` pointer with an undefined value
   * `ip2` is an `int` object with an undefined value
+
+## Section 2.4: `const` Qualifier
+
+**Exercise 2.26:** Which of the following are legal?
+
+* (a) `const int buf;`
+* (b) `int cnt = 0;`
+* (c) `const int sz = cnt`
+* (d) `++cnt; ++sz;
+
+**Solution:**
+
+* (a) Illegal. `buf` is an uninitialized `const` object
+* (b) Legal. `cnt` is an `int` object with value `0`
+* (c) Legal. `sz` is an `int` object with value `0`
+* (d) `++cnt` is a legal statement. `cnt` is incremented by 1. `++sz` is an illegal statement. `sz` is a `const` object so it cannot be changed.
+
+### Section 2.4.1: References to `const`
