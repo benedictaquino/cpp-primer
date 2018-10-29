@@ -473,7 +473,7 @@ p2 = p3;
 * `p1 = p3;` is an illegal assignment. `p3` has low-level `const` and `p1` does not.
 * `p2 = p3;` is a legal assignment. Both `p2` and `p3` have low-level `const` and the high-level `const` of `p3` can be ignored.
 
-### Section 2.4.4 `constexpr` and Constant Expressions
+### Section 2.4.4: `constexpr` and Constant Expressions
 
 **Exercise 2.32:** Is the following code legal or not? If not, how might you make it legal?
 
@@ -485,4 +485,136 @@ int null = 0, *p = null;
 
 ```cpp
 int null = 0, *p = &null;
+```
+
+Alternatively, one can initialize `p` as a null pointer.
+
+```cpp
+int null = 0, *p = nullptr;
+```
+
+## Section 2.5: Dealing with Types
+
+### Section 2.5.1: Type Aliases
+
+### Section 2.5.2: The `auto` Type Specifier
+
+**Exercise 2.33:** Using the variable definitions from this section, determine what happens in each of these assignments:
+
+```cpp
+int i = 0, &r = i;
+auto a = r;  // a is an int (r is an alias for i, which has type int)
+
+const int ci = i, &cr = ci;
+auto b = ci;  // b is an int (top-level const in ci is dropped)
+auto c = cr;  // c is an int (cr is an alias for ci whost const is top-level)
+auto d = &i;  // d is an int* (& of an int object is int*)
+auto e = &ci; // e is const int* (& of a const object is low-level const)
+
+const auto f = ci;  // deduced type of ci is int; f has type const int
+auto &g = ci;       // g is a const int& that is bound to ci
+auto &h = 42;       // error: we can't bind a plain reference to a literal
+const auto &j = 42; // ok: we can bind a const reference to a literal
+
+a = 42;
+b = 42;
+c = 42;
+d = 42;
+e = 42;
+g = 42;
+```
+
+**Solution:**
+
+* `a = 42;` `a` is assigned the value `42`.
+* `b = 42;` `b` is assigned the value `42`.
+* `c = 42;` `c` is assigned the value `42`.
+* `d = 42;` error: `d` is a `int` pointer to `i` and cannot be assigned an integer value.
+* `e = 42;` error: `e` is a `const int` pointer to `ci` and cannot be assigned an integer value.
+* `g = 42;` error: `g` is a `int` reference to `ci` and cannot be assigned an integer value
+
+**Exercise 2.34:** Write a program containing the variables and assignments from the previous exercise. Print the variables before and after the assignments to check whether your predictions in the previous exercise were correct. If not, study the examples until you  an convince yourself you know what led you to the wrong conclusion.
+
+[**Solution:**](src/ex2_34.cpp)
+
+```cpp
+#include <iostream>
+int main()
+{
+    int i = 0, &r = i;
+    auto a = r;  // a is an int (r is an alias for i, which has type int)
+
+    const int ci = i, &cr = ci;
+    auto b = ci;  // b is an int (top-level const in ci is dropped)
+    auto c = cr;  // c is an int (cr is an alias for ci whos const is top-level)
+    auto d = &i;  // d is an int* (& of an int object is int*)
+    auto e = &ci; // e is const int* (& of a const object is low-level const)
+    
+    const auto f = ci;  // deduced type of ci is int; f has type const int
+    auto &g = ci;       // g is a const int& that is bound to ci
+    const auto &j = 42; // ok: we can bind a const reference to a literal
+
+    std::cout << "a = " << a << std::endl;
+    a = 42;  // a is assigned the value 42
+    std::cout << "a = 42;\na = " << a << std::endl;
+
+    std::cout << "b = " << b << std::endl;
+    b = 42;  // b is assigned the value 42
+    std::cout << "b = 42\nb = " << b << std::endl;
+
+    std::cout << "c = " << c << std::endl;
+    c = 42;  // c is assigned the value 42
+    std::cout << "c = 42;\nc = " << c << std::endl;
+
+    std::cout << "d = " << d << std::endl;
+    // d = 42;  // error: d is an int pointer and cannot be assigned an integer value
+
+    std::cout << "e = " << e << std::endl;
+    // e = 42;  // error: e is a const int pointer and cannot be assigned an integer value
+
+    std::cout << "g = " << g << std::endl;
+    // g = 42;  // error: g is an int reference and cannot be assigned an integer value
+
+    return 0;
+}
+```
+
+**Exercise 2.35:** Determine the types deduced in each of the following definitions. Once you've figured out the types, write a program to see whether you were correct.
+
+```cpp
+const int i = 42;
+auto j = i;
+const auto &k = i;
+auto *p = &i;
+const auto j2 = i, &k2 = i;
+```
+
+[**Solution:**](src/ex2_35.cpp)
+
+* `i` is a `const int` storing the value `42`.
+* `j` is an `int` storing the value `42` because the top-level `const` of `i` is ignored.
+* `k` is a `const int` reference to `i`
+* `p` is a `const int` pointer to `i`
+* `j2` is a `const int` and `k2` is a `const int` reference.
+
+```cpp
+#include <iostream>
+#include <typeinfo>
+int main()
+{
+    const int i = 42;           // i is a const int with value 42
+    auto j = i;                 // j is an int (the top-level const of i is ignored)
+    const auto &k = i;          // k is a const int reference to i
+    auto *p = &i;               // p is a const int pointer to i
+    const auto j2 = i, &k2 = i; // j2 is a const int and k2 is a const int reference
+
+    std::cout << "i is a " << typeid(i).name() << "\ni = " << i << "\n"
+              << "j is a " << typeid(j).name() << "\nj = " << j << "\n"
+              << "k is a " << typeid(k).name() << "\nk = " << k << "\n"
+              << "p is a " << typeid(p).name() << "\np = " << p << "\n*p = " << *p << "\n"
+              << "j2 is a " << typeid(j2).name() << "\nj2 = " << j2 << "\n"
+              << "k2 is a " << typeid(k2).name() << "\nk2 = " << k2 << std::endl;
+
+    return 0;
+}
 ```

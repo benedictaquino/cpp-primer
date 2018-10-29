@@ -32,3 +32,6 @@
     * [2.4.2 Pointers and `const`](ch02#section-242-pointers-and-const)
     * [2.4.3 Top-level `const`](ch02#section-243-top-level-const)
     * [2.4.4 `constexpr` and Constant Expressions](ch02#section-242-constexpr-and-constant-expressions)
+  * [2.5 Dealing with Types](ch02#section-25-dealing-with-types)
+    * [2.5.1 Type Aliases](ch02#section-251-type-aliases)
+    * [2.5.2 The `auto` Type Specifier](ch02-section-252-the-auto-type-specifier)
