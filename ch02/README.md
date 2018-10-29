@@ -710,3 +710,177 @@ struct Sales_data {
     double price = 0.0;
 }
 ```
+
+### Section 2.6.2: Using the `Sales_data` class
+
+**Exercise 2.41:** Use your `Sales_data` class to rewrite the exercises in [1.5.1](../ch01#section-151-the-sales_item-class), [1.5.2](../ch01#section-152-a-first-look-at-member-functions), and [1.6](../ch01#section-16-the-bookstore-program). For now, you should define your `Sales_data` class in the same file as your `main` function.
+
+[**Exercise 1.20 Solution:**](src/ex2_41_1.cpp)
+
+```cpp
+/* This program reads a set of book sales transactions, writing each
+ * transaction to the standard output */
+#include <iostream>
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+int main()
+{
+    Sales_data item;
+    while (std::cin >> item.bookNo >> item.units_sold >> item.revenue)
+        std::cout << item.bookNo << " " 
+                  << item.units_sold << " " 
+                  << item.revenue << std::endl;
+    return 0;
+}
+```
+
+[**Exercise 1.21 Solution:**](src/ex2_41_2.cpp)
+
+```cpp
+/* This program reads two Sales_data objects with the same ISBN and produces
+ * their sum */
+#include <iostream>
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+int main()
+{
+    // Define two Sales_data objects
+    Sales_data item1, item2;
+    // Read in data from standard input
+    std::cin >> item1.bookNo >> item1.units_sold >> item1.revenue
+             >> item2.bookNo >> item2.units_sold >> item2.revenue;
+    // check that item1 and item2 have the same ISBN
+    if (item1.bookNo == item2.bookNo) {
+        std::cout << item1.bookNo << " "
+                  << item1.units_sold + item2.units_sold << " "
+                  << item1.revenue + item2.revenue << " "
+                  << std::endl;
+        return 0;
+    } else {
+        std::cerr << "Data must refer to the same ISBN" << std::endl;
+        return -1;
+    }
+}
+```
+
+[**Exercise 1.22 Solution:**](src/ex2_41_3.cpp)
+
+```cpp
+/* This program reads several transactions for the same ISBN and writes the sum
+ * of all the transactions that were read */
+#include <iostream>
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+int main()
+{
+    // Define sum and item Sales_data objects
+    Sales_data sum, item;
+    // read in first values as members of sum
+    std::cin >> sum.bookNo >> sum.units_sold >> sum.revenue;
+    // read in input as members of item
+    while (std::cin >> item.bookNo >> item.units_sold >> item.revenue) {
+        if (item.bookNo == sum.bookNo) {  // check that bookNo's match
+            sum.units_sold += item.units_sold;
+            sum.revenue += item.revenue;
+        } else {  // print error message if bookNo's do not match
+            std::cerr << "Data must refer to same bookNo" << std::endl;
+            return -1;
+        }
+    } // end while loop
+    std::cout << sum.bookNo << " " 
+              << sum.units_sold << " " 
+              << sum.revenue 
+              << std::endl;
+    return 0;
+}
+```
+
+[**Exercise 1.23 Solution:**](src/ex2_41_4.cpp)
+
+```cpp
+/* This program reads several transactions and counts how many transactions
+ * occur for each bookNo */
+#include <iostream>
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+int main()
+{
+    // Define Sales_data objects
+    Sales_data currItem, item;
+    // read in first transaction and ensure there is data to process
+    if (std::cin >> currItem.bookNo >> currItem.units_sold >> currItem.revenue) {
+        int cnt = 1;    // store the count for the current item
+        // read the remaining transactions
+        while (std::cin >> item.bookNo >> item.units_sold >> item.revenue) { 
+            if (item.bookNo == currItem.bookNo) // check if the bookNo's are the same
+                ++cnt;
+            else { // otherwise, print the count for the previous value
+                std::cout << "There were " << cnt << " transactions for book number "
+                          << currItem.bookNo << std::endl;
+                currItem = item; // assign item to currItem
+                cnt = 1;         // reset count
+            }
+        } // while loop ends here
+        // Print last bookNo
+        std::cout << "There were " << cnt << " transactions for book number " 
+                  << currItem.bookNo << std::endl;
+    }
+    return 0;
+}
+```
+
+[**Exercise 1.25 Solution:**](src/ex2_41_5.cpp)
+
+```cpp
+#include <iostream>
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+int main()
+{
+    Sales_data total;  // object to hold the data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (std::cin >> total.bookNo >> total.units_sold >> total.revenue) {
+        Sales_data trans;  // object to hold the running sum
+        // read and process the remaining transactions
+        while (std::cin >> trans.bookNo >> trans.units_sold >> trans.revenue) {
+            // if we're still processing the same book
+            if (total.bookNo == trans.bookNo) {
+                total.units_sold += trans.units_sold;
+                total.revenue += trans.revenue;
+            } else {
+                // print results for previous book
+                std::cout << total.bookNo << " "
+                         << total.units_sold << " "
+                         << total.revenue
+                         << std::endl;
+                total = trans;  // total now refers to the next book
+            }
+        }
+        std::cout << total.bookNo << " "
+                  << total.units_sold << " "
+                  << total.revenue 
+                  << std::endl;
+    } else { // no input! warn the user
+        std::cerr << "No Data?!" <<std::endl;
+        return -1;  // indicate failure
+    }
+    return 0;
+}
+```
+
+### Section 2.6.3: Writing Our Own Header Files
