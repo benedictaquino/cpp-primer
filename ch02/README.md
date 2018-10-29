@@ -677,3 +677,36 @@ In the above example, `b` is an `int` object and `c` is an `int` reference.
 ## Section 2.6: Defining Our Own Data Structures
 
 ### Section 2.6.1: Definine the `Sales_data` Type
+
+**Exercise 2.39:** Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.
+
+```cpp
+struct Foo { /* empty */ } // Note: no semicolon
+int main()
+{
+    return 0;
+}
+```
+
+[**Solution:**](src/ex2_39.cpp)
+
+```
+ch02/src/ex2_39.cpp:1:27: error: expected ';' after struct definition
+ struct Foo { /* empty */ } // Note: no semicolon
+                           ^
+                           ;
+```
+
+**Exercise 2.40:** Write your own version of the `Sales_data` class.
+
+[**Solution:**](src/ex2_40.cpp)
+
+```cpp
+struct Sales_data {
+    std::string bookNo;
+    std::string bookName;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+    double price = 0.0;
+}
+```
