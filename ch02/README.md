@@ -618,3 +618,62 @@ int main()
     return 0;
 }
 ```
+
+### Section: 2.5.3 The `decltype` Type Specifier
+
+**Exercise 2.36:** In the following code, determine the type of each variable and the value each variable has when the code finishes:
+
+```cpp
+int a = 3, b = 4;
+decltype(a) c = a;
+decltype((b)) d = a;
+++c;
+++d;
+```
+
+**Solution:**
+
+* `a = 4`. `a` is an `int` initialized with the literal `3`, then `d` is defined as an `int` reference to `a`. When the `++` operator is used on `d`, `a` is incremented by one.
+* `b = 4`. `b` is an `int` initialized with the literal `4`.
+* `c = 4`. `c` is an `int` initialized with `a` so it copies the value `3`. When the `++` operator is used on `c` it is incremented by one.
+* `d = 4`. `d` is an `int` reference to `a`.
+
+**Exercise 2.37:** Assignment is an example of an expression that yields a reference type. A type is a reference to the type of the left-hand operand. That is, if `i` is an `int`, then the type of the expression `i = x` is `int&`. Using that knowledge, determine the type and value of each variable in this code:
+
+```cpp
+int a = 3, b = 4;
+decltype(a) c = a;
+decltype(a = b) d = a;
+```
+
+**Solution:** 
+* `a = 3`. `a` is an `int` initialized with the value `3`.
+* `b = 4`. `b` is an `int` initialized with the value `4`.
+* `c = 3`. `c` is an `int` initialized with `a` so it copies the value `3` from `a`.
+* `d = 3`. `d` is an `int&` initialized with `a` so it is a reference to `a`.
+
+**Exercise 2.38:** Describe the differences in type deduction between `decltype` and `auto`. Give an example of an expression where `auto` and `decltype` will deduce the same type and an example where they will deduce differing types.
+
+**Solution:** The `auto` type specifier deduces the type from the initializing expression. The `decltype` type specifier deduces the type from the expression passed to `decltype`. `auto` and `decltype` will deduce the same type if the expression in the initializer for `auto` evaluates to the same type as the expression passed into `decltype`.
+
+```cpp
+int a = 10;
+auto b = a;
+decltype(a) c = a;
+```
+
+In the above example, `b` and `c` are both `int` objects.
+
+`auto` and `decltype` will deduce differing types if the expression in initializer for `auto` and the expression pass into `decltype`. 
+
+```cpp
+int a = 10;
+auto b = a;
+decltype(a = 1) c = a;
+```
+
+In the above example, `b` is an `int` object and `c` is an `int` reference.
+
+## Section 2.6: Defining Our Own Data Structures
+
+### Section 2.6.1: Definine the `Sales_data` Type

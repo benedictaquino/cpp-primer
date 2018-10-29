@@ -34,4 +34,7 @@
     * [2.4.4 `constexpr` and Constant Expressions](ch02#section-242-constexpr-and-constant-expressions)
   * [2.5 Dealing with Types](ch02#section-25-dealing-with-types)
     * [2.5.1 Type Aliases](ch02#section-251-type-aliases)
-    * [2.5.2 The `auto` Type Specifier](ch02-section-252-the-auto-type-specifier)
+    * [2.5.2 The `auto` Type Specifier](ch02#section-252-the-auto-type-specifier)
+    * [2.5.3 The `decltype` Type Specifier](ch02#section-253-the-decltype-type-specifier)
+  * [2.6 Defining Our Own Data Structures](ch02#section-26-defining-our-own-data-structures)
+    * [2.6.1 Defining the `Sales_data` Type](ch02#section-261-defining-the-sales_data-type)
