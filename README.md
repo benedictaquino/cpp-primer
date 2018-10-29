@@ -39,3 +39,4 @@
   * [2.6 Defining Our Own Data Structures](ch02#section-26-defining-our-own-data-structures)
     * [2.6.1 Defining the `Sales_data` Type](ch02#section-261-defining-the-sales_data-type)
     * [2.6.2 Using the `Sales_data` Class](ch02#section-262-using-the-sales_data-class)
+    * [2.6.3 Writing Our Own Header Files](ch02#section-263-writing-our-own-header-files)
