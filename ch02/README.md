@@ -438,3 +438,37 @@ long *lp = &i;
 * (f) Illegal. `ic` is a `const int` so the value stored in `ic` cannot be changed.
 
 ### Section 2.4.3: Top-level `const`
+
+**Exercise 2.30:** For each of the following declarations indicate whether the object being declared has top-level or low-level `const`.
+
+```cpp
+const int v2 = 0;
+int v1 = v2;
+int *p1 = &v1, &r1 = v1;
+const int *p2 = &v2, *const p3 = &i, &r2 = v2;
+```
+
+**Solution:** 
+
+* `v2` is a `const int` object so it has top-level `const`.
+* `v1` is a an `int` that copies the value of `v2`, so top-level `const` is ignored.
+* `p1` is an `int` pointer that holds the address of `int` object `v1` and `r1` is a reference to an `int` object `v1`. Neither have `const`.
+* `p2` is a pointer that stores the address of `const int` object `v2`, so it has low-level `const`. `p3` is a `const` pointer that stores the address of `const int` object `i`, so it has both top-level and low-level `const`. `r2` is a reference to a `const int` object `v2`, so it has low-level const.
+
+**Exercise 2.31:** Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level `const` applies to each case.
+
+```cpp
+r1 = v2;
+p1 = p2;
+p2 = p1;
+p1 = p3;
+p2 = p3;
+```
+
+**Solution:**
+
+* `r1 = v2;` is a legal assignment. `r1` is a reference to a `const int` and `v2` is a `const int`.
+* `p1 = p2;` is an illegal assignment. `p2` has low-level `const` and `p1` does not.
+* `p2 = p1;` is a legal assignment. `int*` can be converted to `const int*`
+* `p1 = p3;` is an illegal assignment. `p3` has low-level `const` and `p1` does not.
+* `p2 = p3;` is a legal assignment. Both `p2` and `p3` have low-level `const` and the high-level `const` of `p3` can be ignored.
