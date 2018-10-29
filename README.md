@@ -29,3 +29,6 @@
     * [2.3.3 Understanding Compound Type Declarations](ch02#section-233-understanding-compound-type-declarations)
   * [2.4 `const` Qualifier](ch02#section-24-const-qualifier)
     * [2.4.1 References to `const`](ch02#section-241-references-to-const)
+    * [2.4.2 Pointers and `const`](ch02#section-242-pointers-and-const)
+    * [2.4.3 Top-level `const`](ch02#section-243-top-level-const)
+    * [2.4.4 `constexpr` and Constant Expressions](ch02#section-242-constexpr-and-constant-expressions)

@@ -469,6 +469,20 @@ p2 = p3;
 
 * `r1 = v2;` is a legal assignment. `r1` is a reference to a `const int` and `v2` is a `const int`.
 * `p1 = p2;` is an illegal assignment. `p2` has low-level `const` and `p1` does not.
-* `p2 = p1;` is a legal assignment. `int*` can be converted to `const int*`
+* `p2 = p1;` is a legal assignment. `int*` can be converted to `const int*`.
 * `p1 = p3;` is an illegal assignment. `p3` has low-level `const` and `p1` does not.
 * `p2 = p3;` is a legal assignment. Both `p2` and `p3` have low-level `const` and the high-level `const` of `p3` can be ignored.
+
+### Section 2.4.4 `constexpr` and Constant Expressions
+
+**Exercise 2.32:** Is the following code legal or not? If not, how might you make it legal?
+
+```cpp
+int null = 0, *p = null;
+```
+
+**Solution:** The code is illegal. To make it legal, `p` must be initialized with an address of an `int` object, not an `int` object.
+
+```cpp
+int null = 0, *p = &null;
+```
