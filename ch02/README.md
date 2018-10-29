@@ -380,3 +380,61 @@ long *lp = &i;
 * (d) `++cnt` is a legal statement. `cnt` is incremented by 1. `++sz` is an illegal statement. `sz` is a `const` object so it cannot be changed.
 
 ### Section 2.4.1: References to `const`
+
+### Section 2.4.2: Pointers and `const`
+
+**Exercise 2.27:** Which of the following initializations are legal? Explain why.
+
+* (a) `int i = -1, &r = 0;`
+* (b) `int *const p2 = &i2;`
+* (c) `const int i = -1, &r = 0;`
+* (d) `const int *const p3 = &i2;`
+* (e) `const int *p1 = &i2;`
+* (f) `const int &const r2;`
+* (g) `const int i2 = i; &r = i;`
+
+**Solution:**
+
+* (a) Illegal. `r` is not a reference to `const` so it cannot be bound to `0`.
+* (b) Legal. `p2` is a `const int` pointer to the address of i2.
+* (c) Legal. `i` is a `const int` initialized with the value `-1` and `r2` is a reference to `const`.
+* (d) Legal. `p3` is a `const` pointer to a `const int` object.
+* (e) Legal. `p1` is a pointer to a `const int` object.
+* (f) Illegal. The `&` qualifer cannot be applied to a `const int` and `r2` is an uninitialized reference.
+* (g) Legal. `i2` is a `const int` with the value of `i` and `r` is a reference to a const `i`.
+
+**Exercise 2.28:** Explain the following definitions. Identify any that are illegal.
+
+* (a) `int i, *const cp;`
+* (b) `int *p1, *const p2;`
+* (c) `const int ic, &r = ic;`
+* (d) `const int *const p3;`
+* (e) `const int *p;`
+
+**Solution:** 
+
+* (a) Illegal. `cp` is an uninitialized `const` pointer.
+* (b) Illegal. `p2` is an uninitialized `const` pointer.
+* (c) Illegal. `ic` is an uninitialized `const` int.
+* (d) Illegal. `p3` is an uninitialized `const` pointer.
+* (e) Legal. `p` is an uninitialized pointer to a `const int` object.
+
+**Exercise 2.29:** Using the variables in the previous exercise, which of the following assignments are legal? Explain why.
+
+* (a) `i = ic;`
+* (b) `p1 = p3;`
+* (c) `p1 = &ic;`
+* (d) `p3 = &ic;`
+* (e) `p2 = p1;`
+* (f) `ic = *p3;` 
+
+**Solution:**
+
+* (a) Legal. The value in `ci` is copied to into `i`.
+* (b) Illegal. `p3` is a `const` pointer to a `const int` and `p1` is an `int` pointer so it cannot poinrt to the address of a `const int` 
+* (c) Illegal. `ic` is a `const int` and `p1` is an `int` pointer so it cannot point to a `const int` address.
+* (d) Illegal. `p3` is a `const` pointer so the address value stored in `p3` cannot be changed.
+* (e) Illegal. `p2` is a `const` pointer so the address value stored in `p2` cannot be changed.
+* (f) Illegal. `ic` is a `const int` so the value stored in `ic` cannot be changed.
+
+### Section 2.4.3: Top-level `const`
