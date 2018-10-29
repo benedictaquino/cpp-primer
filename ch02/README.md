@@ -884,3 +884,142 @@ int main()
 ```
 
 ### Section 2.6.3: Writing Our Own Header Files
+
+**Exercise 2.42:** Write your own version of the `Sales_data.h` header and use it to rewrite the exercise from [2.6.2](#section-262-using-the-sales_data-class).
+
+[**Exercise 1.20 Solution:**](src/ex2_42_1.cpp)
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+int main()
+{
+    // Define a Sales_data object item
+    Sales_data item;
+    // While there is data to process, print to standard output
+    while (std::cin >> item.bookNo >> item.units_sold >> item.revenue)
+        std::cout << item.bookNo << " " 
+                  << item.units_sold << " "
+                  << item.revenue << std::endl;
+    return 0;
+}
+```
+
+[**Exercise 1.21 Solution:**](src/ex2_42_2.cpp)
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+int main()
+{
+    // Define two Sales_data objects
+    Sales_data item1, item2;
+    // Read in data from standard input
+    std::cin >> item1.bookNo >> item1.units_sold >> item1.revenue
+             >> item2.bookNo >> item2.units_sold >> item2.revenue;
+    // Check that item1 and item2 havethe same bookNo
+    if (item1.bookNo == item2.bookNo) {
+        // Print sum of two transactions
+        std::cout << item1.bookNo << " "
+                  << item1.units_sold + item2.units_sold << " "
+                  << item1.revenue + item2.revenue << std::endl;
+        return 0;
+    } else { // otherwise print error message
+        std::cerr << "Data must refer to the same bookNo" << std::endl;
+        return -1;
+    }
+}
+```
+
+[**Exercise 1.22 Solution:**](src/ex2_42_3.cpp)
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+int main()
+{
+    // Define sum and item Sales_data objects
+    Sales_data sum, item;
+    // Read in first three values as members of sum
+    std::cin >> sum.bookNo >> sum.units_sold >> sum.revenue;
+    // Read in next three values as members of item while there is data
+    while (std::cin >> item.bookNo >> item.units_sold >> item.revenue) {
+        if (item.bookNo == sum.bookNo) {  // check that bookNo's match
+            sum.units_sold += item.units_sold;
+            sum.revenue += item.revenue;
+        } else {  // print error message if bookNo's don't match
+            std::cerr << "Data must refer to same bookNo" << std::endl;
+            return -1;  // indicate failure
+        }
+    } // end while loop
+    // Print sum of transactions
+    std::cout << sum.bookNo << " " << sum.units_sold << " "
+              << sum.revenue << " " << std::endl;
+    return 0;
+}
+```
+
+[**Exercise 1.23 Solution:**](src/ex2_42_4.cpp)
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+int main()
+{
+    // Define Sales_data objects
+    Sales_data currItem, item;
+    // Read in first transaction and ensure there is data to process
+    if (std::cin >> currItem.bookNo >> currItem.units_sold >> currItem.revenue) {
+        int cnt = 1;  // store the count for the current item
+        // Read the remaining transactions
+        while (std::cin >> item.bookNo >> item.units_sold >> item.revenue) {
+            if (item.bookNo == currItem.bookNo)  // check if the bookNo's are the same
+                ++cnt;  // increment count by 1
+            else {  // otherwise, print the count for the previous value
+                std::cout << "There weer " << cnt << " transactions for book number "
+                          << currItem.bookNo << std::endl;
+                currItem = item;  // copy item to currItem
+                cnt = 1;          // reset count
+            }
+        }  // while loop ends here
+        // Print last bookNo
+        std::cout << "There were " << cnt << " transactions for book number "
+                  << currItem.bookNo << std::endl;
+    }
+    return 0;
+}
+```
+
+[**Exercise 1.25 Solution:**](src/ex2_42_5.cpp)
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+int main()
+{
+    Sales_data total;  // object to hold the data for the next transaction
+    // Read the first transaction and ensure there are data to process
+    if (std::cin >> total.bookNo >> total.units_sold >> total.revenue) {
+        Sales_data trans;  // object to hold the running sum
+        // Read and process the remaining transactions
+        while (std::cin >> trans.bookNo >> trans.units_sold >> trans.revenue) {
+            // If we are still processing the same book
+            if (total.bookNo == trans.bookNo) {
+                total.units_sold += trans.units_sold;
+                total.revenue += trans.revenue;
+            } else { // otherwise, print the results for the previous book
+                std::cout << total.bookNo << " " << total.units_sold << " "
+                          << total.revenue << std::endl;
+                total = trans;   // total now refers to the next book
+            }
+        }
+        // Print the values of total
+        std::cout << total.bookNo << " " << total.units_sold << " " 
+                  << total.revenue << " " << std::endl;
+    } else { // no input! warn the user
+        std::cerr << "No Data?!" << std::endl;
+        return -1;  // indicate failure
+    }
+    return 0;
+}
+```
