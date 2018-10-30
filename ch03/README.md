@@ -489,6 +489,41 @@ for (auto &c : s) { /* ... */ }
 
 ## Section 3.3: Library `vector` Type
 
+### Section 3.3.1: Defining and Initializing `vectors`
+
+**Exercise 3.12:** Which, if any, of the following `vector` definitions are in error? For those that are legal, explain what the definition does. For those that are not legal, explain why they are illegal.
+
+* (a) `vector<vector<int>> ivec;`
+* (b) `vector<string> svec = ivec;`
+* (c) `vector<string> svec(10, "null");`
+
+
+**Solution:** 
+
+* (a) Legal. `ivec` is an empty `vector` of `vector`s of `int`s.
+* (b) Illegal. `svec` is a `vector` of `string`s and cannot be initialized with `ivec`.
+* (c) Legal. `svec` is a `vector` of `string`s with 10 elements with value `"null"`.
+
+**Exercise 3.13:** How many elements are there in each of the following `vectors`? What are the values of the elements?
+
+* (a) `vector<int> v1;`
+* (b) `vector<int> v2(10);`
+* (c) `vector<int> v3(10, 42);`
+* (d) `vector<int> v4{10};`
+* (e) `vector<int> v5{10, 42};`
+* (f) `vector<string> v6{10};`
+* (g) `vector<string> v7{10, "hi"};`
+
+**Solution:**
+
+* (a) `v1` has no elements; it is the empty vector.
+* (b) `v2` has 10 elements each initialized with `0`.
+* (c) `v3` has 10 elements each initialized with `42`.
+* (d) `v4` has 1 element initialized with `10`.
+* (e) `v5` has 2 elements with values `10` and `42`.
+* (f) `v6` has 10 elements default-initialized to the empty `string`.
+* (g) `v7` has 10 elements initialized with `hi`.
+
 ## Section 3.4: Introducing Iterators
 
 ## Section 3.5: Arrays
