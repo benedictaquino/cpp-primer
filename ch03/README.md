@@ -214,6 +214,144 @@ int main()
 
 ## Section 3.2: Library `string` Type
 
+### Section 3.2.1: Defining and Initializing `strings`
+
+### Section 3.2.2: Operations on `strings`
+
+**Exercise 3.2:** Write a program to read the standard input a line at a time. Modify your program to read a word at a time.
+
+[**Solution 1:**](src/ex3_2_1.cpp)
+
+```cpp
+/* This program reads the standard input a line at a time */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string; using std::getline;
+int main()
+{
+    string line;                // initialize empty string
+    while (getline(cin, line))  // read line from standard input
+        cout << line << endl;   // print line to standard output
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_2_2.cpp)
+
+```cpp
+/* This program reads the standard input one word at a time */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string word;               // initialize empty string
+    while (cin >> word)        // read word from standard input 
+        cout << word << endl;  // write word to standard output
+    return 0;
+}
+```
+
+**Exercise 3.3:** Explain how whitespace characters are handled in the `string` input operator and in the `getline` function.
+
+**Solution:** The `string` input operator reads and discards leading whitespace then reads characters until the next whitespace character. So the `string` input operator will not read in whitespace. The `getline` function reads an input stream up to and including the first newline and stores what it read excluding the newline, but including any whitespace characters.
+
+**Exercise 3.4:** Write a program to read two `string`s and report whether the `string`s are equal. If not, report which of the two is larger. Now, change the program to report whether the `string`s have the same length, and it not, report which is longer.
+
+[**Solution 1:**](src/ex3_4_1.cpp)
+
+```cpp
+/* This program reads two strings and reports whether the strings are equal.
+ * If not, the program reports which of the two is larger. */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string; using std::getline;
+int main()
+{
+    string s1, s2;    // initialize two empty strings
+    cin >> s1 >> s2;  // read in two strings from standard input
+    if (s1 == s2)     // check if strings are equal
+        cout << "\"" << s1 << "\" and \"" << s2 << "\" are equal." << endl;
+    else {
+        if (s1 > s2)  // check if s1 is greater than s2
+            cout << "\"" << s1 << "\" is greater than \"" << s2 << "\"" << endl;
+        else
+            cout << "\"" << s2 << "\" is greater than \"" << s1 << "\"" << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_4_2.cpp)
+
+```cpp
+/* This program reads two strings and reports whether the strings have the
+ * same length. If not, then it reports which one is longer. */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s1, s2;                  // initialize two empty strings
+    cin >> s1 >> s2;                // read two strings from standard input
+    if (s1.size() == s2.size())     // check if the two strings have the same length
+        cout << "\"" << s1 << "\" and \"" << s2 << "\" are the same length" << endl;
+    else {
+        if (s1.size() > s2.size())  // check if s1 is longer than s2
+            cout << "\"" << s1 << "\" is longer than \"" << s2 << "\"" << endl;
+        else
+            cout << "\"" << s2 << "\" is longer than \"" << s1 << "\"" << endl;
+    }
+    return 0;
+}
+```
+
+**Exercise 3.5:** Write a program to read `string`s from the standard input, concatenating what is read into one large `string`. Print the concatenated `string`. Next, change the program to separate adjacent input `string`s by a space.
+
+[**Solution 1:**](src/ex3_5_1.cpp)
+
+```cpp
+/* This program reads strings from the standard input, concatenating what is
+ * read into one large string. Then it prints the concatenated string */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string concat, s;  // initialize empty strings
+    while (cin >> s)   // read from standard input
+        concat += s;   // concatenate into one long string
+    cout << concat << endl;
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_5_2.cpp)
+
+```cpp
+/* This program reads strings from the standard input, concatenating what is
+ * read into onge large string, separating adjacent input strings by a space.
+ * Then it prints the string to the standard output */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string concat, s;        // initialize empty strings
+    cin >> concat;           // read first string to concat
+    while (cin >> s)         // read from standard input
+        concat += " " + s;   // concatenate strings with whitespace between
+    cout << concat << endl;  // print to standard output
+    return 0;
+}
+```
+
 ## Section 3.3: Library `vector` Type
 
 ## Section 3.4: Introducing Iterators

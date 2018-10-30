@@ -43,6 +43,8 @@
 * [Chapter 3: Strings, Vectors, and Arrays](ch03#chapter-3-strings-vectors-and-arrays)
   * [3.1 Namespace `using` Declarations](ch03#section-31-namespace-using-declarations)
   * [3.2 Library `string` Type](ch03#section-32-library-string-type)
+    * [3.2.1 Defining and Initializing `strings`](ch03#section-321-defining-and-initializing-strings)
+    * [3.2.2 Operations on `strings`](ch03#section-322-operations-on-strings)
   * [3.3 Library `vector` Type](ch03#section-33-library-vector-type)
   * [3.4 Introducing Iterators](ch03#section-34-introducing-iterators)
   * [3.5 Arrays](ch03-section-35-arrays)
