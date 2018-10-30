@@ -111,19 +111,105 @@ int main()
 [**Exercise 1.22 Solution:**](src/ex3_1_6.cpp)
 
 ```cpp
-
+/* This program reads several transactions for the same ISBN and writes the sum
+ * of all the transactions that were read */
+#include <iostream>
+#include "Sales_data.h"
+using std::cin; using std::cout; using std::endl; using std::cerr;
+int main()
+{
+    // Define sum and item Sales_data objects
+    Sales_data sum, item;
+    // Read in the first values as members of sum
+    cin >> sum.bookNo >> sum.units_sold >> sum.revenue;
+    // Read in input as members of item
+    while (cin >> item.bookNo >> item.units_sold >> item.revenue) {
+        if (item.bookNo == sum.bookNo) {  // check that bookNo's match
+            sum.units_sold += item.units_sold;
+            sum.revenue += item.revenue;
+        } else {  // print error message if bookNo's don't match
+            cerr << "Data must refer to same bookNo" << endl;
+            return -1;  // indicate failure
+        }
+    }  // end while loop
+    // Print sum of transactions
+    cout << sum.bookNo << " " << sum.units_sold << " " << sum.revenue << endl;
+    return 0;
+}
 ```
 
 [**Exercise 1.23 Solution:**](src/ex3_1_7.cpp)
 
 ```cpp
-
+/* This program reads several transactions and counts how many transactions
+ * occur for each bookNo */
+#include <iostream>
+#include "Sales_data.h"
+using std::cin; using std::cout; using std::endl; using std::cerr;
+int main()
+{
+    // Define Sales_data objects
+    Sales_data currItem, item;
+    // Read in first transaction and ensure there is data to process
+    if (cin >> currItem.bookNo >> currItem.units_sold >> currItem.revenue) {
+        int cnt = 1;  // store the count for the current item
+        // Read the remaining transactions
+        while (cin >> item.bookNo >> item.units_sold >> item.revenue) {
+            if (item.bookNo == currItem.bookNo)  // check if the bookNo's are the same
+                ++cnt;  // iterate count
+            else {  // otherwise, print the count for the previous value
+                cout << "There were " << cnt << " transactions for book number "
+                     << currItem.bookNo << endl;
+                currItem = item;  // assign item to currItem
+                cnt = 1;          // reset count
+            }
+        }  // end while loop
+        // Print data from last bookNo
+        cout << "There were " << cnt << " transactions for book number "
+             << currItem.bookNo << endl;
+    } else {  // print error message if there is no data
+        cerr << "No Data?!" << endl;
+        return -1;  // indicate failure
+    }
+    return 0;
+}
 ```
 
 [**Exercise 1.25 Solution:**](src/ex3_1_8.cpp)
 
 ```cpp
-
+/* This program reads in transactions from standard input, sums the totals for
+ * the same bookNos, then prints to standard output. */
+#include <iostream>
+#include "Sales_data.h"
+using std::cin; using std::cout; using std::endl; using std::cerr;
+int main()
+{
+    Sales_data total;  // object to hold the data for the next transaction
+    // Read the first transaction and ensure there are data to process
+    if (cin >> total.bookNo >> total.units_sold >> total.revenue) {
+        Sales_data trans;  // object to hold the running sum
+        // Read and process the remaining transactions
+        while (cin >> trans.bookNo >> trans.units_sold >> trans.revenue) {
+            // If we're still processing the same book
+            if (total.bookNo == trans.bookNo) {
+                total.units_sold += trans.units_sold;
+                total.revenue += trans.revenue;
+            } else {
+                // Print results for previous book
+                cout << total.bookNo << " " << total.units_sold << " "
+                     << total.revenue << endl;
+                total = trans;  // total now refers to the next book
+            }
+        }  // end while loop
+        cout << total.bookNo << " " << total.units_sold << " " 
+             << total.revenue << endl;
+    } else {  // no input! warn the user
+        cerr << "No Data?!" << endl;
+        return -1;  // indicate failure
+    }
+    return 0;
+}
 ```
 
 ## Section 3.2: Library `string` Type
