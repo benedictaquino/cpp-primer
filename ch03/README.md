@@ -352,6 +352,141 @@ int main()
 }
 ```
 
+### Section 3.2.3: Dealing with the Characters in a `string`
+
+**Exercise 3.6:** Use a range `for` to change all the characters in a `string` to `X`.
+
+[**Solution:**](src/ex3_6.cpp)
+
+```cpp
+/* This program uses a range for to change all the characters in a string to X */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s;  // initialize empty string s
+    cin >> s;  // read string from standard input to s
+    for (auto &c : s)  // for every char c in string s
+        c = 'X';       // assign the value 'X' to char in s
+    cout << s << endl;
+    return 0;
+}
+```
+
+**Exercise 3.7:** What would happen if you define the loop control in the previous exercise as type `char`? Predict the results and then change your program to use a `char` to see if you were right.
+
+[**Solution:**](src/ex3_7.cpp) The program should run as intended without any changes.
+
+```cpp
+/* This program uses a range for to replace all the characters in a string to
+ * 'X', but defines the loop control variable */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s;           // initialize empty string s
+    cin >> s;            // read string from standard input into s
+    for (char &c : s)   // for char c in string s
+        c = 'X';        // replace char in s with 'X'
+    cout << s << endl;  // print s to standard output
+    return 0;
+}
+```
+
+**Exercise 3.8:** Rewrite the program in the first exercise, first using a `while` and again using a traditional `for` loop. Which of the three approaches do you prefer and why?
+
+[**Solution 1:**](src/ex3_8_1.cpp)
+
+```cpp
+/* This program uses a while loop to replace all characters in a string with 'X' */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s;   // initialize empty string s
+    cin >> s;   // read string from standard input into s
+    int i = 0;  // initialize iterator
+    while (i < s.size()) {  // while i is less than the length of s
+        s[i] = 'X';  // replace character in position i with 'X'
+        i++;         // increment i by 1
+    }  // end while loop
+    cout << s << endl;  // print string to standard output
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_8_2.cpp)
+
+```cpp
+/* This program uses a traditional for loop to replace all characters in a 
+ * string with 'X' */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s;  // initialize empty string s
+    cin >> s;  // read string from standard input into s
+    for (int i = 0; i < s.size(); i++) 
+        s[i] = 'X';  // replace character in position i with 'X'
+    cout << s << endl;
+    return 0;
+}
+```
+I prefer to use the range `for` loop in this situation, it appears to be the most streamlined option to code.
+
+**Exercise 3.9:** What does the following program do? Is it valid? If not, why not?
+
+```cpp
+string s;
+cout << s[0] << endl;
+```
+
+**Solution:** This program prints the `char` in the first position of the `string` `s` to the standard ouput. It is valid, but it prints nothing because `s` is initialized as an empty `string`.
+
+**Exercise 3.10:** Write a program that reads a string of characters including punctuation and writes what was read but with the punctuation removed."
+
+[**Solution:**](src/ex3_10.cpp)
+
+```cpp
+/* This program reads a string of characters including punctuation and writes
+ * what was read but with the punctuation removed. */
+#include <iostream>
+#include <string>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+int main()
+{
+    string s;   // initialize empty string s 
+    cin >> s;   // read string from standard input into s
+    int i = 0;  // initialize iterator
+    while (i < s.size()) { 
+        if (ispunct(s[i]))  // delete character if punctuation
+            s.erase(i,1);
+        else                // move onto next position if character is not punctuation
+            i++;
+    }
+    cout << s << endl;
+    return 0;
+}
+```
+
+**Exercise 3.11:** Is the following range `for` legal? If so, what is the type of `c`?
+
+```cpp
+const string s = "Keep out!";
+for (auto &c : s) { /* ... */ }
+```
+
+**Solution:** Yes, it is legal. `c` is a reference to a `const` character.
+
 ## Section 3.3: Library `vector` Type
 
 ## Section 3.4: Introducing Iterators
