@@ -524,6 +524,56 @@ for (auto &c : s) { /* ... */ }
 * (f) `v6` has 10 elements default-initialized to the empty `string`.
 * (g) `v7` has 10 elements initialized with `hi`.
 
+### Section 3.3.2: Adding Elements to a `vector`
+
+**Exercise 3.14:** Write a program to read a sequence of `int`s from `cin` and store those values in a `vector`.
+
+[**Solution:**](src/ex3_14.cpp)
+
+```cpp
+/* This program reads a sequence of ints from cin and stores the values in a vector */
+#include <iostream>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+int main()
+{
+    vector<int> ivec;  // initialize empty int vector
+    int i;             // initialize integer i
+    while (cin >> i) // read integers from standard input into i
+        ivec.push_back(i);  // append i to ivec
+    for (auto &ri : ivec)
+        cout << ri << endl;  // read elements of ivec to standard output
+    return 0;
+}
+```
+
+**Exercise 3.15:** Repeat the previous program but read `string`s this time.
+
+[**Solution:**](src/ex3_15.cpp)
+
+```cpp
+/* This program reads a sequence of strings from cin and stores the values in a vector */
+#include <iostream>
+#include <string>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+using std::vector;
+int main()
+{
+    vector<string> svec;  // initialize empty string vector
+    string s;             // initialize empty string
+    while (cin >> s)  // read strings from standard input into s
+        svec.push_back(s);  // append s to svec
+    for (auto &rs : svec)
+        cout << rs << endl;  // read elements of svec to standard output
+    return 0;
+}
+```
+
+### Section 3.3.3: Other `vector` Operations
+
 ## Section 3.4: Introducing Iterators
 
 ## Section 3.5: Arrays
