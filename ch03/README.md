@@ -574,6 +574,166 @@ int main()
 
 ### Section 3.3.3: Other `vector` Operations
 
+**Exercise 3.16:** Write a program to print the size and contents of the `vectors` from exercise [3.13](#section-331-defining-and-initializing-vectors). Check whether your answers to that exercise were correct. If not, restudy [3.3.1](#section-331-defining-and-initializing-vectors) until you understand why you were wrong.
+
+[**Solution:**](src/ex3_16.cpp)
+
+```cpp
+/* This program prints the size and contents of the vectors from exercise 3.13 */
+#include <iostream>
+#include <string>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+using std::vector;
+int main()
+{
+    // initialize integer vectors
+    vector<int> v1, v2(10), v3(10, 42), v4{10}, v5{10, 42};
+    // initialive vector of integer vectors to iterate through
+    vector<vector<int>> vvi{v1, v2, v3, v4, v5};
+    // initialize string vectors
+    vector<string> v6{10}, v7{10, "hi"};
+    // initialize vector of strings to iterate through
+    vector<vector<string>> vvs{v6, v7};
+    int i = 0;
+    for (auto &rvi : vvi) {
+        cout << "v" << ++i << " has " << rvi.size() << " elements:\n";
+        for (auto &ri : rvi)
+            cout << ri << " ";
+        cout << endl;
+    }
+    for (auto &rvs : vvs) {
+        cout << "v" << ++i << " has " << rvs.size() << " elements:\n";
+        for (auto &rs : rvs)
+            cout << rs << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+**Exercise 3.17:** Read a sequence of words from `cin` and store the values in a `vector`. After you've read all the words, process the `vector` and change each word to uppercase. Print the transformed elements, eight words to a line.
+
+[**Solution:**](src/ex3_17.cpp)
+
+```cpp
+/* This program reads a sequence of words from cin and stores the value in a
+ * a vector. After the words are read, it processes the vector to change each
+ * word to uppercase. Then it prints the transformed elements. */
+#include <iostream>
+#include <string>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::string;
+using std::vector;
+int main()
+{
+    vector<string> sv;    // initialize empty string vector
+    string s;             // initialize empty string
+    while (cin >> s)      // read in strings from standard input
+        sv.push_back(s);  // append s to sv
+    int i = 0;            // initialize counter
+    for (string &c : sv) {  // iterate through the elements of sv
+        if (i < 8) {  // print character and space if i is less than 8 
+            cout << c << " ";
+            i++;  // increment i by 1
+        } else {  // otherwise, print character and newline
+            cout << c << "\n";
+            i = 0;  // reset counter
+        }
+    }
+    cout << endl;
+    return 0;
+}
+        
+```
+
+**Exercise 3.18:** Is the following program legal? If not, how might you fix it?
+
+```cpp
+vector<int> ivec;
+ivec[0] = 42;
+```
+
+**Solution:** No, it is illegal. `ivec` is an empty integer `vector`, so we cannot assign a value to `ivec[0]` because it does not exist. It can be fixed by using `push_back` to append `42` to `ivec`.
+
+```cpp
+vector<int> ivec;
+ivec.push_back(42);
+```
+
+**Exercise 3.19:** List three ways to define a `vector` and give it ten elements, each with the value 42. Indicate whether there is a preferred way to do so and why.
+
+**Solution:** 
+
+```cpp
+// Initialize the vector with 10 elements with value 42
+vector<int> ivec(10, 42);
+// Initialize empty vector, then append 42 10 times
+vector<int> ivec;
+for (int i = 0; i < 10; i++)
+    ivec.push_back(42);
+// Initialize a vector of size 10, then change all values to 42
+vector<int> ivec(10);
+for (int i = 0; i < 10; i++)
+    ivec[i] = 42;
+```  
+
+The first way is the preferred way. It is typically more efficient to define an empty `vector` and add elements at run time, but the only exception to this is when all elements need to be the same value.
+
+**Exercise 3.20:** Read a set of integers into a `vector`. Print the sum of each pair of adjacent elements. Change your program so that it prints the sum of the first and last elements, followed by the sum of the second and second-to-last, and so on.
+
+[**Solution 1:**](src/ex3_20_1.cpp)
+
+```cpp
+/* This program reads a set of integers into a vector. It then prints the sum
+ * of each pair of adjacent elements. */
+#include <iostream>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+int main()
+{
+    vector<int> ivec;  // initialize empty integer vector
+    int i;  // initialize integer
+    while (cin >> i)   // read integers from standard input
+        ivec.push_back(i);  // append i to ivec
+    // Print the sum of adjacent elements
+    for (int j = 0; j < ivec.size(); j += 2) 
+        cout << ivec[j] + ivec[j + 1] << endl;
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_20_2.cpp)
+
+```cpp
+/* This program reads a set of integers into a vector. It then prints the sum
+ * of the first and last elements, followed by the sum of the second and
+ * second-to-last, and so on. */
+#include <iostream>
+#include <vector>
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+int main()
+{
+    vector<int> ivec;  // initialize empty integer vector
+    int i;  // initialize integer
+    while (cin >> i)  // read integers from standard output
+        ivec.push_back(i);  // append i to ivec
+    // print sums
+    for (int j = 0; j < ivec.size() / 2; j++)
+        cout << ivec[j] + ivec[ivec.size() - (j + 1)] << " ";
+    // if there are an odd number of elements, then print the middle number
+    if (ivec.size() % 2 != 0)
+        cout << ivec[ivec.size() / 2] << endl;
+    else
+        cout << endl;
+    return 0;
+}
+```
+
 ## Section 3.4: Introducing Iterators
 
 ## Section 3.5: Arrays
