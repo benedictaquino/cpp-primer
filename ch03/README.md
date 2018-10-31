@@ -924,4 +924,44 @@ int main()
 
 ## Section 3.5: Arrays
 
+### Section 3.5.1: Defining and Initializing Built-in Arrays
+
+**Exercise 3.27:** Assuming `txt_size` is a function that takes no arguments and returns an `int` value, which of the following definitions are illegal? Explain why.
+
+`unsigned buf_size = 1024;`
+
+* (a) `int ia[buf_size];`
+* (b) `int ia[4 * 7 - 14];`
+* (c) `int ia[txt_size()];`
+* (d) `char st[11] = "fundamental";`
+
+**Solution:**
+
+* (a) Illegal. `buf_size` is not a constant expression.
+* (b) Legal. `4 * 7 - 14` is a constant expression.
+* (c) Illegal. `txt_size()` is not a constant expression.
+* (d) Illegal. `"fundamental"` is a string literal which ends with a null character, so there are 12 characters.
+
+**Exercise 3.28:** What are the values in the following arrays?
+
+```cpp
+string sa[10];
+int ia[10];
+int main() {
+    string sa2[10];
+    int ia2[10];
+}
+```
+
+**Solution:**
+
+* `sa` is an array of 10 empty strings.
+* `ia` is an array of 10 integers with value `0`.
+* `sa2` is an array of 10 empty strings.
+* `ia2` is an array of 10 undefined integers.
+
+**Exercise 3.29:** List some of the drawbacks of using an array instead of a `vector`.
+
+**Solution:** An array's dimension must be known at compile time and cannot change. Arrays cannot be initialized with a copy of another array nor can one array be assigned to another.
+
 ## Section 3.6: Multidimensional Arrays
