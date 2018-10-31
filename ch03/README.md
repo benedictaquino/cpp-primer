@@ -736,6 +736,96 @@ int main()
 
 ## Section 3.4: Introducing Iterators
 
+### Section 3.4.1: Using Iterators
+
+**Exercise 3.21:** Redo the first exercise from [3.3.3](#section-333-other-vector-operations) using iterators.
+
+[**Solution:**](src/ex3_21.cpp)
+
+```cpp
+/* this program prints the size and contents of the vectors from exercise 3.13 */
+#include <iostream>
+#include <string>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::string;
+using std::vector;
+
+int main()
+{
+    // initialize integer vectors
+    vector<int> v1, v2(10), v3(10, 42), v4{10}, v5{10, 42};
+    // initialize vector of integer vector pointers to iterate through
+    vector<vector<int>*> vvi{&v1, &v2, &v3, &v4, &v5};
+    // initialize string vectors
+    vector<string> v6{10}, v7{10, "hi"};
+    // initialize vector of string vector pointers to iterate through
+    vector<vector<string>*> vvs{&v6, &v7};
+    int i = 0;  // initialize counter
+    for (auto it = vvi.begin(); it != vvi.end(); ++it) {
+        cout << "v" << ++i << " has " << (*it)->size() << " elements:\n";
+        for (auto it2 = (*it)->begin(); it2 != (*it)->end(); ++it2)
+            cout << *it2 << " ";
+        cout << endl;
+    }
+    for (auto it = vvs.begin(); it != vvs.end(); ++it) {
+        cout << "v" << ++i << " has " << (*it)->size() << " elements:\n";
+        for (auto it2 = (*it)->begin(); it2 != (*it)->end(); ++it2)
+            cout << *it2 << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+**Exercise 3.22:** Revise the loop that printed the first paragraph in `text` to instead change the elements in `text` that correspond to the first paragraph to all uppercase. After you've updated `text`, print its content.
+
+**Solution:**
+
+```cpp
+for (auto it = text.begin(); it != text.end() && !it->empty(); ++it) {
+    for (auto &c : *it)
+        c = toupper(c);
+    cout << *it << endl;
+}
+```
+
+**Exercise 3.23:** Write a program to create a vector with ten `int` elements. Using an iterator, assign each element a value that is twice its current value. Test your program by printing the `vector`.
+
+[**Solution:**](src/ex3_23.cpp)
+
+```cpp
+/* This program creates a vector with ten int elements. Using an iterator, it
+ * assigns each element a value that is twice its current value. */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> ivec;  // initialize empty integer vector
+    int i;  // initialize integer object
+
+    // prompt user to enter integers
+    cout << "Enter integers: " << endl;
+
+    while (cin >> i)  // read in integers from standard input
+        ivec.push_back(i);  // append i to ivec
+
+    for (auto it = ivec.begin(); it != ivec.end(); ++it) {
+        *it *= 2;  // double the element referenced by it
+        cout << *it << " ";
+    }
+    
+    cout << endl;
+
+    return 0;
+}
+```
+
 ## Section 3.5: Arrays
 
 ## Section 3.6: Multidimensional Arrays
