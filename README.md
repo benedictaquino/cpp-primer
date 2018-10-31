@@ -53,5 +53,5 @@
   * [3.4 Introducing Iterators](ch03#section-34-introducing-iterators)
     * [3.4.1 Using Iterators](ch03#section-341-using-iterators)
     * [3.4.2 Iterator Arithmetic](ch03#section-342-iterator-arithmetic)
-  * [3.5 Arrays](ch03-section-35-arrays)
-  * [3.6 Multidimensional Arrays](ch03-multidimensional-arrays)
+  * [3.5 Arrays](ch03#section-35-arrays)
+  * [3.6 Multidimensional Arrays](ch03#multidimensional-arrays)
