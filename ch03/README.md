@@ -1061,4 +1061,50 @@ int main()
 
 **Solution:** If we did not initialize the `score`s array, then the initialized values would be undefined, so we incrementing them would not yield the results we want.
 
+### Section 3.5.3: Pointers and Arrays
+
+**Exercise 3.34:** Given that `p1` and `p2` point to elements in the same array, what does the following code do? Are there values of `p1` or `p2` that make this code illegal?
+
+```cpp
+p1 += p2 - p1
+```
+
+**Solution:** The code above evaluates the expression `p2 - p1` and take the resulting `ptrdiff_t` object and assign the sum of `p1` and `p2` to `p1`. There are no legal values for `p1` or `p2` that make this code illegal, but there are values that will cause the pointer to point outside the array. 
+
+**Exercise 3.35:** Using pointers, write a program to set the elements in an array to zero.
+
+[**Solution:**](src/ex3_35.cpp)
+
+```cpp
+/* This program sets the elements in an array to zero using pointers */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using std::begin; using std::end;
+
+int main()
+{
+    int ia[10];                     // initialize array with undefined elements
+    cout << "Initial values of the elements of ia: \n";
+    for (int &ri : ia)
+        cout << ri << " ";          // print all elements of ia
+    cout << endl;
+    int *p = begin(ia);             // initialize pointer with the first element of ia
+    while (p != end(ia)) *p++ = 0;  // change all elements of ia to 0
+    cout << "New values of the elements of ia: \n";
+    for (int &ri : ia)
+        cout << ri << " ";          // print all elements of ia
+    cout << endl;
+    return 0;
+}
+```
+
+**Exercise 3.36:** Write a program to compare two arrays for equality. Write a similar program to compare two `vector`s.
+
+[**Solution:**](src/ex3_36.cpp)
+
+```cpp
+
+```
+
 ## Section 3.6: Multidimensional Arrays
