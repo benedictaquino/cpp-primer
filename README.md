@@ -51,5 +51,7 @@
     * [3.3.2 Adding Elements to a `vector`](ch03#section-332-adding-elements-to-a-vector)
     * [3.3.3 Other `vector` Operations](ch03#section-333-other-vector-operations)
   * [3.4 Introducing Iterators](ch03#section-34-introducing-iterators)
+    * [3.4.1 Using Iterators](ch03#section-341-using-iterators)
+    * [3.4.2 Iterator Arithmetic](ch03#section-342-iterator-arithmetic)
   * [3.5 Arrays](ch03-section-35-arrays)
   * [3.6 Multidimensional Arrays](ch03-multidimensional-arrays)
