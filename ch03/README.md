@@ -939,7 +939,7 @@ int main()
 
 * (a) Illegal. `buf_size` is not a constant expression.
 * (b) Legal. `4 * 7 - 14` is a constant expression.
-* (c) Illegal. `txt_size()` is not a constant expression.
+* (c) Illegal, if `txt_size()` is not a constant expression, otherwise it is legal.
 * (d) Illegal. `"fundamental"` is a string literal which ends with a null character, so there are 12 characters.
 
 **Exercise 3.28:** What are the values in the following arrays?
@@ -963,5 +963,102 @@ int main() {
 **Exercise 3.29:** List some of the drawbacks of using an array instead of a `vector`.
 
 **Solution:** An array's dimension must be known at compile time and cannot change. Arrays cannot be initialized with a copy of another array nor can one array be assigned to another.
+
+### Section 3.5.2: Accessing the Elements of an Array
+
+**Exercise 3.30:** Identify the indexing errors in the following code:
+
+```cpp
+constexpr size_t array_size = 10;
+int ia[array_size];
+for (size_t ix = 1; ix <= array_size; ++ix)
+    ia[ix] = ix;
+```
+
+**Solution:** 
+* `ix` begins the for loop with value `1`, and since arrays are zero-indexed, no value is assigned to the first position of `ia`.
+* `ix` increments until it is less than or equal to `array_size`. When `ix` holds the value `10`, it is used to index into position `10` of `ia`. However, since arrays are zero-indexed, `ia` does not have a position `10`.
+
+**Exercise 3.31:** Write a program to define an array of ten `int`s. Give each element the same value as its position in the array.
+
+[**Solution:**](src/ex3_31.cpp)
+
+```cpp
+/* This program defines an array of ten ints and gives each element the same
+ * value as its position in the array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    int ia[10];
+    for (int ix = 0; ix != 10; ix++) {
+        ia[ix] = ix + 1;
+    }
+    for (int i; i != 10; i++)
+        cout << "ia[" << i << "] = " << ia[i] << endl;
+    return 0;
+}
+```
+
+**Exercise 3.32:** Copy the array you defined in the previous exercise into another array. Rewrite your program to use `vector`s.
+
+[**Solution 1:**](src/ex3_32_1.cpp)
+
+```cpp
+/* This program defines an array of ten ints and gives each element the same
+ * value as its position in the array. Then it copies the values into another
+ * array. */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    int ia1[10], ia2[10];  // initialize two integer arrays with dimension 10
+    for (int ix = 0; ix != 10; ix++) 
+        ia1[ix] = ix + 1;  // give each element the same value as its position
+    for (int ix = 0; ix != 10; ix++)
+        ia2[ix] = ia1[ix]; // copy the values from ia1 into ia2
+
+    // print elements of array to verify
+    for (int ix = 0; ix != 10; ix++) 
+        cout << "ia1[" << ix << "] = " << ia1[ix] << "\t"
+             << "ia2[" << ix << "] = " << ia2[ix] << endl;
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_32_2.cpp)
+
+```cpp
+/* This program defines a vector of ten ints and gives each element the same
+ * value as its position in the array. Then it copies the values into another
+ * vector */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> iv1, iv2;  // initialize two empty integer vectors
+    for (int i = 1; i != 11; i++)
+        iv1.push_back(i);  // append values 1 through 10 to iv1
+    iv2 = iv1;  // copy iv1 to iv2
+
+    // print elements of iv1 and iv2
+    for (int i = 0; i != 10; i++)
+        cout << "iv1[" << i << "] = " << iv1[i] << "\t"
+             << "iv2[" << i << "] = " << iv2[i] << endl;
+    return 0;
+}
+```
+
+**Exercise 3.33:** What would happen if we did not initialize the `score`s array in the [program on page 116](src/pg116.cpp)?
+
+**Solution:** If we did not initialize the `score`s array, then the initialized values would be undefined, so we incrementing them would not yield the results we want.
 
 ## Section 3.6: Multidimensional Arrays
