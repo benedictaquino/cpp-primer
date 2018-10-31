@@ -826,6 +826,102 @@ int main()
 }
 ```
 
+### Section 3.4.2: Iterator Arithmetic
+
+**Exercise 3.24:** Redo the last exercise from [3.3.3](#section-333-other-vector-operations) using iterators.
+
+[**Solution 1:**](src/ex3_24_1.cpp)
+
+```cpp
+/* This program reads a set of integers into a vector. It then prints the sum
+ * of each pair of adjacent elements */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> ivec;  // initialize empty integer vector
+    int i;  // initialize integer
+    while (cin >> i)  // read integers from standard input
+        ivec.push_back(i);  // append i to ivec
+    // print the sum of the adjacent elements
+    for (auto it = ivec.cbegin(); it != ivec.cend(); it += 2)
+        cout << *it + *(it + 1) << " ";
+    cout << endl;
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_24_2.cpp)
+
+```cpp
+/* This program reads a set of integers into a vector. It then prints the sum
+ * of the first and last elements, followed by the sum of the second and 
+ * second-to-last, and so on. */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> ivec;  // initialize empty integer vector
+    int i;  // initialize integer
+    while (cin >> i)  // read integers from standard output
+        ivec.push_back(i);  // append i to ivec
+    // print sums
+    auto begin = ivec.begin(), end = ivec.end();
+    for (auto it = begin; it != end - (end - begin) / 2 - 1; it++)
+        cout << *it + *(end - (it - begin + 1)) << " ";
+    // if there are an odd number of elements, then print the middle number
+    if (ivec.size() % 2 != 0)
+        cout << *(begin + (end - begin) / 2) << endl;
+    else
+        cout << endl;
+    return 0;
+}
+```
+
+**Exercise 3.25:** Rewrite the [grade clustering program](src/grades.cpp) from [3.3.3](#section-333-other-vector-operations) using iterators instead of subscripts.
+
+[**Solution:**](src/ex3_25.cpp)
+
+```cpp
+/* This program reads in a collection of grades that range from 0 to 100 then
+ * counts how many grades fall into various clusters of 10. Between 0 and 100
+ * there are 101 possible grades. These grades can be represented by 11
+ * clusters: 10 clusters of 10 grades each plus one cluster for a perfect 
+ * score of 100. */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<unsigned> scores(11, 0);  // 11 buckets, all initially 0
+    unsigned grade;
+    while (cin >> grade) {                   // read the grades
+        if (grade <= 100)                    // handle only valid grades
+            ++*(scores.begin() + grade/10);  // increment the counter for the current cluster
+    }
+    for (auto it = scores.begin(); it != scores.end(); it++)
+        cout << *it << " ";
+    cout << endl;
+    return 0;
+}
+```
+
+**Exercise 3.26:** In the binary search program on page 112, why did we write `mid = beg + (end - beg) / 2;` instead of `mid = (beg + end) / 2;`?
+
+
+**Solution**: The expression `(beg + end) / 2` evaluates to an integer, since subtracting two iterators returns an integer value. We want to assign the iterator that refers to the object at position `(beg + end) / 2`, so to get an iterator object we add the expression `(end - beg) / 2` to the iterator object `beg`.
+
 ## Section 3.5: Arrays
 
 ## Section 3.6: Multidimensional Arrays
