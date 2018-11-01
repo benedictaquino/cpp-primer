@@ -9,7 +9,8 @@ using std::vector;
 int main()
 {
     // Read in integers from standard input and place them in an array
-    int ia[10];
+    int size = 10;
+    int ia[size];
     for (int *p = begin(ia); p != end(ia); ++p)
         cin >> *p;
     // Print array elements

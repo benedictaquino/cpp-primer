@@ -54,7 +54,7 @@
     * [3.4.1 Using Iterators](ch03#section-341-using-iterators)
     * [3.4.2 Iterator Arithmetic](ch03#section-342-iterator-arithmetic)
   * [3.5 Arrays](ch03#section-35-arrays)
-    * [3.5.1 Defining and Initializing Built-in Arrys](ch03#section-351-defining-and-initializing-built-in-arrays)
+    * [3.5.1 Defining and Initializing Built-in Arrays](ch03#section-351-defining-and-initializing-built-in-arrays)
     * [3.5.2 Accessing the Elements of an Array](ch03#section-352-accessing-the-elements-of-an-array)
     * [3.5.3 Pointers and Arrays](ch03#section-353-pointers-and-arrays)
     * [3.5.4 C-Style Character Strings](ch03#section-354-c-style-character-strings)

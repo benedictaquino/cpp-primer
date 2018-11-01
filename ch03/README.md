@@ -1357,3 +1357,240 @@ int main()
 ```
 
 ## Section 3.6: Multidimensional Arrays
+
+**Exercise 3.43:** Write three different versions of a program to print the elements of `ia`. One version should use a range `for` to manage the iteration, the other two should use an ordinary `for` loop in one case using subscripts and in the other using pointers. In all three programs write all thetypes directly. That is, do not use a type alias, `auto`, or `decltype` to simplify the code.
+
+[**Solution 1:**](src/ex3_43_1.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (int (&m)[4] : ia) {
+        for (int n : m)
+            cout << n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_43_2.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (int m = 0; m != 3; m++) {
+        for (int n = 0; n !=4; n++)
+            cout << ia[m][n] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 3:**](src/ex3_43_3.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using std::begin; using std::end;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (int (*m)[4] = ia; m != ia + 3; m++) {
+        for (int *n = *m; n != *m + 4; n++)
+            cout << *n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+**Exercise 3.44:** Rewrite the programs from the previous exercises using a type alias for the type of the loop control variables.
+
+[**Solution 1:**](src/ex3_44_1.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using int_array = int[4];
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    
+    for (int_array &m : ia) {
+        for (int n : m)
+            cout << n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_44_2.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using int_array = int[4];
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (int m = 0; m != 3; m++) {
+        for (int n = 0; n !=4; n++)
+            cout << ia[m][n] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 3:**](src/ex3_44_3.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using int_array = int[4];
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (int_array *m = ia; m != ia + 3; m++) {
+        for (int *n = *m; n != *m + 4; n++)
+            cout << *n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+**Exercise 3.45:** Rewrite the programs again, this time using `auto`.
+
+[**Solution 1:**](src/ex3_45_1.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    
+    for (auto &m : ia) {
+        for (auto n : m)
+            cout << n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_45_2.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (auto m = 0; m != 3; m++) {
+        for (auto n = 0; n !=4; n++)
+            cout << ia[m][n] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+[**Solution 3:**](src/ex3_45_3.cpp)
+
+```cpp
+/* This program prints the elements of a multidimensional array */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // Initialize 2-dimensional array
+    int ia[3][4] = {     // three elements; each element is an array of size 4
+        {0, 1, 2, 3},    // initializers for the row indexed by 0
+        {4, 5, 6, 7},    // initializers for the row indexed by 1
+        {8, 9, 10, 11}   // initializers for the row indexed by 2
+    };
+    for (auto *m = ia; m != ia + 3; m++) {
+        for (auto *n = *m; n != *m + 4; n++)
+            cout << *n << " ";
+        cout << endl;
+    }
+    return 0;
+}
+```
