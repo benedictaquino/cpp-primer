@@ -1161,4 +1161,121 @@ int main()
 }
 ```
 
+### Section 3.5.4: C-Style Character Strings
+
+**Exercise 3.37:** What does the following program do?
+
+```cpp
+const char ca[] = {'h', 'e', 'l', 'l', 'o'};
+const char *cp = ca;
+while (*cp) {
+    cout << *cp << endl;
+    ++cp;
+}
+```
+
+**Solution:** This program creates a C-style character string that is not null-terminated. It will print `hello` to the standard output then continue as the pointer `cp` is incremented to address values beyond the array.
+
+**Exercise 3.38:** In this section, we noted that it was not only illegal but meaningless to try to add two pointers. Why would adding two pointers be meaningless?
+
+**Solution:** Adding two pointers would be meaningless because pointers are address values. It would be difficult to predetermine what address the resulting pointer would contain.
+
+**Exercise 3.39:** Write a program to compare two `string`s. Now write a program to compare the values of two C-style character strings.
+
+[**Solution 1:**](src/ex3_39_1.cpp)
+
+```cpp
+/* This program compares two strings */
+#include <iostream>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::string;
+
+int main()
+{
+    string s1, s2;  // initialize two empty strings
+    cout << "Enter first string:" << endl;
+    getline(cin, s1);
+    cout << "Enter second string:" << endl;
+    getline(cin, s2);
+    // check equality of strings
+    if (s1 == s2) 
+        cout << "The two strings are equal." << endl;
+    else if (s1.size() == s2.size()) 
+        cout << "The two strings are equal length." << endl;
+    else if (s1.size() > s2.size())
+        cout << "The first string is longer than the second string." << endl;
+    else if (s1.size() < s2.size()) 
+        cout << "The first string is shorter than the second string." << endl;
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex3_39_2.cpp)
+
+```cpp
+/* This program compares two C-style strings */
+#include <iostream>
+#include <cstring>
+
+using std::cin; using std::cout; using std::endl;
+using std::strcmp; using std::strlen;
+
+int main()
+{
+    char ca1[80], ca2[80];
+    cout << "Enter first string:" << endl;
+    cin.getline(ca1, 80);
+    cout << "Enter second string:" << endl;
+    cin.getline(ca2, 80);
+    // check equality of C-style strings
+    if (strcmp(ca1, ca2) == 0)
+        cout << "The two strings are equal." << endl;
+    else if (strlen(ca1) == strlen(ca2))
+        cout << "The two strings are equal length." << endl;
+    else if (strlen(ca1) < strlen(ca2))
+        cout << "The first string is shorter than the second string." << endl;
+    else if (strlen(ca1) > strlen(ca2))
+        cout << "The first string is longer than the second string." << endl;
+    return 0;
+}
+```
+
+**Exercise 3.40:** Write a program to define two character arrays initialized from string literals. Now define a third character array to hold the concatenation of the two arrays. Use `strcpy` and `strcat` to copy the two arrays into the third.
+
+[**Solution:**](src/ex3_40.cpp)
+
+```cpp
+/* This program defines two character arrays initialized from string literals
+ * Then it defines a third character array to hold the concatenation of the two
+ * arrays */
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using std::cin; using std::cout; using std::endl;
+using std::string;
+using std::strlen; using std::strcpy; using std::strcat;
+
+int main()
+{
+    // initialize character arrays with string literals
+    char ca1[] = "First string literal.";
+    char ca2[] = "Second string literal.";
+
+    cout << "First string: \"" << ca1 << "\"\n" 
+         << "Second string: \"" << ca2 << "\"" << endl;
+
+    char ca3[strlen(ca1) + strlen(ca2)]; 
+    strcpy(ca3, ca1);
+    strcat(ca3, " ");
+    strcat(ca3, ca2);
+
+    cout << "Third string: \"" << ca3 << "\"" << endl;
+
+    return 0;
+}
+```
+
 ## Section 3.6: Multidimensional Arrays
