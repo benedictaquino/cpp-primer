@@ -196,6 +196,24 @@ while (pbeg != v.end() && *beg >= 0)
 
 ## Section 4.6: The Member Access Operators
 
+**Exercise 4.20:** Assuming that `iter` is a `vector<string>::iterator`, indicate which, if any, of the following expressions are legal. Explain the behavior of the legal expressions and why those that aren't legal are in error.
+
+* (a) `*iter++;`
+* (b) `(*iter)++;`
+* (c) `*iter.empty();`
+* (d) `iter->empty();`
+* (e) `++*iter;`
+* (f) `iter++->empty();`
+
+**Solution:** 
+
+* (a) `iter++;` is legal. It increments the iterator by one to point at the next element of the vector.
+* (b) `(*iter)++;` is illegal. It dereferences `iter` and attempts to increment the `string` object.
+* (c) `*iter.empty();` is illegal. The member operator has lower precedence than the dereferencing operator, so this expression attempts to get the member named `empty()` which `iter` does not have.
+* (d) `iter->empty();` is legal. It dereferences `iter` and uses the `empty()` member function of the `string` that `iter` points to. 
+* (e) `++*iter;` is illegal. This expression dereferences `iter` then attempts to increment it.
+* (e) `iter++->empty();` is legal. This expression increments `iter` then accesses the `empty()` member function of the `string` that `iter` points to.
+
 ## Section 4.7: The Conditional Operator
 
 ## Section 4.8: The Bitwise Operators
