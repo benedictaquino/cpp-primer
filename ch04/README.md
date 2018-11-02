@@ -167,6 +167,33 @@ dval = ival = pi = 0;
 
 ## Section 4.5: Increment and Decrement Operators
 
+**Exercise 4.17:** Explain the difference between prefix and postfix increment.
+
+**Solution:** The prefix increment increments the object and yields the value of the incremented object. The postfix increment increments the object but yields the value of the unincremented object.
+
+**Exercise 4.18:** What would happen if the `while` loop on page 148 that prints the elements from a vector used the prefix increment operator?
+
+```cpp
+auto pbeg = v.begin();
+// print elements up to the first negative value
+while (pbeg != v.end() && *beg >= 0)
+    cout << *pbeg++ << endl; // print the current value and advance pbeg
+```
+
+**Solution:** If it used the prefix increment operator, then the `while` loop would not print the first element of the vector, but begin with the element in position `1` of the vector. Then it would continue to print the elements up until either the first negative value or the last value.
+
+**Exercise 4.19:** Given that `ptr` points to an `int`, that `vec` is a `vector<int>`, and that `ival` is an `int`, explain the behavior of each of these expressions. Which, if any, are likely to be incorrect? Why? How might each be corrected?
+
+* (a) `ptr != 0 && *ptr++`
+* (b) `ival++ && ival`
+* (c) `vec[ival++] <= vec[ival]`
+
+**Solution:**
+
+* (a) This expression evaluates if `ptr` is nonzero, then if it is true, it yields the address of the object that `ptr` points to, then increments the pointer.
+* (b) This expression yields `ival` then increments it, and if `ival` holds a nonzero value, then the incremented `ival` is yielded.
+* (c) This expression is likely incorrect. It is comparing `vec[ival++]` and `vec[ival]`, however, since it is undefined which operand will be evaluated before the comparison, it may not function as intended. I would correct it as `vec[ival] <= vec[ival + 1]`.
+
 ## Section 4.6: The Member Access Operators
 
 ## Section 4.7: The Conditional Operator
