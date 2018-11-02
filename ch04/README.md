@@ -28,6 +28,54 @@
 
 ## Section 4.2 Arithmetic Operators
 
+**Exercise 4.4:** Parenthesize the folllowing expression to show how it is evaluated. Test your answer by compiling the expression (without parentheses) and printing its result.
+
+```cpp
+12 / 3 * 4 + 5 * 15 + 24 % 4 / 2
+```
+
+[**Solution:**](src/ex4_4.cpp) 
+
+```cpp
+((12 / 3) * 4) + (5 * 15) + ((24 % 4) / 2)
+```
+
+This expression will evaluate to `91`.
+
+**Exercise 4.5:** Determine the result of the following expressions.
+
+* (a) `-30 * 3 + 21 / 5`
+* (b) `-30 + 3 * 21 / 5`
+* (c) `30 / 3 * 21 % 5`
+* (d) `-30 / 3 * 21 % 4`
+
+**Solution:**
+
+* (a) `-86`
+* (b) `-18`
+* (c) `0`
+* (d) `2`
+
+**Exercise 4.6:** Write an expression to determine whether an `int` value is even or odd.
+
+**Solution:**
+
+```cpp
+i % 2 == 0
+```
+
+If the above expression is true, then `i` is even, otherwise it is odd.
+
+**Exercise 4.7:** What does overflow mean? Show three expressions that will overflow.
+
+**Solution:** Overflow means that the value that is computed is outside of the range of values that the type can represent.
+
+```cpp
+int i = 2147483647 + 1;  // this will wrap around to be -214783648
+unsigned ui =  4294967295 + 1;  // this will overflow and evaluate to 0
+short si = 32767 + 1;  // this will wrap around to be -32768
+```
+
 ## Section 4.3: Logical and Relational Operators
 
 ## Section 4.4: Assignment Operators
