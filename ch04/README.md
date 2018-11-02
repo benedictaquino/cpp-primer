@@ -64,7 +64,7 @@ This expression will evaluate to `91`.
 i % 2 == 0
 ```
 
-If the above expression is true, then `i` is even, otherwise it is odd.
+If the above expression is `true`, then `i` is even, otherwise it is odd.
 
 **Exercise 4.7:** What does overflow mean? Show three expressions that will overflow.
 
@@ -77,6 +77,42 @@ short si = 32767 + 1;  // this will wrap around to be -32768
 ```
 
 ## Section 4.3: Logical and Relational Operators
+
+**Exercise 4.8:** Explain when operands are evaluated in the logical `AND`, logical `OR`, and equality operators.
+
+**Solution:**
+
+* The right side of an `&&` operator is evaluated if and only if the left side is `true`.
+* The left side of an `||` operator is evaluated if and only if the left side is `false`.
+* Like other operands, it is undefined when the operands are evaluated when using the `==` operator.
+
+**Exercise 4.9:** Explain the behavior of the condition in the following `if`:
+
+```cpp
+const char *cp = "Hello World";
+if (cp && *cp)
+```
+
+**Solution:** The left operand of the `&&` operator is evaluated first. If `cp` is any nonzero value, then the operand is evaluated as `true`, so the right operand is evaluated next. If `*cp` is any nonzero value, then it returns `true`. If `cp` was evaluated to be `false`, then the condition would be `false`.
+
+**Exercise 4.10:** Write the condition for a `while` loop that would read `int`s from the standard input and stop when the value read is equal to `42`.
+
+**Solution:**
+
+```cpp
+int i;
+while (cin >> i && i != 42)
+```
+
+**Exercise 4.11:** Write an expression that tests four values, `a`, `b`, `c`, and `d`, and ensures that `a` is greater than `b`, which is greater than `c`, which is greater than `d`.
+
+```cpp
+if (a > b && b > c && c > d)
+```
+
+**Exercise 4.12:** Assuming `i`, `j`, and `k`, are all `int`s, explain what `i != j < k` means.
+
+**Solution:** The first operator from left to right is the `!=` operator, so the truth of `i` being inequal to `j < k` will be evaluated. `j < k` returns a `bool`, so the expression will evaluate to `true` if `i` holds the value `1` and `j < k` is `true` or `i` holds the value `0` and `j < k` is `false`. Otherwise, it will return `false`.
 
 ## Section 4.4: Assignment Operators
 
