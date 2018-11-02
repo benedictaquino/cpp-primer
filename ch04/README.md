@@ -216,6 +216,130 @@ while (pbeg != v.end() && *beg >= 0)
 
 ## Section 4.7: The Conditional Operator
 
+**Exercise 4.21:** Write a program to use a conditional operator to find the elements in a `vector<int>` that have odd value and double the value of each such element.
+
+[**Solution:**](src/ex4_21.cpp)
+
+```cpp
+/* This program uses a conditional operator to find the elements in a
+ * vector<int> that have odd value and doubles the value of each such element */
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> iv; // initialize empty vector of integers
+    int i; // define integer object
+    while (cin >> i) iv.push_back(i); // read integers from standard input to iv
+
+    cout << "Elements of the original vector:\n";
+    for (auto j : iv) cout << j << " "; cout << endl;
+
+    // Double the odd elements of the vector
+    for (auto &r : iv) (r % 2 == 1) ? r *= 2 : r;
+
+    cout << "Elements of the changed vector:\n";
+    for (auto j : iv) cout << j << " "; cout << endl;
+
+    return 0;
+}
+```
+
+**Exercise 4.22:** Extend the program that assigned high pass, pass, and fail grades to also assign low pass for grades between 60 and 75 inclusive. Write two versions: One version that uses only conditional operators; the other should use one or more `if` statement. Which version do you think is easier to understand and why?
+
+[**Solution 1:**](src/ex4_22_1.cpp)
+
+```cpp
+/* This program assigns high pass, pass, low pass, and fail to grades */
+#include <iostream>
+#include <vector>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+using std::string;
+
+int main()
+{
+    vector<int> scores; int score;
+    while (cin >> score) scores.push_back(score);
+
+    vector<string> finalgrades; string finalgrade;
+    for (int grade : scores) {
+        finalgrade = (grade > 90) ? "high pass"
+                   : (grade > 75) ? "pass"
+                   : (grade >= 60) ? "low pass"
+                   : "fail";
+        finalgrades.push_back(finalgrade);
+    }
+
+    cout << "Scores\tFinal Grades\n" 
+         << "------\t------------" << endl;
+    for (int i = 0; i != scores.size(); ++i)
+        cout << scores[i] << "\t" << finalgrades[i] << endl;
+
+    return 0;
+}
+```
+
+[**Solution 2:**](src/ex4_22_2.cpp)
+
+```cpp
+/* This program assigns high pass, pass, low pass, and fail to grades */
+#include <iostream>
+#include <vector>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::vector;
+using std::string;
+
+int main()
+{
+    vector<int> scores; int score;
+    while (cin >> score) scores.push_back(score);
+
+    vector<string> finalgrades; string finalgrade;
+    for (int grade : scores) {
+        if (grade > 90) finalgrade = "high pass";
+        else if (grade > 75) finalgrade = "pass";
+        else if (grade >= 60) finalgrade = "low pass";
+        else finalgrade = "fail";
+        finalgrades.push_back(finalgrade);
+    }
+
+    cout << "Scores\tFinal Grades\n" 
+         << "------\t------------" << endl;
+    for (int i = 0; i != scores.size(); ++i)
+        cout << scores[i] << "\t" << finalgrades[i] << endl;
+
+    return 0;
+}
+```
+
+I think using conditional operators makes the code cleaner and more concise, but the one using `if` statements are easier to understand. It's clearer what the code is doing in the second program, however it is more verbose.
+
+**Exercise 4.23:** The following expression fails to compile due to operator precedence. Using [Table 4.12](#section-412-operator-precedence-table), explain why it fails. How would you fix it?
+
+```cpp
+string s = "word";
+string pl = s + s[s.size() - 1] == 's' ? "" : "s" ;
+```
+
+**Solution:** The expression fails to compile because the conditional operator has lower precedence than the addition operator. So `s + s[s.size() - 1]` is evaluated first, then the equality operator checks if `s + s[s.size() - 1]` is equal to `s`, which is illegal because they are different types. I would fix it as such:
+
+```cpp
+string s = "word";
+string pl = s + (s[s.size() - 1] == 's' ? "" : "s");
+```
+
+**Exercise 4.24:** Our program that distinguished between high pass, pass, and fail depended on the fact that the conditional operator is right associative. Describe how the that operator would be evaluated if the operator were left associative.
+
+**Solution:** If the operator were left associative, then at the first conditional operator, if `grade > 90` is `true`, then the result is `"high pass"` which would then be passed on to the `(grade < 60)` condition. This would return `true`, so `finalgrade` would always be `"fail"`. 
+
 ## Section 4.8: The Bitwise Operators
 
 ## Section 4.9: The `sizeof` Operators
@@ -223,3 +347,84 @@ while (pbeg != v.end() && *beg >= 0)
 ## Section 4.10: Comma Operator
 
 ## Section 4.11: Type Conversions
+
+## Section 4.12: Operator Precedence Table
+
+| **Associativity and Operator** | Function | Use |
+|:-------------------------------|----------|-----|
+| L `::`              | global scope           | `::`name                 |
+| L `::`              | class cope             | class`::`name            | 
+| L `::`              | namespace scope        | namespace`::`name        |
+| -                   | -                      | -                        |
+| L `.`               | member selectors       | object`.`member          |  
+| L `->`              | member selector        | pointer`->`member        |
+| L `[]`              | subscript              | expr`[`expr`]`           |
+| L `()`              | function call          | name`(`expr_list`)`      |
+| L `()`              | type construction      | type`(`expr_lstr`)`      |
+| -                   | -                      | -                        |
+| R `++`              | postfix increment      | lvalue`++`               |
+| R `--`              | postfix increment      | lvalue`--`               |
+| R `typeID`          | type ID                | `typeid`(type)           |
+| R `typeID`          | run-time type ID       | `typeid`(expr)           |
+| R explicit cast     | type conversion        | *cast_name*<type\>(expr) |
+| -                   | -                      | -                        |
+| R `++`              | prefix increment       | `++`lvalue               |
+| R `--`              | prefix increment       | `--`lvalue               |
+| R `~`               | bitwise `NOT`          | `~`expr                  |
+| R `!`               | logical `NOT`          | `!`expr                  |
+| R `-`               | unary minus            | `-`expr                  |
+| R `+`               | unary plus             | `+`expr                  |
+| R `*`               | dereference            | `*`expr                  |
+| R `&`               | address-of             | `&`lvalue                |
+| R `()`              | type conversion        | `(`type`)`expr           |
+| R `sizeof`          | size of object         | `sizeof`expr             |
+| R `sizeof`          | size of type           | `sizeof`( type )         |
+| R `sizeof...`       | size of parameter pack | `sizeof...`( name )      |
+| R `new`             | allocate object        | `new` type               |
+| R `new[]`           | allocate array         | `new` type`[`size`]`     |
+| R `delete`          | deallocate object      | `delete` expr            |
+| R `delete[]`        | deallocate array       | `delete[]` expr          |
+| R `noexcept`        | can expr throw         | `noexcept` ( expr )      |
+| -                   | -                      | -                        |
+| L `->*`             | ptr to member select   | ptr`->*`ptr_to_member    |
+| L `.*`              | ptr to member select   | obj`.*`ptr_to_member     |
+| -                   | -                      | -                        |
+| L `*`               | multiply               | expr `*` expr            |
+| L `/`               | divide                 | expr `/` expr            |
+| L `%`               | modulo                 | expr `%` expr            |
+| -                   | -                      | -                        |
+| L `+`               | add                    | expr `+` expr            |
+| L `-`               | subtract               | expr `-` expr            |
+| -                   | -                      | -                        |
+| L `<<`              | bitwise shift left     | expr `<<` expr           |
+| L `>>`              | bitwise shift right    | expr `>>` expr           |
+| -                   | -                      | -                        |
+| L `<`               | less than              | expr `<` expr            |
+| L `<=`              | less than or equal     | expr `<=` expr           |
+| L `>`               | greater than           | expr `>` expr            |
+| L `>=`              | greater than or equal  | expr `>=` expr           |
+| -                   | -                      | -                        |
+| L `==`              | equality               | expr `==` expr           |
+| L `!=`              | inequality             | expr `!=` expr           |
+| -                   | -                      | -                        |
+| L `&`               | bitwise `AND`          | expr `&` expr            |
+| -                   | -                      | -                        |
+| L `^`               | bitwise `XOR`          | expr `^` expr            |
+| -                   | -                      | -                        |
+| L `|`               | bitwise `OR`           | expr `|` expr            |
+| -                   | -                      | -                        |
+| L `&&`              | logical `AND`          | expr `&&` expr           |
+| -                   | -                      | -                        |
+| L `||`              | logical `OR`           | expr `||` expr           |
+| -                   | -                      | -                        |
+| R `?:`              | conditional            | expr`?`expr`:`expr       |
+| -                   | -                      | -                        |
+| R `=`               | assignment             | lvalue `=` expr          |
+| R `*=`, `/=`, `%=`  | compound assign        | lvalue `+=` expr, etc.   |
+| R `+=`, `-=`,       |
+| R `<<=`, `>>=`      |
+| R `&=`, `\|=`, `^=` |
+| -                   | -                      | -                        |
+| R `throw`           | throw exception        | `throw` expr             |
+| -                   | -                      | -                        |
+| L `,`               | comma                  | expr `,` expr            |

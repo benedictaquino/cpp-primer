@@ -75,3 +75,4 @@
   * [4.9 The `sizeof` Operators](ch04#section-49-the-sizeof-operators)
   * [4.10 Comma Operator](ch04#section-410-comma-operator)
   * [4.11 Type Conversions](ch04#section-411-type-conversions)
+  * [4.12 Operator Precedence Table](ch04#section-412-operator-precedence-table)
