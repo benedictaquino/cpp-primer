@@ -342,6 +342,27 @@ string pl = s + (s[s.size() - 1] == 's' ? "" : "s");
 
 ## Section 4.8: The Bitwise Operators
 
+**Exercise 4.25:** What is the value of `~'q' << 6` on a machine with 32-bit `int`s and 8-bit `char`s, that uses Latin-1 character set in which `'q'` has the bit pattern `01110001`?
+
+**Solution:** The `~` operator promotes `'q'` to the larger integral type `int`, so `'q' = 01110001` is promoted to `00000000 00000000 00000000 01110001`. Then this is inverted by the `~` operator, resulting in `11111111 11111111 11111111 100011101. This is then shifted left by 6 bits, resulting in `11111111 11111111 11100011 10000000`. 
+
+**Exercise 4.26:** In our grading example in this section, what you happen if you used `unsigned int` as the type for `quiz1`?
+
+**Solution:**
+
+**Exercise 4.27:** What is the result of each of these expressions?
+
+```cpp
+unsigned long ul1 = 3, ul2 = 7;
+```
+
+* (a) `ul1 & ul2`
+* (b) `ul1 | ul2`
+* (c) `ul1 && ul2`
+* (d) `ul1 || ul2`
+
+**Solution:**
+
 ## Section 4.9: The `sizeof` Operators
 
 ## Section 4.10: Comma Operator
