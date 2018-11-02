@@ -116,6 +116,55 @@ if (a > b && b > c && c > d)
 
 ## Section 4.4: Assignment Operators
 
+**Exercise 4.13:** What are the values of `i` and `d` after each assignment?
+
+```cpp
+int i; double d;
+```
+
+* (a) `d = i = 3.5;`
+* (b) `i = d = 3.5;`
+
+**Solution:** 
+
+* (a) `i` has the value `3` and `d` has the value `3`
+* (b) `i` has the value `3` and `d` has the value `3.5`
+
+**Exercise 4.14:** Explain what happens in each of the `if` tests:
+
+```cpp
+if (42 = i)  // ...
+if (i = 42)  // ...
+```
+
+**Solution:** 
+
+```cpp
+if (42 = i)  // error: literals are rvalues
+if (i = 42)  // true
+```
+
+In the first condition, `42` is an `int` literal so it cannot be assigned the value of `i`. In the second condition, `i` is assigned the value `42`, and since it is a nonzero value the condition evaluates as `true`.
+
+**Exercise 4.15:** The following assignment is illegal. Why? How would you correct it?
+
+```cpp
+double dval; int ival; int *pi;
+dval = ival = pi = 0;
+```
+
+**Solution:** `pi` is an `int` pointer, so the value `0` cannot be assigned to it. 
+
+**Exercise 4.16:** Although the following are legal, they probably do not behave as the programmer expects. Why? Rewrite the expressions as you think they should be.
+
+* (a) `if (p = getPtr() != 0)`
+* (b) `if (i = 1024)`
+
+**Solution:**
+
+* (a) `if (p = getPtr())`. The programmer likely expects this condition to evaluate whether the value returned by getPtr() is not zero. It will not work that way, because assignment has lower precedence, so the `!=` expression would be evaluated first, then assign the `bool` value to `p`.  `if (p = getPtr())` will evaluate whether or not `p` is nonzero.
+* (b) `if (i == 1024)`. The programmer likely intended this condition to check if `i` is equal to `1024`. As it is written above, it will assign the value `1024` to `i` then return evaluate as `true`, because `i` is nonzero.
+
 ## Section 4.5: Increment and Decrement Operators
 
 ## Section 4.6: The Member Access Operators
