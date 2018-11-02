@@ -64,6 +64,7 @@
   * [4.1 Fundamentals](ch04#section-41-fundamentals)
     * [4.1.1 Basic Concepts](ch04#section-411-basic-concepts)
     * [4.1.2 Precedence and Associativity](ch04#section-412-precedence-and-associativity)
+    * [4.1.3 Order of Evaluation](ch04#section-413-order-of-evaluation)
   * [4.2 Arithmetic Operators](ch04#section-42-arithmetic-operators)
   * [4.3 Logical and Relational Operators](ch04#section-43-logical-and-relational-operators)
   * [4.4 Assignment Operators](ch04#section-44-assignment-operators)

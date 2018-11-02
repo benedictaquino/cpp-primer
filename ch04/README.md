@@ -20,6 +20,12 @@
 * (a) `* (vec.begin())`
 * (b) `(* (vec.begin())) + 1`
 
+### Section 4.1.3: Order of Evaluation
+
+**Exercise 4.3:** Order of evaluation for most of the binary operators is left undefined to give the compiler opportunities for optimization. This strategy presents a trade-off between efficient code generation and potential pitfalls in the use of the language by the programmer. Do you consider that an acceptable trade-off? Why or why not?
+
+**Solution:** I believe that is an acceptable trade-off. It presents a challenge to the programmer to ensure their program is evaluating the operands as expected, but the efficient code generation is worth it.
+
 ## Section 4.2 Arithmetic Operators
 
 ## Section 4.3: Logical and Relational Operators
