@@ -511,6 +511,43 @@ If `someValue` is `0`, then the expression returns `--x, --y`, so `y` is decreme
 
 ## Section 4.11: Type Conversions
 
+### Section 4.11.1: The Arithmetic Conversions
+
+**Exercise 4.34:** Given the variable definitions in this section, explain what conversions take place in the following expressions:
+
+* (a) `if (fval)`
+* (b) `dval = fval + ival;`
+* (c) `dval + ival * cval;`
+
+Remember that you may need to consider the associativity of the operators.
+
+**Solution:**
+
+* (a) `fval` is a `float`, which is converted to a `bool`. 
+* (b) `dval` is a `double`, `fval` is a `float`, and `ival` is an `int`. `ival` is converted to `float`, then `fval` is added to `ival`, and the resulting value is converted to `double` when assigned to `dval`.
+* (c) `dval` is a `double`, `ival` is an `int`, and `cval` is a `char`. The `*` operator has higher precedence than the `+` operator, so `cval` is promoted to an `int` and multiplied by `ival`. Then the resulting `int` is converted to `double` and added to `dval`. The final object is a `double`.
+
+**Exercise 4.35:** Given the following definitions,
+
+```cpp
+char cval;    int ival;    unsigned int ui;
+float fval;   double dval;
+```
+
+Identify the implicit type conversions, if any, taking place:
+
+* (a) `cval = 'a' + 3;`
+* (b) `fval = ui - fval * 1.0;`
+* (c) `dval  = ui * fval;`
+* (d) `cval = ival + fval + dval;`
+
+**Solution:** 
+
+* (a) `'a'` is a `char` literal, so it is promoted to an `int` and added to `3`. The resulting `int` is then converted to `char` when assigned to `cval`.
+* (b) `fval` is multiplied with `1.0` first. `fval` is a `float` and `1.0` is a floating-point literal, which defaults to `double` so `fval` is promoted to `double` and the values are multiplies. Then `ui` is converted to a `double` and the resulting `double` is assigned to `fval`.
+* (c) `ui` is converted to a `float` and multiplied with `fval`. The resulting `float` is converted to `double` and assigned to `dval`.
+* (d) `ival` is converted to a `float` and added with `fval`. The resulting `float` is promoted to `double` and added with `dval`. The resulting `double` is then converted to `char` and assigned to `cval`.
+
 ## Section 4.12: Operator Precedence Table
 
 | **Associativity and Operator** | Function | Use |
