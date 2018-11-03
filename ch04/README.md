@@ -444,6 +444,71 @@ int main()
 
 ## Section 4.10: Comma Operator
 
+**Exercise 4.31:** The program in this section used the prefix increment and decrement operators. Explain why we used prefix and not postfix. What changes would have to be made to use the postfix versions? Rewrite the program using postfix operators.
+
+[**Solution:**](src/ex4_31.cpp) We use the prefix operator and not the postfix because the results are the same either way, and the prefix operator is preferred since we do not have to hold a copy as if we used the postfix operator. 
+
+In the original program, the `for` loop begins with `ix` at `0`, and `cnt` at `ivec.size()`. The first iteration of the `for` loop assigns the value of `ivec.size()` to `ivec[0]`, then increments `ix` to `1` and `cnt` to `ivec.size - 1`. This continues until `ix` holds the same value as `ivec.size()`. So the values of the elements in `ivec` should begin at `ivec.size()` and end at `1`.
+
+In the program with the postfix operators, the `for` loop behaves the same way, except when `ix` and `cnt` are incremented, they yield the unincremented value. However, those values are never used by the program, so it is an unnecessary copy.
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using std::cout; using std::endl;
+using std::vector;
+
+int main()
+{
+    vector<int> ivec(10);
+    // Original program
+    vector<int>::size_type cnt = ivec.size();
+    // assign values from size...1 to the elements in ivec
+    for (vector<int>::size_type ix = 0; ix != ivec.size(); ++ix, --cnt)
+        ivec[ix] = cnt;
+    // print elements
+    cout << "Elements of the vector in the original program\n";
+    for (int &i : ivec) cout << i << " "; cout << endl;
+
+    // Modified program with postfix increment operators
+    cnt = ivec.size();
+    // assign values from size...1 to the elements in ivec
+    for (vector<int>::size_type ix = 0; ix != ivec.size(); ix++, cnt--)
+        ivec[ix] = cnt;
+    // print elements
+    cout << "Elements of the vector in the modified program\n";
+    for (int &i : ivec) cout << i << " "; cout << endl;
+ 
+    return 0;
+}
+```
+
+**Exercise 4.32:** Explain the following loop.
+
+```cpp
+constexpr int_size 5;
+int ia[size] = {1,2,3,4,5};
+for (int *ptr = ia, ix = 0; ix != size && ptr != ia+size; ++ix, ++ptr) { /* ... */ }
+```
+
+**Solution:** The `for` loop begins with the pointer `*ptr` holding the address of the first element of `ia`, and `ix` holding the value `0`. At the end of each loop, `ix` and `ptr` are incremented by one. The loop ends when `ix` holds the value `5` and `ptr` holds the address of an object outside of `ia`.
+
+**Exercise 4.33:** Using [Table 4.12](#section-412-operator-precedence-table) explain what the following expression does:
+
+```cpp
+someValue ? ++x, ++y : --x, --y
+```
+
+**Solution:** According to operator precedence, the above expression will be evaluated in the order below:
+
+```cpp
+(someValue ? (++x, ++y) : --x), --y)
+```
+The conditional operator takes precedence above the comma operator, so if `someValue` is nonzero, then the expression returns `++x, ++y, --y`, so the first comma operator returns `++y`, then the second comma operator returns `--y`. So `y` is incremented, then decremented, yielding the original value of `y`. 
+
+If `someValue` is `0`, then the expression returns `--x, --y`, so `y` is decremented and yielded.
+
 ## Section 4.11: Type Conversions
 
 ## Section 4.12: Operator Precedence Table
