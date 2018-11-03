@@ -344,11 +344,11 @@ string pl = s + (s[s.size() - 1] == 's' ? "" : "s");
 
 **Exercise 4.25:** What is the value of `~'q' << 6` on a machine with 32-bit `int`s and 8-bit `char`s, that uses Latin-1 character set in which `'q'` has the bit pattern `01110001`?
 
-**Solution:** The `~` operator promotes `'q'` to the larger integral type `int`, so `'q' = 01110001` is promoted to `00000000 00000000 00000000 01110001`. Then this is inverted by the `~` operator, resulting in `11111111 11111111 11111111 100011101. This is then shifted left by 6 bits, resulting in `11111111 11111111 11100011 10000000`. 
+**Solution:** The `~` operator promotes `'q'` to the larger integral type `int`, so `'q' = 01110001` is promoted to `00000000 00000000 00000000 01110001`. Then this is inverted by the `~` operator, resulting in `11111111 11111111 11111111 100011101`. This is then shifted left by 6 bits, resulting in `11111111 11111111 11100011 10000000` which, when conveted to decimal, is `-7296`. 
 
 **Exercise 4.26:** In our grading example in this section, what you happen if you used `unsigned int` as the type for `quiz1`?
 
-**Solution:**
+**Solution:** Since we want `quiz1` to track each student's quiz results, we need at least 30 bits. If we used `unsigned int` and the implementation only stored 16 bits for that type, then this would cause undefined behavior.
 
 **Exercise 4.27:** What is the result of each of these expressions?
 
@@ -362,6 +362,11 @@ unsigned long ul1 = 3, ul2 = 7;
 * (d) `ul1 || ul2`
 
 **Solution:**
+
+* (a) `ul1 & ul2` evaluates to `3`. The binary representation of `3` is `00000000 00000000 00000000 00000011` and `7` is `00000000 00000000 00000000 00000111`. The `&` operator returns the bits that are `1` for both `ul1` and `ul2`, so it returns `00000000 00000000 00000000 00000011`, which `3` in decimal.
+* (b) `ul1 | ul2` evaluates to `7`. The `|` operator returns the bits that are `1` in either `ul1` or `ul2`, so it returns `00000000 00000000 00000000 00000111`, which is `7` in decimal.
+* (c) `ul1 && ul2` evaluates to `1`. The `&&` operator first evaluates `ul1` to see if it holds a nonzero value, then since `3` is nonzero, it evaluates `ul2` for a nonzero value. Since both are nonzero, it returns `1`.
+* (d) `ul1 || ul2` evaluates to `1`. The `||` operator first evaluates `ul1` to see if it holds a nonzero value, then since `3` is nonzero, it returns `1`.
 
 ## Section 4.9: The `sizeof` Operators
 
