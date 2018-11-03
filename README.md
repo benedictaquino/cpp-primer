@@ -75,4 +75,7 @@
   * [4.9 The `sizeof` Operators](ch04#section-49-the-sizeof-operators)
   * [4.10 Comma Operator](ch04#section-410-comma-operator)
   * [4.11 Type Conversions](ch04#section-411-type-conversions)
+    * [4.11.1 The Arithmetic Conversions](ch04#section-4111-the-arithmetic-conversions)
+    * [4.11.2 Other Implicit Conversions](ch04#section-4112-other-implicit-conversions)
+    * [4.11.3 Explicit Conversions](ch04#section-4113-explicit-conversions)
   * [4.12 Operator Precedence Table](ch04#section-412-operator-precedence-table)

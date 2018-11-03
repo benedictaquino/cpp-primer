@@ -548,6 +548,46 @@ Identify the implicit type conversions, if any, taking place:
 * (c) `ui` is converted to a `float` and multiplied with `fval`. The resulting `float` is converted to `double` and assigned to `dval`.
 * (d) `ival` is converted to a `float` and added with `fval`. The resulting `float` is promoted to `double` and added with `dval`. The resulting `double` is then converted to `char` and assigned to `cval`.
 
+### Section 4.11.2: Other Implicit Conversions
+
+### Section 4.11.3: Explicit Conversions
+
+**Exercise 4.36:** Assuming `i` is an `int` and `d` is a `double` write the expression `i *= d*` so that it does integral, rather than floating-point, multiplication.
+
+**Solution:** 
+
+```cpp
+i *= static_cast<int>(d);
+```
+
+Now instead of `i` being converted to `double`. `d` is cast as an `int` and multiplied with `i` then assigned to `i`.
+
+**Exercise 4.37:** Rewrite each of the following old-style casts to use a named cast:
+
+```cpp
+int i;  double d;  const string *ps;  char *pc;  void *pv;
+```
+
+* (a) `pv = (void*)ps;`
+* (b) `i = int(*pc);`
+* (c) `pv = &d;`
+* (d) `pc = (char*) pv;`
+
+**Solution:** 
+
+* (a) `pv = const_cast<string*>(ps);`
+* (b) `i = static_cast<int*>(*pc);`
+* (c) `pv = static_cast<double*>(&d);`
+* (d) `pc = static_cast<char*>(pv);`
+
+**Exercise 4.38:** Explain the following expression:
+
+```cpp
+double slope = static_cast<double>(j/i);
+```
+
+**Solution:** Assuming `j` and `i` are `int` objects, integer division is used and the resulting integer is cast to a `double` and assigned to `slope`.
+
 ## Section 4.12: Operator Precedence Table
 
 | **Associativity and Operator** | Function | Use |
