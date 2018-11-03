@@ -370,6 +370,78 @@ unsigned long ul1 = 3, ul2 = 7;
 
 ## Section 4.9: The `sizeof` Operators
 
+**Exercise 4.28:** Write a program to print the size of each of the built-in types.
+
+[**Solution:**](src/ex4_28.cpp)
+
+```cpp
+/* This program prints the size of each of the built-in types */
+#include <iostream>
+
+using std::cout; using std::endl;
+
+int main()
+{
+    cout << "Built-in Type\tSize\n" 
+         << "-------------\t----\n" << "\n"
+         << "bool\t\t" << sizeof(bool) << "\n"
+         << "char\t\t" << sizeof(char) << "\n"
+         << "wchar_t\t\t" << sizeof(wchar_t) << "\n"
+         << "char16_t\t" << sizeof(char16_t) << "\n"
+         << "char32_t\t" << sizeof(char32_t) << "\n"
+         << "short\t\t" << sizeof(short) << "\n"
+         << "int\t\t" << sizeof(int) << "\n"
+         << "long\t\t" << sizeof(long) << "\n"
+         << "long long\t" << sizeof(long long) << "\n"
+         << "float\t\t" << sizeof(float) << "\n"
+         << "double\t\t" << sizeof(double) << "\n"
+         << "long double\t" << sizeof(long double) << endl;
+    return 0;
+}
+```
+
+**Exercise 4.29:** Predict the output of the following code and explain your reasoning. Now run the program. Is the output what you expected? If not, figure out why.
+
+[**Solution:**](src/ex4_29.cpp) I predict that the program will print the following output:
+
+```
+10
+2
+```
+
+It should do the above because in the first output stream, the expression `sizeof(x)/sizeof(*x)` essentially counts how many elements are in an array. It is dividing the array size by the element size. Since there are 10 elements in `x`, it should return `10`. The second expression `sizeof(p)/sizeof(*p)` should evaluate to `8`. `sizeof` of a pointer returns the size needed to hold a pointer, and `sizeof` a dereferenced pointer returns the size of an object of the type to which the pointer points. So `sizeof(p)` should evaluate to `8` and `sizeof(*p)` should evaluate to `4`.
+
+My [program](src/ex4_29.cpp) validates the above prediction.
+
+```cpp
+/* This program runs the code from Exercise 4.29 to validate my predictions */
+#include <iostream>
+
+using std::cout; using std::endl;
+
+int main()
+{
+    int x[10]; int *p = x;
+    cout << sizeof(x)/sizeof(*x) << endl;
+    cout << sizeof(p)/sizeof(*p) << endl;
+    return 0;
+}
+```
+
+**Exercise 4.30:** Using [Table 4.12](#section-412-operator-precedence-table), parenthesize the following expressions to match the default evaluation:
+
+* (a) `sizeof x + y`
+* (b) `sizeof p->mem[i]`
+* (c) `sizeof a < b`
+* (d) `sizeof f()`
+
+**Solution:**
+
+* (a) `(sizeof x) + y`
+* (b) `sizeof ((p->mem)[i])`
+* (c) `(sizeof a) < b`
+* (d) `sizeof (f())`
+
 ## Section 4.10: Comma Operator
 
 ## Section 4.11: Type Conversions
