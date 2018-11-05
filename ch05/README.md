@@ -846,4 +846,37 @@ int main()
 
 ## Section 5.5: Jump Statements
 
+### Section 5.5.1: The `break` Statement
+
+**Exercise 5.20:** Write a program to read a sequence of `string`s from the standard input until either the same word occurs twice in succession or all the words have been read. Use a `while` loop to read the text one word at a time. Use the `break` statement to terminate the loop if a word occurs twice in succession. Print the word if it occurs twice in succession, or else print a message saying that no word was repeated.
+
+[**Solution:**](src/ex5_20.cpp)
+
+```cpp
+/* This program reads a sequence of strings from the standard input until
+ * either the same word occurs twice in succession or all the words have 
+ * been read. */
+#include <iostream>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::string;
+
+int main()
+{
+    string word, oldWord; // initialize empty strings
+    cin >> oldWord;       // read first string from standard input
+    while (cin >> word) { // read strings from standard input
+        // if a word is repeated print word and terminate loop
+        if (word == oldWord) {
+            cout << "The word \"" << word << "\" was repeated." << endl;
+            break;
+        }
+        oldWord = word; // copy the value from word into oldWord
+    }
+    if (!cin) cout << "No words were repeated." << endl;
+    return 0;
+}
+```
+
 ## Section 5.6: `try` Blocks and Exception Handling
