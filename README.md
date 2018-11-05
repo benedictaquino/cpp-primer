@@ -83,6 +83,8 @@
   * [5.1 Simple Statements](ch05#section-51-simple-statements)
   * [5.2 Statement Scope](ch05#section-52-statement-scope)
   * [5.3 Conditional Statements](ch05#section-53-conditional-statements)
+    * [5.3.1 The `if` Statement](ch05#section-531-the-if-statement)
+    * [5.3.2 The `switch` Statement](ch05#section-532-the-switch-statement)
   * [5.4 Iterative Statements](ch05#section-54-iterative-statements)
   * [5.5 Jump Statements](ch05#section-55-jump-statements)
   * [5.6 `try` Blocks and Exception Handling](ch05#section-56-try-blocks-and-exception-handling) 
