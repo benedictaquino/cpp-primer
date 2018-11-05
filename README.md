@@ -95,3 +95,6 @@
     * [5.5.2 The `continue` Statement](ch05#section-552-the-continue-statement)
     * [5.5.3 The `goto` Statement](ch05#section-553-the-goto-statement)
   * [5.6 `try` Blocks and Exception Handling](ch05#section-56-try-blocks-and-exception-handling) 
+    * [5.6.1 A `throw` Expression](ch05#section-561-a-throw-expression)
+    * [5.6.2 The `try` Block](ch05#section-562-the-try-block)
+    * [5.6.3 Standard Exceptions](ch05#section-563-standard-exceptions)
