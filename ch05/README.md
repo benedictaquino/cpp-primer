@@ -750,6 +750,100 @@ int main()
 
 ### Section 5.4.3: Range `for` Statement
 
+### Section 5.4.4: The `do while` Statement
+
+**Exercise 5.18:** Explain each of the following loops. Correct any problems you detect.
+
+* (a)
+
+```cpp
+do
+    int v1, v2;
+    cout << "Please enter two numbers to sum:" ;
+    if (cin >> v1 >> v2)
+        cout << "Sum is: " << v1 + v2 << endl;
+while (cin);
+```
+
+* (b)
+
+```cpp
+do {
+    // ...
+} while (int ival = get_response());
+```
+
+* (c)
+
+```cpp
+do {
+    int ival = get_response();
+} while (ival);
+```
+
+**Solution:**
+
+* (a) The `do` statement is missing brackets.
+
+```cpp
+do {
+    int v1, v2;
+    cout << "Please enter two numbers to sum: ";
+    if (cin >> v1 >> v2)
+        cout << "Sum is " << v1 + v2 << endl;
+} while (cin);
+```
+
+* (b) There is a declaration in the `do while` condition.
+
+```cpp
+int ival;
+do {
+   ival = get_response();
+   // ...
+} while (ival);
+```
+
+* (c) Variables used in the `do while` condition must be defined outside the body of the `do while` statement.
+
+```cpp
+int ival;
+do {
+    ival = get_response();
+} while (ival);
+```
+
+**Exercse 5.19:** Write a program that uses a `do while` loop to repetitively request two `string`s from the user and report which `string` is less than the other.
+
+[**Solution:**](src/ex5_19.cpp)
+
+```cpp
+#include <iostream>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::string; using std::getline;
+
+int main()
+{
+    do {
+        string s1, s2;
+        cout << "Enter the first string:" << endl;
+        getline(cin, s1);
+        cout << "Enter the second string:" << endl;
+        getline(cin, s2);
+        if (s1.size() > s2.size())
+            cout << "The first string is longer than the second string." << endl;
+        else if (s1.size() < s2.size())
+            cout << "The first string is shorter than the second string." << endl;
+        else if (s1.size() == s2.size())
+            cout << "The strings are the same length." << endl;
+    } while (cin);
+    
+    return 0;
+}
+```
+
 ## Section 5.5: Jump Statements
 
 ## Section 5.6: `try` Blocks and Exception Handling
