@@ -634,6 +634,122 @@ int main()
 }
 ```
 
+### Section 5.4.2: Traditional `for` Statement
+
+**Exercise 5.15:** Explain each of the following loops. Correct any problems you detect.
+
+* (a) 
+
+```cpp
+for (int ix = 0; ix != sz; ++ix) { /* ... */ }
+if (ix != sz)
+    // ...
+```
+
+* (b)
+
+```cpp
+int ix;
+for (ix != sz; ++ix) { /* ... */ }
+```
+
+* (c)
+
+```cpp
+for (int ix = 0; ix != sz; ++ix, ++sz) { /* ... */ }
+```
+
+**Solution:** 
+
+* (a) `ix` cannot be used in the `if` statement because it is defined in the init-statement of the `for` loop. Also, the `if` statement is redundant; once the condition `ix != sz` is `true`, the `for` loop ends. So when the `for` loop ends, it means that `ix != sz` is `true`.
+
+```cpp
+for (int ix = 0; ix != sz; ++ix) { /* ... */ }
+// ...
+```
+
+If for some reason we do still need to check if the condition `ix != sz` is true, we can initialize `ix` outside of the `for` loop so it is within scope for the `if` statement.
+
+```cpp
+int ix;
+for (ix = 0; ix != sz; ++ix) { /* ... */ }
+if (ix != sz)
+    // ...
+```
+
+* (b) The `for` header is missing a `;` for the init-statement.
+
+```cpp
+int ix;
+for ( /* null */ ; ix != sz; ++ix) { /* ... */ }
+```
+
+* (c) This `for` loop will likely not end unless `ix` is incremented elsewhere in the `for` statement.
+
+```cpp
+for (int ix = 0; ix != sz; ++ix) { /* ... */ }
+```
+
+**Exercise 5.16:** The `while` loop is particularly good at executing while some condition holds; for example, when we need to read values unti end-of-file. The `for` loop is generally thought of as a step loop: An index steps through a range of values in a collection. Write an idiomatic use of each loop and then rewrite each using the other loop construct. If you could only use one loop, which would you choose? Why?
+
+**Solution:** 
+
+```cpp
+for (auto iter = vec.begin(); iter != vec.end(); ++iter) { /* ... */ }
+
+auto iter = vec.begin();
+while (iter != vec.end() { /* ... */ }
+```
+
+```cpp
+string word;
+while (cin >> word) { /* ... */ }
+
+for (string word; /* null */ ; /* null */ ) {
+        if (cin >> word) { /* ... */ }
+        else break;
+}
+```
+
+I would choose the `for` loop. The `for` loop can do what a `while` loop can, but a `while` loop cannot do everything that a `for` loop can.
+
+**Exercise 5.17:** Given two `vector`s of `int`s, write a program to determine whether one `vector` is a prefix of the other. For `vector`s of unequal length, compare the number of elements of the smaller `vector`. For example, given the `vector`s containing `0`, `1`, `1`, and `2` and `0`, `1`, `1`, `2`, `3`, `5`, `8`, respectively your program should return `true`.
+
+[**Solution:**](src/ex5_17.cpp)
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using std::cin; using std::cout; using std::endl; using std::noskipws;
+using std::vector;
+
+int main()
+{
+    vector<int> v1, v2;
+    char c;
+    int i;
+    while (cin >> noskipws >> c) {
+        if (isspace(c)) break;
+        else {
+            i = c - '0';
+            v1.push_back(i);
+        }
+    }
+    while (cin >> noskipws >> c) {
+        i = c - '0';
+        v2.push_back(i);
+    }
+    size_t smallSz = (v1.size() < v2.size()) ? v1.size() : v2.size();
+    bool prefix = 1;
+    for (size_t ix = 0; ix != smallSz; ++ix) 
+        if (v1[ix] != v2[ix]) prefix = 0;
+    return prefix;
+}
+```
+
+### Section 5.4.3: Range `for` Statement
+
 ## Section 5.5: Jump Statements
 
 ## Section 5.6: `try` Blocks and Exception Handling
