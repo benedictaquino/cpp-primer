@@ -705,10 +705,7 @@ while (iter != vec.end() { /* ... */ }
 string word;
 while (cin >> word) { /* ... */ }
 
-for (string word; /* null */ ; /* null */ ) {
-        if (cin >> word) { /* ... */ }
-        else break;
-}
+for (string word; cin >> word; /* null */ ) { /* ... */ } 
 ```
 
 I would choose the `for` loop. The `for` loop can do what a `while` loop can, but a `while` loop cannot do everything that a `for` loop can.
@@ -914,6 +911,25 @@ int main()
     if (!cin) cout << "No words that begin with an uppercase letter were repeated." << endl;
     return 0;
 }
+```
+
+### Section 5.5.3: The `goto` Statement
+
+**Exercise 5.22:** The last example in this section that jumped back to `begin` could be better written using a loop. Rewrite the code to eliminate the `goto`.
+
+```cpp
+// backward jump over an initialized variable definition is okay
+begin:
+    int sz = get_size();
+    if (sz <= 0) {
+        goto begin;
+    }
+```
+
+**Solution:**
+
+```cpp
+for (int sz = get_size(); sz <= 0; sz = get_size()) { /* ... */ }
 ```
 
 ## Section 5.6: `try` Blocks and Exception Handling
