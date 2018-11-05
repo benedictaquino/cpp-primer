@@ -933,3 +933,88 @@ for (int sz = get_size(); sz <= 0; sz = get_size()) { /* ... */ }
 ```
 
 ## Section 5.6: `try` Blocks and Exception Handling
+
+### Section 5.6.1: A `throw` Expression
+
+### Section 5.6.2: The `try` Block
+
+### Section 5.6.3: Standard Exceptions
+
+**Exercise 5.23:** Write a program tha reads two integers from the standard input and prints the result of dividing the first number by the second.
+
+[**Solution:**](src/ex5_23.cpp)
+
+```cpp
+// This program reads two integers from the standard input and prints the
+// results of dividing the first number by the second
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    int i1, i2;    // define two integers
+    cout << "Please enter two integers:" << endl;
+    cin >> i1 >> i2;
+    cout << i1 / i2 << endl;
+    return 0;
+}
+```
+
+**Exercise 5.24:** Revise your program to throw an exception if the second number is zero. Test your program with a zero input to see what happens on your system if you don't `catch` an exception.
+
+[**Solution:**](src/ex5_24.cpp)
+
+```cpp
+// This program reads two integers from the standard input and prints the
+// results of dividing the first number by the second
+#include <iostream>
+#include <stdexcept>
+
+using std::cin; using std::cout; using std::endl;
+using std::runtime_error;
+
+int main()
+{
+    int i1, i2;    // define two integers
+    cout << "Please enter two integers:" << endl;
+    cin >> i1 >> i2;
+    if (!i2) throw runtime_error("Division by zero.");
+    cout << i1 / i2 << endl;
+    return 0;
+}
+```
+
+**Exercise 5.25:** Revise your program from the previous exercise to use a `try` block to `catch` the exception. The `catch` clause should print a message to the user and ask them to supply a new number and repeat the code inside the `try`.
+
+[**Solution:**](src/ex5_25.cpp)
+
+```cpp
+// This program reads two integers from the standard input and prints the
+// results of dividing the first number by the second
+#include <iostream>
+#include <stdexcept>
+
+using std::cin; using std::cout; using std::endl;
+using std::runtime_error;
+
+int main()
+{
+    int i1, i2;    // define two integers
+    cout << "Please enter two integers:" << endl;
+    while (cin >> i1 >> i2) {
+        try {
+            if (!i2) throw runtime_error("Division by zero.");
+            cout << i1 / i2 << endl;
+            return 0;
+        } catch (runtime_error err) {
+            cout << err.what() << "\nTry again? (y/n)" << endl;
+            char c;
+            cin >> c;
+            if (!cin || c == 'n' || c == 'N')
+                break;
+        }
+    }
+    return 0;
+}
+```
