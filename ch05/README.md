@@ -231,6 +231,361 @@ if (ival)
 
 **Solution:** A dangling `else` statement is an issue that arises when using more `if` branches than `else` branches. `else` clauses are resolved by matching each `else` with the closest preceding unmatched `if`. The best way to manage the execution path of `if else` statements to avoid a dangling `else` is to use braces.
 
+### Section 5.3.2: The `switch` Statement
+
+**Exercise 5.9:** Write a program using a series of `if` statements to count the number of vowels in text read from cin.
+
+[**Solution:**](src/ex5_9.cpp)
+
+```cpp
+/* This program uses a series of if statements to count the number of vowels 
+ * in text read from the standard input */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // initialize counters for each vowel
+    unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0;
+    char ch;
+    while (cin >> ch) {
+        ch = tolower(ch);
+        if (ch == 'a') ++aCnt;
+        else if (ch == 'e') ++eCnt;
+        else if (ch == 'i') ++iCnt;
+        else if (ch == 'o') ++oCnt;
+        else if (ch == 'u') ++uCnt;
+    }
+    // print results
+    cout << "Number of vowel a:\t" << aCnt << "\n"
+         << "Number of vowel e:\t" << eCnt << "\n"
+         << "Number of vowel i:\t" << iCnt << "\n"
+         << "Number of vowel o:\t" << oCnt << "\n"
+         << "Number of vowel u:\t" << uCnt << endl;
+
+    return 0;
+}
+```
+
+**Exercise 5.10:** There is one problem with our vowel-counting program as we've implemented it. It doesn't count capital letters as vowels. Write a program that counts both lower- and uppercase letters as the appropriate vowel--that is, your porgram should count both `'a'` and `'A'` as part of `aCnt` and sof forth.
+
+[**Solution:**](src/ex5_10.cpp)
+
+```cpp
+/* This program uses a switch statement to count the number of vowels in text
+ * read from standard input */ 
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // initialize counters for each vowel
+    unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0;
+    char ch;
+    while (cin >> ch) {
+        ch = tolower(ch);
+        switch(ch) {
+            case 'a':
+                ++aCnt;
+                break;
+            case 'e':
+                ++eCnt;
+                break;
+            case 'i':
+                ++iCnt;
+                break;
+            case 'o':
+                ++oCnt;
+                break;
+            case 'u':
+                ++uCnt;
+                break;
+        }
+    }
+    // print results
+    cout << "Number of vowel a:\t" << aCnt << "\n"
+         << "Number of vowel e:\t" << eCnt << "\n"
+         << "Number of vowel i:\t" << iCnt << "\n"
+         << "Number of vowel o:\t" << oCnt << "\n"
+         << "Number of vowel u:\t" << uCnt << endl;
+
+    return 0;
+}
+```
+
+**Exercise 5.11:** Modify our vowel-counting program so that it also counts the number of blank spaces, tabs, and newlines read.
+
+[**Solution:**](src/ex5_11.cpp)
+
+```cpp
+/* This program uses a switch statement to count the number of vowels, blank 
+ * spaces, tabs, and newlines read from standard input */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl; using std::noskipws;
+
+int main()
+{
+    // initialize counters for each vowel, blank spaces, tabs, and newlines
+    unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0,
+             spCnt = 0, tabCnt = 0, nwlCnt = 0;
+    char ch;
+    while (cin >> noskipws >> ch) {
+        ch = tolower(ch);
+        switch(ch) {
+            case 'a':
+                ++aCnt;
+                break;
+            case 'e':
+                ++eCnt;
+                break;
+            case 'i':
+                ++iCnt;
+                break;
+            case 'o':
+                ++oCnt;
+                break;
+            case 'u':
+                ++uCnt;
+                break;
+            case ' ':
+                ++spCnt;
+                break;
+            case '\t':
+                ++tabCnt;
+                break;
+            case '\n':
+                ++nwlCnt;
+                break;
+        }
+    }
+    // print results
+    cout << "Number of vowel a:\t" << aCnt << "\n"
+         << "Number of vowel e:\t" << eCnt << "\n"
+         << "Number of vowel i:\t" << iCnt << "\n"
+         << "Number of vowel o:\t" << oCnt << "\n"
+         << "Number of vowel u:\t" << uCnt << "\n"
+         << "Number of spaces:\t" << spCnt << "\n"
+         << "Number of tabs:\t\t" << tabCnt << "\n"
+         << "Number of newlines:\t" << nwlCnt << endl;
+
+    return 0;
+}
+```
+
+**Exercise 5.12:** Modify our vowel-counting program so that it counts the number of occurences of the following two-character sequences `ff`, `f1`, and `fi`.
+
+[**Solution:**](src/ex5_12.cpp)
+
+```cpp
+/* This program uses a switch statement to count the number of vowels, blank 
+ * spaces, tabs, newlines, ff, f1, and fi read from standard input */
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl; using std::noskipws;
+
+int main()
+{
+    // initialize counters for each vowel, blank spaces, tabs, newlines
+    // ff, f1, and fi
+    unsigned aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0,
+             spCnt = 0, tabCnt = 0, nwlCnt = 0,
+             ffCnt = 0, f1Cnt = 0, fiCnt = 0;
+    char ch, chOld;
+    while (cin >> noskipws >> ch) {
+        ch = tolower(ch);
+        switch(ch) {
+            case 'a':
+                ++aCnt;
+                break;
+            case 'e':
+                ++eCnt;
+                break;
+            case 'i':
+                ++iCnt;
+                if (chOld == 'f') ++fiCnt;
+                break;
+            case 'o':
+                ++oCnt;
+                break;
+            case 'u':
+                ++uCnt;
+                break;
+            case ' ':
+                ++spCnt;
+                break;
+            case '\t':
+                ++tabCnt;
+                break;
+            case '\n':
+                ++nwlCnt;
+                break;
+            case '1':
+                if (chOld == 'f') ++f1Cnt;
+                break;
+            case 'f':
+                if (chOld == 'f') ++ffCnt;
+        }
+        chOld = ch;
+    }
+    // print results
+    cout << "Number of vowel a:\t" << aCnt << "\n"
+         << "Number of vowel e:\t" << eCnt << "\n"
+         << "Number of vowel i:\t" << iCnt << "\n"
+         << "Number of vowel o:\t" << oCnt << "\n"
+         << "Number of vowel u:\t" << uCnt << "\n"
+         << "Number of spaces:\t" << spCnt << "\n"
+         << "Number of tabs:\t\t" << tabCnt << "\n"
+         << "Number of newlines:\t" << nwlCnt << "\n"
+         << "Number of ff's:\t\t" << ffCnt << "\n"
+         << "Number of f1's:\t\t" << f1Cnt << "\n"
+         << "Number of fi's:\t\t" << fiCnt << endl;
+
+    return 0;
+}
+```
+
+**Exercise 5.12:** Each of the programs highlighted text on page 184 contain a common programming error. Identify and correct each error.
+
+* (a) 
+
+```cpp
+unsigned aCnt = 0, eCnt = 0, iouCnt = 0;
+char ch = next_text();
+switch (ch) {
+    case 'a': aCnt++;
+    case 'e': eCnt++;
+    default: iouCnt++;
+}
+```
+
+* (b) 
+
+```cpp
+unsigned index = some_value();
+switch (index) {
+    case 1:
+        int ix = get_value();
+        ivec[ ix ] = index;
+        break;
+    default:
+        ix = ivec.size() - 1;
+        ivec[ ix ] = index;
+}
+```
+
+* (c)
+
+```cpp
+unsigned evenCnt = 0, oddCnt = 0;
+int digit = get_num() % 10;
+switch (digit) {
+    case 1, 3, 5, 7, 9:
+        oddcnt++;
+        break;
+    case 2, 4, 6, 8, 10:
+        evencnt++;
+        break;
+}
+```
+
+* (d)
+
+```cpp
+unsigned ival=512, jval=1024, kval=4096;
+unsigned bufsize;
+unsigned swt = get_bufCnt();
+switch(swt) {
+    case ival:
+        bufsize = ival * sizeof(int);
+        break;
+    case jval:
+        bufsize = jval * sizeof(int);
+        break;
+    case kval:
+        bufsize = kval * sizeof(int);
+        break;
+}
+```
+
+**Solution:**
+
+* (a) The first two cases do not have a `break` statement. As well, there is an unnecessary usage of the postfix increment operators.
+
+```cpp
+unsigned aCnt = 0, eCnt = 0, iouCnt = 0;
+char ch = next_test()
+switch (ch) {
+    case 'a': ++aCnt; break;
+    case 'e': ++eCnt; break;
+    default: ++iouCnt; break;
+}
+```
+
+* (b) `ix` is defined in the `case 1` clause of the `switch`, so it may be out of scope in the `default` case. The `default` case is also missing a `break` statement.
+
+```cpp
+unsigned index = some_value()
+switch(index) {
+    case 1:
+        ivec[get_value()] = index;
+        break;
+    default:
+        ivec[ivec.size() - 1] = index;
+        break;
+```
+
+* (c) Each integer needs its own `case` label. Also, the `c`s in `oddcnt` and `evencnt` need  to be capitalized. There is also unnecessary use of the postfix increment operators. Also, `digit` will never be `10`, it should check for value `0`.
+
+```cpp
+usigned evenCnt = 0, oddCnt = 0;
+int digit = get_num() % 10;
+switch (digit) {
+    case 1: case 3: case 5: case 7: case 9:
+        ++oddCnt;
+        break;
+    case 0: case 2: case 4: case 6: case 8:
+        ++evenCnt;
+        break;
+}
+```
+
+A better way to count evens and odds using a `switch` statement is below:
+
+```cpp
+unsigned evenCnt = 0, oddCnt = 0;
+bool odd = get_num() % 2;
+switch (odd) {
+    case 1:
+       ++oddCnt;
+       break;
+    case 0:
+       ++evenCnt;
+       break;
+}
+```
+
+* (d) The `case` values must be constant integral expressions.
+
+```cpp
+const unsigned ival = 512, jval = 1024, kval = 4096;
+unsigned bufsize;
+unsigned swt = get_bufCnt();
+switch(swt) {
+    case ival:
+        bufsize = ival * sizeof(int);
+        break;
+    case jval:
+        bufsize = jval * sizeof(int);
+        break;
+    case kval:
+        bufsize = kval * sizeof(int);
+        break;
+}
+```
+
 ## Section 5.4: Iterative Statements
 
 ## Section 5.5: Jump Statements
