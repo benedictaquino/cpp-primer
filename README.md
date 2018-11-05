@@ -91,4 +91,7 @@
     * [5.4.3 Range `for` Statement](ch05#section-543-range-for-statement)
     * [5.4.4 The `do while` Statement](ch05#section-544-the-do-while-statement)
   * [5.5 Jump Statements](ch05#section-55-jump-statements)
+    * [5.5.1 The `break` Statement](ch05#section-551-the-break-statement)
+    * [5.5.2 The `continue` Statement](ch05#section-552-the-continue-statement)
+    * [5.5.3 The `goto` Statement](ch05#section-553-the-goto-statement)
   * [5.6 `try` Blocks and Exception Handling](ch05#section-56-try-blocks-and-exception-handling) 
