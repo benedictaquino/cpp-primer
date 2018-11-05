@@ -34,6 +34,38 @@ In general, I think using blocks rather than combining expressions in a comma op
 
 ## Section 5.2: Statement Scope
 
+**Exercise 5.4:** Explain each of the following examples, and correct any problems you detect.
+
+* (a) 
+
+```cpp
+while (string::iterator iter != s.end()) { /* ... */ }`
+```
+
+* (b) 
+
+```cpp
+while (bool status = find(word)) { /* ... */ }
+if (!status) { /* ... * / }`
+```
+
+**Solution:** 
+
+* (a) The string iterator `iter` is created and initialized on each iteration. It is also an illegal declaration. This loop would never end because it would never meet the condition that `iter == s.end`. I would correct it as such:
+
+```cpp
+string::iterator iter = s.begin();
+while(iter != s.end()) { /* ... */ }
+```
+
+* (b) The `bool` `status` is created and initialized at each iteration of the `while` loop, so it is out of scope for the `if` statement. I would correct is as such:
+
+```cpp
+bool status;
+while (status = find(word)) { /* ... */ }
+if (!status) { /* ... */ }
+```
+
 ## Section 5.3: Conditional Statements
 
 ## Section 5.4: Iterative Statements
