@@ -350,10 +350,16 @@ If we are writing functions that manipulate small objects then we can just pass 
 
 ### Section 6.2.3: `const` Parameters and Arguments
 
-**Exercise 6.16:** The following function, although legal, is less useful than it might be. Identify and corrrect the limitation on this function.
+**Exercise 6.16:** The following function, although legal, is less useful than it might be. Identify and correct the limitation on this function.
 
 ```cpp
 bool is_empty(string& s) { return s.empty(); }
+```
+
+**Solution:** This function cannot be used on `const string`s. As well, since it is not changing the value of `s`, we should be using a `const string` parameter as best practices.
+
+```cpp
+bool is_empty(const string &s) { return s.empty(); }
 ```
 
 **Exercise 6.17:** Write a function to determine wheter a `string` contains any capital letters. Write a function to change a `string` to all lowercase. Do the parameters you used in these functions have the same type? If so, why? If not, why not?
