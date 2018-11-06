@@ -237,6 +237,36 @@ int main()
 
 **Exercise 6.10:** Using pointers, write a function to swap the values of two `int`s. Test the function by calling it and printing the swapped values.
 
+[**Solution:**](src/ex6_10.cpp)
+
+```cpp
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+void swap(int *ip1, int *ip2)
+{
+    int temp = *ip1;
+    *ip1 = *ip2;
+    *ip2 = temp;
+    return;
+}
+
+int main()
+{
+    // prompt user to input two integers
+    cout << "Enter two integers:" << endl;
+    int i1, i2;
+    cin >> i1 >> i2;
+
+    swap(&i1, &i2);
+
+    cout << i1 << " " << i2 << endl;
+
+    return 0;
+}
+```
+
 ### Section 6.2.2: Passing Arguments by Reference
 
 **Exercise 6.11:** Write and test your own version of `reset` that takes a reference.
