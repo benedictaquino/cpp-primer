@@ -196,6 +196,41 @@ int sequence();
 
 **Exercise 6.9:** Write your own versions of `fact.cc` and `factMain.cc` files. These files should include your `Chapter6.h` from exercises in the previous section. Use these files to understand how your compiler supports separate compilation.
 
+**Solution:**
+
+[**`fact.cpp`:**](src/fact.cpp)
+
+```cpp
+#include "../include/Chapter6.h"
+
+int fact(int val)
+{
+    int ret = 1; // local variable to hold the result as we calculate it
+    while (val > 1) ret *= val--; // assign ret * val to ret and decrement val
+    return ret;
+}
+```
+
+[**`factMain.cpp`:**](src/factMain.cpp)
+
+```cpp
+#include <iostream>
+#include "../include/Chapter6.h"
+
+using std::cin; using std::cout; using std::endl;
+
+int main()
+{
+    // prompt user for an integer and read it from standard input into i
+    cout << "Enter an integer:" << endl;
+    int i;
+    cin >> i;
+    int j = fact(i);
+    cout << i << "! is " << j << endl;
+    return 0;
+}
+```
+
 ## Section 6.2: Argument Passing
 
 ### Section 6.2.1: Passing Arguments by Value
