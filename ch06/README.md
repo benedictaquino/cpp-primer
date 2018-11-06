@@ -271,13 +271,82 @@ int main()
 
 **Exercise 6.11:** Write and test your own version of `reset` that takes a reference.
 
+[**Solution:**](src/ex6_11.cpp)
+
+```cpp
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+// function that takes a reference to an int and sets the given object to zero
+void reset(int &i)  // i is just another name for the object passed to reset
+{
+    i = 0;
+}
+
+int main()
+{
+    cout << "Enter an integer: " << endl;
+    int j;
+    cin >> j;
+    cout << "reset(" << j << ")" << endl;
+    reset(j);
+    cout << j << endl;
+    return 0;
+}
+```
+
 **Exercise 6.12:** Rewrite the program from [exercise 6.10](#section-621-passing-arguments-by-value) to use references instead of pointers to swap the value of two `int`s. Which version do you think would be easier to use and why?
+
+[**Solution:**](src/ex6_12.cpp)
+
+```cpp
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+
+void swap(int &r1, int &r2)
+{
+    int temp = r1;
+    r1 = r2; r2 = temp;
+}
+
+int main()
+{
+    /* prompt user to input two integers */
+    cout << "Enter two integers:" << endl;
+    int i1, i2;
+    cin >> i1 >> i2;
+
+    swap(i1, i2);
+
+    cout << i1 << " " << i2 << endl;
+
+    return 0;
+}
+```
+
+References seem easier to use. Using references, we don't need to dereference the pointers or use the `&` operator to get the address-of the objects.
 
 **Exercise 6.13:** Assuming `T` is the name of a type, explain the difference between a function declared as `void f(T)` and `void f(T&)`.
 
-**Exercise 6.14:** Give an example of when a parameter should be a reference type. Give an example of when a parmeter should not be a reference.
+**Solution:** The function declared as `void f(T)` takes the object of type `T` as an argument passed by value. The function declared `void f(T&)` is called by reference. So the object outside of the function `f` can be modified.
+
+**Exercise 6.14:** Give an example of when a parameter should be a reference type. Give an example of when a parameter should not be a reference.
+
+**Solution:** Parameters should be reference types when we want to return additional information or we want to avoid copies. For example, if we have a function that takes two large objects as arguments (and are not changed inside the function) then we would use references to `const`. 
+
+If we are writing functions that manipulate small objects then we can just pass our arguments as values.
 
 **Exercise 6.15:** Explain the rational for the type of each `find_char`'s parameters. In particular, why is `s` a reference to `const` but `occurs` is a plain reference? Why are these parameters references, but the `char` parameter `c` is not? What would happen if we made a plain reference? What if we made `occurs` a reference to `const`?
+
+**Solution:** 
+
+* `s` is a `string` reference because `string`s are typically large objects and we want to avoid making an unnecessary copy. It is specifically a reference to `const` because we are not changing `s` inside the function.
+
+* `c` is a `char` passed as a value because `char`s are small sized objects and we are not changing it inside the function.
+
+* `occurs` is a `string:size_type` reference because we want to return additional information outside of the `return` statement. We return `ret` which holds the position of the first occurence of `c` in `s`, and the count of occurrences is implicitly returned in `occurs`.
 
 ### Section 6.2.3: `const` Parameters and Arguments
 
