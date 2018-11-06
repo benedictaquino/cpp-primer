@@ -179,6 +179,19 @@ int main()
 
 **Exercise 6.8:** Write a header file named `Chapter6.h` that contains declarations for the functions you wrote for the exercises in [6.1](#section-61-function-basics)
 
+[**Solution:**](include/Chapter6.h)
+
+```cpp
+#ifndef CHAPTER6_H
+#define CHAPTER6_H
+
+int fact(int val);
+double abs(double d);
+int sequence();
+
+#endif
+```
+
 ### Section 6.1.3: Separate Compilation
 
 **Exercise 6.9:** Write your own versions of `fact.cc` and `factMain.cc` files. These files should include your `Chapter6.h` from exercises in the previous section. Use these files to understand how your compiler supports separate compilation.
