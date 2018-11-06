@@ -362,13 +362,65 @@ bool is_empty(string& s) { return s.empty(); }
 bool is_empty(const string &s) { return s.empty(); }
 ```
 
-**Exercise 6.17:** Write a function to determine wheter a `string` contains any capital letters. Write a function to change a `string` to all lowercase. Do the parameters you used in these functions have the same type? If so, why? If not, why not?
+**Exercise 6.17:** Write a function to determine whether a `string` contains any capital letters. Write a function to change a `string` to all lowercase. Do the parameters you used in these functions have the same type? If so, why? If not, why not?
+
+[**Solution:**](src/ex6_17.cpp)
+
+```cpp
+#include <iostream>
+#include <string>
+
+using std::cin; using std::cout; using std::endl;
+using std::string;
+
+bool has_capital(const string &s)
+{
+    bool capital = 0;
+    for (auto c : s) 
+        if (isupper(c)) {
+            capital = 1;
+            break;
+        }
+    return capital;
+}
+
+void to_lower(string &s)
+{
+    for (auto &c : s) if (isupper(c)) c = tolower(c);
+}
+
+int main()
+{
+    /* prompt user for a string */
+    cout << "Enter a string:" << endl;
+    string s; getline(cin, s);
+    if (has_capital(s)) to_lower(s);
+    cout << s << endl;
+    return 0;
+}
+```
+
+My function `has_capital` uses a reference to `const string` because I do not want to copy the `string` object and I am not changing the `string` in the function body. My function `to_lower` uses a `string` reference because I do not want to copy the string but I do want to change it in the function body.
 
 **Exercise 6.18:** Write declarations for each of the following functions. When you write these declarations, use the name of the function to indicate what the function does.
 
-* (a) A function named `compare` that returns a `bool` and has two parameters tha are references to a calss named `matrix`. 
+* (a) A function named `compare` that returns a `bool` and has two parameters tha are references to a class named `matrix`. 
 
 * (b) A function named `change_val` that returns a `vector<int>` iterator and takes two parameters: One is an `int` and the other is an iterator for a `vector<int>`.
+
+**Solution:**
+
+* (a)
+
+```cpp
+bool compare(matrix&, matrix&);
+```
+
+* (b)
+
+```cpp
+vector<int>::iterator change_val(int, vector<int>::iterator);
+```
 
 **Exercise 6.19:** Given the following declarations, determine which calls are legal and which are illegal. For those that are illegal, explain why.
 
@@ -403,7 +455,19 @@ calc(66);
 sum(vec.begin(), vec.end(), 3.8);
 ```
 
+**Solution:**
+
+* (a) Illegal. `calc` only has one `double` parameter and this function call passes in two `double` arguments.
+
+* (b) Legal. `count` has a reference to `const string` parameter and a `char` parameter, and this function call passes in a `string` literal and a `char` literal as the arguments.
+
+* (c) Legal. `calc` takes a single `double` parameter and this function call passes an integer literal `66` as an argument which will be converted to a `double` in the function body.
+
+* (d) Legal. `sum` takes three parameters: two `vector<int>` iterators and an `int`. The first two arguments passed in the function call match the correct type, and the floating-point literal passed as the third argument will be truncated and converted to an `int`.
+
 **Exercise 6.20:** When should reference parameters be references to `const`? What happens if we make a parameter a plain reference when it could be a reference to `const`?
+
+**Solution:** Reference parameters should be references to `const` whenever we are not changing the referenced object inside the function body. If we make a parameter a plain reference when it could be a reference to `const`, then it will be unable to take in `const` objects as arguments.
 
 ### Section 6.2.4: Array Parameters
 
