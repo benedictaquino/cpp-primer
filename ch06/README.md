@@ -775,11 +775,29 @@ inline bool eq(const BigInt&, const BigInt&) {...}
 void putValues(int *arr, int sie);
 ```
 
-**Exercise 6.44:** Rewrite `isShorter` function from [6.2.2](#section-622-passing-arguments-by-reference) to be `inline`.
+**Solution:**
 
-**Exercise 6.45:** Review the programs you've written for the earlier exercises an ddecide whether they should be defined as `inline`. If so, do so. If not, explain why they should not be `inline`.
+* (a) I would put this definition in a header file. Since it is an `inline` function, the compiler needs to definition, not just the declaration, in order to expand the code, and all of the definitions of a given `inline` function must match exactly.
+
+* (b) I would put this function's declaration in a header file and its definition in a source file. Since it is neither an `inline` or `constexpr` function, the compiler does not need the definition to expand the code nor do the definitions of the declared function need to match exactly.
+
+**Exercise 6.44:** Rewrite [`isShorter`](src/isShorter.cpp) function to be `inline`.
+
+```cpp
+// compare the length of two strings
+inline bool isShorter(const string &s1, const string &s2)
+{
+    return s1.size() < s2.size();
+}
+```
+
+**Exercise 6.45:** Review the programs you've written for the earlier exercises an decide whether they should be defined as `inline`. If so, do so. If not, explain why they should not be `inline`.
+
+**Solution:** Most functions I have written can be defined as `inline`. The only ones I would avoid writing as `inline` are the recursive functions that I have written. I would not want the compiler to continually unpack those functions.
 
 **Exercise 6.46:** Would it be possible to define `isShorter` as a `constexpr`? If so, do so. If not, explain why not.
+
+**Solution:** No, because the `string::size` member function is not a `constexpr` and is part of the `return` statement.
 
 ### Section 6.5.3: Aids for Debugging
 
