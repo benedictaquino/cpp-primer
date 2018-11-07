@@ -476,7 +476,38 @@ void print(const int (&ia)[10])
 
 **Exercise 6.25:** Write a main function that takes two arguments. Concatenate the supplied arguments and print the resulting `string`.
 
+[**Solution:**](src/ex6_25.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1] || !argv[2]) {
+        cerr << "Not enough arguments supplied." << endl;
+        return -1;
+    }
+    string str1 = argv[1], str2 = argv[2], str = str1 + ' ' + str2;
+    cout << str << endl;
+    return 0;
+}
+```
+
 **Exercise 6.26:** Write a program that accepts the options presented in this section. Print the values of the arguments passed to `main`.
+
+[**Solution:**](src/ex6_26.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    string str;
+    int i = 0;
+    while (argv[i]) {
+        str = argv[i++];
+        cout << str << " ";
+    }
+    cout << endl;
+    return 0;
+}
+```
 
 ### Section 6.2.6: Functions with Varying Parameters
 
