@@ -513,9 +513,24 @@ int main(int argc, char *argv[])
 
 **Exercise 6.27:** Write a function that takes an `initializer_list<int>` and produces the sum of the elements in the list.
 
+[**Solution:**](src/ex6_27.cpp)
+
+```cpp
+int int_sum(initializer_list<int> int_lst)
+{
+    int sum = 0;
+    for (auto &int_ref : int_lst) sum += int_ref;
+    return sum;
+}
+```
+
 **Exercise 6.28:** In the second version of `error_msg` that has an `ErrCode` parameter, what is the type of `elem` in the `for` loop?
 
+**Solution:** `elem` is a reference to `const string` in the `for` loop.
+
 **Exercise 6.29:** When you use an `initializer_list` in a range `for` would you ever use a reference as the loop control variable? If so, why? If not, why not?
+
+**Solution:** Yes, if we do not want to make an unnecessary copy of the objects in the `initializer_list`.
 
 ## Section 6.3: Return Types and the `return` Statement
 
