@@ -619,9 +619,42 @@ if (val != 0)
 
 **Exercise 6.36:** Write the declaration for a function that returns a reference to an array of ten `string`s, without using either a trailing return, `decltype`, or a type alias.
 
-**Exercise 6.37:** Write three additional declarations for the function in the previous exercise. Omne should use a type alias, one should use a trailing return, and the third should use `decltype`. Which form do you prefer and why?
+**Solution:**
+
+```cpp
+string (&f())[10];
+```
+
+**Exercise 6.37:** Write three additional declarations for the function in the previous exercise. One should use a type alias, one should use a trailing return, and the third should use `decltype`. Which form do you prefer and why?
+
+**Solution:**
+
+```cpp
+// using a type alias
+using str_arr = string[10];
+str_arr &f();
+
+// using a trailing return
+auto f() -> string (&)[10]
+
+// using decltype
+string str_arr[10];
+decltype((str_arr)) f();
+```
+
+I think the trialing return one is the easiest to understand, so I prefer that one.
 
 **Exercise 6.38** Revise the `arrPtr` function on to return a reference to the array.
+
+[**Solution:**](src/ex6_38.cpp)
+
+```cpp
+// returns a reference to an array of five int elements
+decltype((odd)) arrRef(int i)
+{
+    return (i % 2) ? odd : even;
+}
+```
 
 ## Section 6.4: Overloaded Functions
 
@@ -665,7 +698,7 @@ int ff(int a , int b = 0, int c = 0);
 * (b)
 
 ```cpp
-char v*init(int ht = 2, int wd, char backgrnd);
+char *init(int ht = 2, int wd, char backgrnd);
 ```
 
 **Exercise 6.41:** Which, if any of the following calls are illegal? Why? Which, if any, are legal but unlikely to match the programmer's intent? Why?
