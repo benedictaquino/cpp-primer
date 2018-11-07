@@ -663,7 +663,7 @@ decltype((odd)) arrRef(int i)
 * (a) 
 
 ```cpp
-int cal(int, int);
+int calc(int, int);
 int calc(const int, const int);
 ```
 
@@ -680,6 +680,14 @@ double get();
 int *reset(int *);
 double *reset(double *);
 ```
+
+**Solution:** 
+
+* (a) The second declaration here is a redeclaration of the first `calc`. Top-level `const` is has no effect on the objects that can be passed to a function.
+
+* (b) The second declaration returns a `double` instead of an `int`. This will return an error. If the parameter lists of two functions match but the return types differ, then the second declaration is an error.
+
+* (c) The second declaration returns a `double*` instead of an `int*` and has a `double*` parameter instead of an `int*` parameter. This function will be called if the argument passed into `reset` is a better match for `double*`. This is an overloaded function.
 
 ### Section 6.4.1: Overloading and Scope
 
