@@ -1,21 +1,21 @@
 #include <iostream>
 
-using std::cin; using std::cout; using std::endl;
+using std::cin; using std::cout; using std::endl; using std::flush;
 
-int fact(int val)
+void fun_fact()
 {
+    // prompt user for an integer and read it from standard input into i
+    cout << "Enter an integer:" << endl;
+    int val;
+    cin >> val;
+    cout << val << "! is " << flush;
     int ret = 1; // local variable to hold the result as we calculate it
     while (val > 1) ret *= val--; // assign ret * val to ret and decrement val
-    return ret; // return the result
+    cout << ret << endl;
 }
 
 int main()
 {
-    // prompt user for an integer and read it from standard input into i
-    cout << "Enter an integer:" << endl;
-    int i;
-    cin >> i;
-    int j = fact(i);
-    cout << i << "! is " << j << endl;
+    fun_fact();
     return 0;
 }

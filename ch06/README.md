@@ -71,22 +71,11 @@ double square(double x) {return x * x;}
 [**Solution:**](src/ex6_3.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cout; using std::endl;
-
 int fact(int val)
 {
     int ret = 1; // local variable to hold the result as we calculate it
     while (val > 1) ret *= val--; // assign ret * val to ret and decrement val
     return ret; // return the result
-}
-
-int main()
-{
-    int j = fact(5);
-    cout << "5! is " << j << endl;
-    return 0;
 }
 ```
 
@@ -95,26 +84,16 @@ int main()
 [**Soluton:**](src/ex6_4.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
-int fact(int val)
-{
-    int ret = 1; // local variable to hold the result as we calculate it
-    while (val > 1) ret *= val--; // assign ret * val to ret and decrement val
-    return ret; // return the result
-}
-
-int main()
+void fun_fact()
 {
     // prompt user for an integer and read it from standard input into i
     cout << "Enter an integer:" << endl;
-    int i;
-    cin >> i;
-    int j = fact(i);
-    cout << i << "! is " << j << endl;
-    return 0;
+    int val;
+    cin >> val;
+    cout << val << "! is " << flush;
+    int ret = 1; // local variable to hold the result as we calculate it
+    while (val > 1) ret *= val--; // assign ret * val to ret and decrement val
+    cout << ret << endl;
 }
 ```
 
@@ -123,24 +102,10 @@ int main()
 [**Solution:**](src/ex6_5.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
 double abs(double d)
 {
     if (d < 0) d -= 2 * d;
     return d;
-}
-
-int main()
-{
-    cout << "Enter a number:" << endl;
-    double dval;
-    cin >> dval;
-    double abs_d = abs(dval);
-    cout << "The absolute value of " << dval << " is " << abs_d << endl;
-    return 0;
 }
 ```
 
@@ -155,23 +120,10 @@ int main()
 [**Solution:**](src/ex6_7.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
 int sequence()
 {
     static int i = 0;
     return i++;
-}
-
-int main()
-{
-    cout << "How many times would you like to call the function?" << endl;
-    unsigned cnt;
-    cin >> cnt;
-    for (int j = 0; j != cnt; ++j) cout << sequence() << endl;
-    return 0;
 }
 ```
 
@@ -186,6 +138,7 @@ int main()
 #define CHAPTER6_H
 
 int fact(int val);
+void fun_fact();
 double abs(double d);
 int sequence();
 
@@ -240,30 +193,12 @@ int main()
 [**Solution:**](src/ex6_10.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
 void swap(int *ip1, int *ip2)
 {
     int temp = *ip1;
     *ip1 = *ip2;
     *ip2 = temp;
     return;
-}
-
-int main()
-{
-    // prompt user to input two integers
-    cout << "Enter two integers:" << endl;
-    int i1, i2;
-    cin >> i1 >> i2;
-
-    swap(&i1, &i2);
-
-    cout << i1 << " " << i2 << endl;
-
-    return 0;
 }
 ```
 
@@ -274,25 +209,10 @@ int main()
 [**Solution:**](src/ex6_11.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
 // function that takes a reference to an int and sets the given object to zero
 void reset(int &i)  // i is just another name for the object passed to reset
 {
     i = 0;
-}
-
-int main()
-{
-    cout << "Enter an integer: " << endl;
-    int j;
-    cin >> j;
-    cout << "reset(" << j << ")" << endl;
-    reset(j);
-    cout << j << endl;
-    return 0;
 }
 ```
 
@@ -301,28 +221,10 @@ int main()
 [**Solution:**](src/ex6_12.cpp)
 
 ```cpp
-#include <iostream>
-
-using std::cin; using std::cout; using std::endl;
-
 void swap(int &r1, int &r2)
 {
     int temp = r1;
     r1 = r2; r2 = temp;
-}
-
-int main()
-{
-    /* prompt user to input two integers */
-    cout << "Enter two integers:" << endl;
-    int i1, i2;
-    cin >> i1 >> i2;
-
-    swap(i1, i2);
-
-    cout << i1 << " " << i2 << endl;
-
-    return 0;
 }
 ```
 
@@ -367,12 +269,6 @@ bool is_empty(const string &s) { return s.empty(); }
 [**Solution:**](src/ex6_17.cpp)
 
 ```cpp
-#include <iostream>
-#include <string>
-
-using std::cin; using std::cout; using std::endl;
-using std::string;
-
 bool has_capital(const string &s)
 {
     bool capital = 0;
@@ -387,16 +283,6 @@ bool has_capital(const string &s)
 void to_lower(string &s)
 {
     for (auto &c : s) if (isupper(c)) c = tolower(c);
-}
-
-int main()
-{
-    /* prompt user for a string */
-    cout << "Enter a string:" << endl;
-    string s; getline(cin, s);
-    if (has_capital(s)) to_lower(s);
-    cout << s << endl;
-    return 0;
 }
 ```
 
@@ -473,7 +359,27 @@ sum(vec.begin(), vec.end(), 3.8);
 
 **Exercise 6.21:** Write a function that takes an `int` and a pointer to an `int` and returns the larger of the `int` value or the value to which the pointer points. What type should you use for the pointer?
 
+[**Solution:**](src/ex6_21.cpp)
+
+```cpp
+int larger(int ival, const int *ip)
+{
+   return (ival > *ip) ? ival : *ip;
+}
+```
+
 **Exercise 6.22:** Write a function to swap two `int` pointers.
+
+[**Solution:**](src/ex6_22.cpp)
+
+```cpp
+void swap(int* &ip1, int* &ip2)
+{
+    int *temp = ip1;
+    ip1 = ip2;
+    ip2 = temp;
+}
+```
 
 **Exercise 6.23:** Write your own versions of each of the `print` functions presented in this section. Call each of these functions to print `i` and `j` defined as follows:
 
@@ -481,10 +387,85 @@ sum(vec.begin(), vec.end(), 3.8);
 int i = 0, j[2] = {0, 1};
 ```
 
+[**Solution:**](src/ex6_23.cpp)
+
+```cpp
+#include <iostream>
+
+using std::cin; using std::cout; using std::endl;
+using std::end;
+
+void print(const int *ip)
+{
+    if (ip) cout << *ip++ << " ";
+}
+
+void print(const int *beg, const int *end)
+{
+    // print every element starting at beg up to but not including end
+    while (beg != end)
+        cout << *beg++ << " "; // print the current element
+    cout << endl;               // and advance the pointer
+}
+
+void print(const int ia[], size_t size)
+{
+    for (size_t i = 0; i != size; ++i) cout << ia[i] << " ";
+    cout << endl;
+}
+
+void print(int (&arr)[2])
+{
+    for (auto elem : arr)
+        cout << elem <<  " ";
+    cout << endl;
+}
+
+int main()
+{
+    int i = 0, j[2] = {0, 1};
+    // print(const int*)
+    cout << "print(const int *ip)\ni: ";
+    print(&i); 
+    cout << endl;
+    cout << "j: ";
+    for (auto val : j) print(&val);
+    cout << endl;
+    // print(const int *beg, const int *end)
+    cout << "print(const int *beg, const int *end)\ni: ";
+    print(&i, &i + 1);
+    cout << "j: ";
+    print(j, end(j));
+    // print(const int ia[], size_t size)
+    cout << "print(const int ia[], size_t size)\ni: ";
+    print(&i, 1);
+    cout << "j: ";
+    print(j, 2);
+    // print(const int (&arr)[n])
+    cout << "print(const int (&arr)[n])\ni: ";
+    int ia[2];
+    ia[0] = i;
+    print(ia);
+    cout << "j: ";
+    print(j);
+    return 0;
+}
+```
+
 **Exercise 6.24:** Explain the behavior of the following function. If there are problems in the code, explain what they are and how you might fix them.
 
 ```cpp
 void print(const int ia[10])
+{
+    for (size_t i = 0; i != 10; ++i)
+        cout << ia[i] << endl;
+}
+```
+
+**Solution:** The `print` function has a single `const int*` parameter. The function then does 10 iterations, indexing from the initial `const int*` address passed in. One issue is that the `[10]` subscript in the function definition does not actually limit the function to only take in `int` arrays of size 10. To fix it, we need to use a reference to an array of size 10.
+
+```cpp
+void print(const int (&ia)[10])
 {
     for (size_t i = 0; i != 10; ++i)
         cout << ia[i] << endl;
