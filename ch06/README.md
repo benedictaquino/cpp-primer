@@ -801,15 +801,37 @@ inline bool isShorter(const string &s1, const string &s2)
 
 ### Section 6.5.3: Aids for Debugging
 
-**Exercise 6.47:** Revise the program you wrote in the exercises in [6.3.2](#section-632-functions-that-return-a-value) that used recursion to print the contents of a `vector` to conditionally print information about its execution. For example, you might print the size of the `vector` on each call. Compile and run the program with debugging turned on and again with it turned off.
+**Exercise 6.47:** Revise the [program](src/ex6_33.cpp) you wrote in the exercises in [6.3.2](#section-632-functions-that-return-a-value) that used recursion to print the contents of a `vector` to conditionally print information about its execution. For example, you might print the size of the `vector` on each call. Compile and run the program with debugging turned on and again with it turned off.
 
-**Exercise 6.48:** Explain what this loop does and wheter it is a good use of `assert`:
+[**Solution:**](src/ex6_47.cpp)
+
+```cpp
+void print(vector<string> &str_vec, vector<string>::iterator iter)
+{
+    if (iter != str_vec.end()) {
+        cout << *iter << " ";
+#ifndef NDEBUG
+        cerr << __func__ << ": string size is " << (*iter).size() << endl;
+#endif
+        print(str_vec, ++iter);
+    } else { 
+#ifndef NDEBUG
+        cerr << __func__ << ": iter == str_vec.end()";
+#endif
+        cout << endl;
+    }
+}
+```
+
+**Exercise 6.48:** Explain what this loop does and whether it is a good use of `assert`:
 
 ```cpp
 string s;
 while (cin >> s && s != sought) { }  // empty body
 assert(cin);
 ```
+
+**Solution:** This loop reads strings from the standard input into `s` until `sought` is found or there are is no more text to read. This is not a good use of `assert(cin)` will always evaluate `true` as long as there is text to read. The assertion only fails if there is no text to read from standard input. 
 
 ## Section 6.6: Function Matching
 
