@@ -709,6 +709,12 @@ int ff(int a , int b = 0, int c = 0);
 char *init(int ht = 2, int wd, char backgrnd);
 ```
 
+**Solution:**
+
+* (a) This declaration is legal.
+
+* (b) This declaration is an error because if a parameter has a default argument, then all the parameters that follow it must have default arguments.
+
 **Exercise 6.41:** Which, if any of the following calls are illegal? Why? Which, if any, are legal but unlikely to match the programmer's intent? Why?
 
 ```cpp
@@ -733,8 +739,25 @@ init(24,10);
 init(14, '*');
 ```
 
-**Exercise 6.42:** Give the third paramter of `make_plural` a default argument of `'s'`. Test your program by printing singular and plural versions of the words `success` and `failure`.
+**Solution:**
 
+* (a) This functional call is illegal. `ht` does not have a default argument so at least one argument must be passed to `init`.
+
+* (b) This functiona call is legal. It passes the arguments `24` for `ht` and `10` for `wd` and uses the default argument `' '` for `backgrnd`.
+
+* (c) This function call is legal, but unlikely to match the programmer's intent. It passes the arguments `14` to `ht` and `'*'` to `wd`. The `char` literal is promoted to the `int` typeand assigned to `wd`. The programmer likely meant to use the default argument of `wd` and pass in `'*'` to `backgrnd`. 
+
+**Exercise 6.42:** Give the third parameter of [`make_plural`](src/make_plural.cpp) a default argument of `'s'`. Test your program by printing singular and plural versions of the words `success` and `failure`.
+
+[**Solution:**](src/ex6_42.cpp)
+
+```cpp
+// return the plural version of word if ctr is greater than 1
+string make_plural(size_t ctr, const string &word, const string &ending = "s")
+{
+    return (ctr > 1) ? word + ending : word;
+}
+```
 
 ### Section 6.5.2: Inline and `constexpr` Functions
 
