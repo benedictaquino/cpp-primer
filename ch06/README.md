@@ -540,11 +540,68 @@ int int_sum(initializer_list<int> int_lst)
 
 **Exercise 6.30:** Compile the version of `str_subrange` as presented on page 223 to see what your compiler does with the indicated errors.
 
+[**Solution:**](src/ex6_30.cpp)
+
+```cpp
+// incorrect return values, this code will not compile
+bool str_subsrange(const string &str1, const string &str2)
+{
+    // same size: return normal equality test
+    if (str1.size() == str2.size())
+        return str1 == str2;    // ok: == returns bool
+    // find the size of the smaller string
+    auto size = (str1.size() < str2.size()) ? str1.size() : str2.size();
+    // look at each element up to the size of the smaller string
+    for (decltype(size) i = 0; i != size; ++i) {
+        if (str1[i] != str2[i])
+            return; // error #1: no return value; compiler should detect this error
+    }
+    // error #2: control might flow off the end of the function without a return
+    // the compiler might not detect this error
+}
+```
+
+**Output:**
+
+```
+src/ex6_30.cpp: In function 'bool str_subsrange(const string&, const string&)':
+src/ex6_30.cpp:16:13: error: return-statement with no value, in function returning 'bool' [-fpermissive]
+             return; // error #1: no return value; compiler should detect this error
+             ^~~~~~
+```
+
 **Exercise 6.31:** When is it valid to return a reference? A reference to `const`?
+
+**Solution:** It is valid to return a reference when it is a reference to an object that is outside the scope of the function body. It is invalid to return a reference to a local variable. A reference to `const` is valid is it is not a local variable and the object exists in scope where the function is called.
 
 **Exercise 6.32:** Indicate whether the following function is legal. If so, explain what it does; if not, correct any errors and then explain it.
 
+```cpp
+int &get(int *arry, int index) { return arry[index]; }
+int main() {
+    int ia[10];
+    for (int i = 0; i != 10; ++i)
+        get(ia, i) = i;
+}
+```
+
+**Solution:** The function is legal. `get` returns `arry[index]` which is the address of the element at position `index` in `arry`.
+
+The `for` loop in the `main` function assigns the value `i` to position `i` in `ia`.
+
 **Exercise 6.33:** Write a recursive function to print the contents of a `vector`.
+
+[**Solution:**](src/ex6_33.cpp)
+
+```cpp
+void print(vector<string> &str_vec, vector<string>::iterator iter)
+{
+    if (iter != str_vec.end()) {
+        cout << *iter << " ";
+        print(str_vec, ++iter);
+    } else cout << endl;
+}
+```
 
 **Exercise 6.34:** What would happen if the stopping condition in `factorial` were
 
@@ -552,7 +609,11 @@ int int_sum(initializer_list<int> int_lst)
 if (val != 0)
 ```
 
+**Solution:** If the argument passed was a negative number, the recursive loop would never end.
+
 **Exercise 6.35:** In the call to `factorial`, why did we pass `val - 1` rather than `val--`?
+
+**Solution:** If we passed in `val--` the value passed into `factorial` would be `val`, and not a decremented value. This would cause a recursive loop.
 
 ### Section 6.3.3: Returning a Pointer to an Array
 
