@@ -676,7 +676,7 @@ In the above example, `b` is an `int` object and `c` is an `int` reference.
 
 ## Section 2.6: Defining Our Own Data Structures
 
-### Section 2.6.1: Definine the `Sales_data` Type
+### Section 2.6.1: Defining the `Sales_data` Type
 
 **Exercise 2.39:** Compile the following program to see what happens when you forget the semicolon after a class definition. Remember the message for future reference.
 
