@@ -952,11 +952,15 @@ what is the rank of each conversion in the following calls?
 manip('a', 'z');
 ```
 
+**Solution:** This conversion is **rank 3: a match through promotion.** The `char` literals `'a'` and `'z'` are promoted to `int`.
+
 * (b)
 
 ```cpp
 manip(55.4, dobj);
 ```
+
+**Solution:** This conversion is **rank 4: a match through arithmetic conversion.** The `double` literal `55.4` and `double` object `dobj` are converted to `int`.
 
 **Exercise 6.53:** Explain the effect of the second declaration in each one of the following sets of declarations. Indicate which, if any, are illegal.
 
@@ -967,6 +971,8 @@ int calc(int&, int&);
 int calc(const int&, const int&);
 ```
 
+**Solution:** The second declaration here is legal. The second `calc` will be called if the two arguments passed to `calc` in the function call are references to `const`.
+
 * (b)
 
 ```cpp
@@ -974,12 +980,16 @@ int calc(char*, char*);
 int calc(const char*, const char*);
 ```
 
+**Solution:** The second declaration here is legal. The second `calc` will be called if the two arguments passed to `calc` in the function call are pointers to `const`.
+
 * (c)
 
 ```cpp
 int calc(char*, char*);
 int calc(char* const, char* const);
 ```
+
+**Solution:** The second declaration here is illegal. Top-level `const` is ignored in function calls.
 
 ## Section 6.7: Pointers to Functions
 
