@@ -995,6 +995,46 @@ int calc(char* const, char* const);
 
 **Exercise 6.54:** Write a declaration for a function that takes two `int` parameters and returns an `int`, and declare a `vector` whose elements have this function pointer type.
 
+**Solution:** 
+
+```cpp
+int (*fcn)(int, int);
+using fcn_ptr = int(*)(int, int);
+vector<fnc_ptr> fcn_ptr_vec;
+```
+
 **Exercise 6.55:** Write four functions that add, subtract, multiply and divide two `int` values. Store pointers to these functions in your `vector` from the previous exercise.
 
+[**Solution:**](src/ex6_55.cpp)
+
+```cpp
+int add(int ival1, int ival2) { return ival1 + ival2; }
+int subtract(int ival1, int ival2) { return ival1 - ival2; }
+int multiply(int ival1, int ival2) { return ival1 * ival2; }
+int divide(int ival1, int ival2) { return ival1 / ival2; }
+```
+```cpp
+vector<fcn_ptr> fcn_ptr_vec = {&add, &subtract, &multiply, &divide};
+```
+
 **Exercise 6.56:** Call each element in the `vector` and print their result.
+
+[**Solution:**](src/ex6_55.cpp)
+
+```cpp
+int main()
+{
+    cout << "Enter two integers: " << endl;
+    int ival1, ival2;
+    cin >> ival1 >> ival2 ;
+    vector<fcn_ptr> fcn_ptr_vec = {&add, &subtract, &multiply, &divide};
+    for (auto fp : fcn_ptr_vec) {
+        cout << ival1 << ( (fp == add) ? " + " 
+                         : (fp == subtract) ? " - " 
+                         : (fp == multiply) ? " * "
+                         : " / " )
+             << ival2 << " = " << fp(ival1, ival2) << endl;
+    }
+    return 0;
+}
+```
