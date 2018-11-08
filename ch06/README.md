@@ -772,7 +772,7 @@ inline bool eq(const BigInt&, const BigInt&) {...}
 * (b)
 
 ```cpp
-void putValues(int *arr, int sie);
+void putValues(int *arr, int size);
 ```
 
 **Solution:**
@@ -837,6 +837,8 @@ assert(cin);
 
 **Exercise 6.49:** What is a candidate function? What is a viable function?
 
+**Solution:** The functions in the set of an overloaded function are candidate functions. A viable function are the functions in the subset of candidate functions that can be called with the arguments in the given call.
+
 **Exercise 6.50:** Given the declarations for `f` from page 242, list viable functions, if any, for each of the following calls. Indicate which function is the best match, or if the call is illegal whether there is no match or why the call is ambiguous.
 
 ```cpp
@@ -844,7 +846,6 @@ void f();
 void f(int);
 void f(int, int);
 void f(double, double = 3.14);
-f(5.6);  // calls void f(double, double)
 ```
 
 * (a) 
@@ -853,11 +854,20 @@ f(5.6);  // calls void f(double, double)
 f(2.56, 42)
 ```
 
+**Solution:**
+
+**This function call is illegal and the compiler will reject this call because it is ambiguous.**  The viable functions for the function call `f(2.56, 42)` are `void f(int, int)` and `void f(double, double)`. Looking at the first argument, `2.56`, `f(double, double)` is a better match than `f(int, int)`. `2.56` would need to be converted to an `int` to call `f(int, int)`. Looking at the second argument, `42`, `f(int, int)` is a better match than `f(double, double)`. `42` would need to be converted to a `double` to call `f(double, double)`.
+
+
 * (b)
 
 ```cpp
 f(42)
 ```
+
+**Solution:**
+
+**The best match for this function call is `f(int)`.** The viable functions are `f(int)` and `f(double, double)`. Considering the argument `42` is an `int` literal, `f(int)` is a better match than `f(double)`. `42` would need to be converted to a `double` to call `f(double, double)`.
 
 * (c)
 
@@ -865,13 +875,65 @@ f(42)
 f(42, 0)
 ```
 
+**Solution:** 
+
+**The best match for this function is `f(int, int)`.** The viable functions are `f(int, int)` and `f(double, double)`. `f(int, int)` is a better match for the first argument, `42`, an `int` literal than `f(double, double)`.
+
 * (d)
 
 ```cpp
 f(2.56, 3.14)
 ```
 
+**Solution:**
+
+**The best match for this function is `f(double, double)`.** The viable functions are `f(int, int)` and `f(double, double)`. `f(double, double)` is a better match than `f(int, int)` for both arguments since they are floating-point literals.
+
 **Exercise 6.51:** Write all four versions of `f`. Each function should print a distinguishing message. Check your answers for the previous exercise. If your answers were incorrect, study this section until you understand why your answers were wrong.
+
+[**Solution:**](src/ex6_51.cpp)
+
+```cpp
+void f()
+{
+    cout << "f() was called." << endl;
+}
+
+void f(int ival)
+{
+    cout << "f(int) was called." << endl;
+}
+
+void f(int ival1, int ival2)
+{
+    cout << "f(int, int) was called." << endl;
+}
+
+void f(double dval1, double dval2 = 3.14)
+{
+    cout << "f(double, double) was called." << endl;
+}
+```
+
+**Output:**
+
+```
+src/ex6_51.cpp: In function 'int main()':
+src/ex6_51.cpp:28:15: error: call of overloaded 'f(double, int)' is ambiguous
+     f(2.56, 42);
+               ^
+src/ex6_51.cpp:15:6: note: candidate: void f(int, int)
+ void f(int ival1, int ival2)
+      ^
+src/ex6_51.cpp:20:6: note: candidate: void f(double, double)
+ void f(double dval1, double dval2 = 3.14)
+```
+
+```
+f(42) => f(int) was called.
+f(42, 0) => f(int, int) was called.
+f(2.56, 3.14) => f(double, double) was called.
+```
 
 ### Section 6.6.1: Argument Type Conversions
 
