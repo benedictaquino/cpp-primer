@@ -46,7 +46,13 @@ int main()
 
 ### Section 7.1.2: Defining the Revised `Sales_data` Class
 
-**Exercise 7.2:** Add the `combine` and `isbn` members to the `Sales_data` class you wrote for the exercises in [2.6.2](../ch02#section-262-using-the-sales_data-class).
+**Exercise 7.2:** Add the `combine` and `isbn` members to the [`Sales_data`](../ch02/src/Sales_data.h) class you wrote for the exercises in [2.6.2](../ch02#section-262-using-the-sales_data-class).
+
+[**Solution:**](include/Sales_data.h)
+
+```cpp
+
+```
 
 **Exercise 7.3:** Revise your transaction-processing program from [7.1.1](#section-711-designing-the-sales_data-class)
 

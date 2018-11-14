@@ -1,19 +1,23 @@
 /* This program reads several transactions for the same ISBN and writes the sum
  * of all the transactions that were read */
 #include <iostream>
+
 struct Sales_data {
     std::string bookNo;
     unsigned units_sold = 0;
     double revenue = 0.0;
 };
+
 int main()
 {
     // Define sum and item Sales_data objects
     Sales_data sum, item;
     // read in first values as members of sum
     std::cin >> sum.bookNo >> sum.units_sold >> sum.revenue;
+    sum.revenue *= sum.units_sold;
     // read in input as members of item
     while (std::cin >> item.bookNo >> item.units_sold >> item.revenue) {
+        item.revenue *= item.units_sold;
         if (item.bookNo == sum.bookNo) {  // check that bookNo's match
             sum.units_sold += item.units_sold;
             sum.revenue += item.revenue;
@@ -24,7 +28,8 @@ int main()
     } // end while loop
     std::cout << sum.bookNo << " " 
               << sum.units_sold << " " 
-              << sum.revenue 
+              << sum.revenue  << " "
+              << sum.revenue / sum.units_sold
               << std::endl;
     return 0;
 }
