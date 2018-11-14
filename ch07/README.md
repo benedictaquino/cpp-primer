@@ -35,7 +35,8 @@ int main()
         // print the last transaction
         cout << total.bookNo << " " 
              << total.units_sold << " " 
-             << total.revenue << endl;
+             << total.revenue <<  " "
+             << total.revenue / total.units_sold << endl;
     } else { // no input! warn the user
         std::cerr << "No Data?!" << endl;
         return -1;  // indicate failure
@@ -51,14 +52,101 @@ int main()
 [**Solution:**](include/Sales_data.h)
 
 ```cpp
+#ifndef SALES_DATA_H
+#define SALES_DATA_H
 
+#include <string>
+
+struct Sales_data {
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data &rhs) {
+        units_sold += rhs.units_sold;
+        revenue += rhs.revenue;
+    }
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+#endif
 ```
 
 **Exercise 7.3:** Revise your transaction-processing program from [7.1.1](#section-711-designing-the-sales_data-class)
 
+[**Solution:**](src/ex7_3.cpp)
+
+```cpp
+int main()
+{
+    Sales_data total; // variable to hold data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (cin >> total.bookNo >> total.units_sold >> total.revenue) {
+        total.revenue *= total.units_sold;
+        Sales_data trans; // variable to hold the running sum
+        // read and process the remaining transactions
+        while (cin >> trans.bookNo >> trans.units_sold >> trans.revenue) {
+            // if we're still processing the same book
+            trans.revenue *= trans.units_sold;
+            if (total.isbn() == trans.isbn()) 
+                total.combine(trans); // update the running total
+            else { // print the results for the previous books
+                cout << total.bookNo << " "
+                     << total.units_sold << " "
+                     << total.revenue << " "
+                     << total.revenue / total.units_sold << "\n";
+                total = trans;
+            }
+        }
+        // print the last transaction
+        cout << total.bookNo << " "
+             << total.units_sold << " "
+             << total.revenue << " "
+             << total.revenue / total.units_sold << endl;
+    } else { // no input! warn the user
+        std::cerr << "No Data?!" << endl;
+        return -1; // indicate failure
+    }
+    return 0;
+}
+```
+
 **Exercise 7.4:** Write a class named `Person` that represents the name and address of a person. Use a `string` to hold each of these elements. Subsequent exercises will incrementally add features to this class.
 
+[**Solution:**](include/Person.h)
+
+```cpp
+#ifndef PERSON_H
+#define PERSON_H
+
+#include <string>
+
+struct Person {
+    std::string name;
+    std::string address;
+};
+
+#endif
+```
+
 **Exercise 7.5:** Provide operations in your `Person` class to return the name and address. Should these functions be `const`? Explain your choice.
+
+[**Solution:**](include/Person.h) Yes, these functions should be `const`. I do not want these operations to modify the members of my `Person` object, only return them.
+
+```cpp
+#ifndef PERSON_H
+#define PERSON_H
+
+#include <string>
+
+struct Person {
+    std::string who() const { return name; }
+    std::string where() const { return address; }
+    std::string name;
+    std::string address;
+};
+
+#endif
+```
 
 ### Section 7.1.3: Defining Nonmember Class-Related Functions
 
