@@ -6,6 +6,12 @@
 
 **Exercise 7.1:** Write a version of the transaction-processing [program](../ch01/src/ex1_25.cpp) from [1.6](../ch01#section-16-the-bookstore-program) using the [`Sales_data`](../ch02/src/Sales_data.h) class you defined for the exercises in [2.6.1](../ch02#section-261-defining-the-sales_data-type).
 
+[**Solution:**](src/ex7_1.cpp)
+
+```cpp
+
+```
+
 ### Section 7.1.2: Defining the Revised `Sales_data` Class
 
 **Exercise 7.2:** Add the `combine` and `isbn` members to the `Sales_data` class you wrote for the exercises in [2.6.2](../ch02#section-262-using-the-sales_data-class).
