@@ -62,6 +62,7 @@ struct Sales_data {
     Sales_data& combine(const Sales_data &rhs) {
         units_sold += rhs.units_sold;
         revenue += rhs.revenue;
+        return *this;
     }
     std::string bookNo;
     unsigned units_sold = 0;
@@ -152,17 +153,98 @@ struct Person {
 
 **Exercise 7.6:** Define your own versions of the `add`, `read`, and `print` functions.
 
+[**Solution:**](src/sales_functions.cpp)
+
+```cpp
+Sales_data add(const Sales_data &lhs, const Sales_data &rhs)
+{
+    Sales_data sum = lhs;
+    sum.combine(rhs);
+    return sum;
+}
+
+istream &read(istream &is, const Sales_data &item) 
+{
+    double price = 0.0;
+    is >> item.bookNo >> item.units_sold >> price;
+    item.revenue = price * item.units_sold;
+    return is;
+}
+
+ostream &print(ostream &os, const Sales_data &item)
+{
+    cout << item.bookNo << " "
+         << item.units_sold << " "
+         << item.revenue << " "
+         << item.avg_price();
+    return os;
+}
+```
+
 **Exercise 7.7:** Rewrite the transaction-processing program you wrote for the exercises in [7.1.2](#section-712-defining-the-revised-sales_data-class)
 
-**Exercise 7.8:** Why does `read` define its `Sales_data` parmeter as a plain reference and `print` define its parameter as a reference to `const`?
+[**Solution:**](src/ex7_7.cpp)
+
+```cpp
+int main()
+{
+    Sales_data total; // variable to hold data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (read(cin, total)) {
+        Sales_data trans; // variable to hold the running sum
+        // read and process the remaining transactions
+        while (read(cin, trans)) {
+            // if we're still processing the same book
+            if (total.isbn() == trans.isbn())
+                total = add(total, trans); // update the running total
+            else { 
+                // print the results for the previous books
+                print(cout, total);
+                cout << "\n";
+                total = trans; // total now refers to the current book
+            }
+        }
+        // print the last transaction
+        print(cout, total);
+        cout << endl;
+    } else { // no input! warn the user
+        std::cerr << "No Data?!" << endl;
+        return -1; // indicate failure
+    }
+    return 0;
+}
+```
+
+**Exercise 7.8:** Why does `read` define its `Sales_data` parameter as a plain reference and `print` define its parameter as a reference to `const`?
+
+**Solution:** `read` defines its `Sales_data` parameter as a plain reference because it writes to the `Sales_data` object. `print` defines its `Sales_data` parameter as a reference to `const` because it does not need to write to the `Sales_data` object.
 
 **Exercise 7.9:** Add operations to read and print `Person` objects to the code you wrote for the exercises in [7.1.2](#section-712-defining-the-revised-sales_data-class)
+
+[**Solution:**](src/person_functions.cpp)
+
+```cpp
+istream &read(istream &is, Person &dude)
+{
+    getline(is, dude.name);
+    getline(is, dude.address);
+    return is;
+}
+
+ostream &print(ostream &os, const Person &dude)
+{
+    os << dude.who() << " lives at " << dude.where(); 
+    return os;
+}
+```
 
 **Exercise 7.10:** What does the condition in the following `if` statement do?
 
 ```cpp
 if (read(read(cin, data1), data2))
 ```
+
+**Solution:** The innermost `read` reads the `istream` object to the members of `data1`, then the `istream` object is passed to the the outer `read` function and the data is read to the members of `data2`. So, the condition in this `if` statement tests if there is enough correct data from the standard input to read `data1` and `data2`.
 
 ### Section 7.1.4: Constructors
 
