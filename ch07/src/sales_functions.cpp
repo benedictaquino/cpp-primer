@@ -18,11 +18,12 @@ Sales_data& Sales_data::combine(const Sales_data &rhs)
     return *this;
 }
 
-double Sales_data::avg_price() const 
-{
-    if (units_sold) return revenue/units_sold;
-    else return 0;
-}
+// changed to private member function
+// double Sales_data::avg_price() const 
+// {
+//     if (units_sold) return revenue/units_sold;
+//     else return 0;
+// }
  
 Sales_data add(const Sales_data &lhs, const Sales_data &rhs)
 {

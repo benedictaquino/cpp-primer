@@ -49,7 +49,7 @@ int main()
 
 **Exercise 7.2:** Add the `combine` and `isbn` members to the [`Sales_data`](../ch02/src/Sales_data.h) class you wrote for the exercises in [2.6.2](../ch02#section-262-using-the-sales_data-class).
 
-[**Solution:**](include/Sales_data.h)
+[**Solution:**](include/ex7_2.h)
 
 ```cpp
 #ifndef SALES_DATA_H
@@ -113,7 +113,7 @@ int main()
 
 **Exercise 7.4:** Write a class named `Person` that represents the name and address of a person. Use a `string` to hold each of these elements. Subsequent exercises will incrementally add features to this class.
 
-[**Solution:**](include/Person.h)
+[**Solution:**](include/ex7_4.h)
 
 ```cpp
 #ifndef PERSON_H
@@ -131,22 +131,15 @@ struct Person {
 
 **Exercise 7.5:** Provide operations in your `Person` class to return the name and address. Should these functions be `const`? Explain your choice.
 
-[**Solution:**](include/Person.h) Yes, these functions should be `const`. I do not want these operations to modify the members of my `Person` object, only return them.
+[**Solution:**](include/ex7_5.h) Yes, these functions should be `const`. I do not want these operations to modify the members of my `Person` object, only return them.
 
 ```cpp
-#ifndef PERSON_H
-#define PERSON_H
-
-#include <string>
-
 struct Person {
     std::string who() const { return name; }
     std::string where() const { return address; }
     std::string name;
     std::string address;
 };
-
-#endif
 ```
 
 ### Section 7.1.3: Defining Nonmember Class-Related Functions
@@ -390,7 +383,7 @@ struct Sales_data {
 
 **Exercise 7.15:** Add appropriate constructors to your `Person` class.
 
-[**Solution:**](include/Person.h)
+[**Solution:**](include/ex7_15.h)
 
 ```cpp
 struct Person {
@@ -419,11 +412,19 @@ Person::Person(istream &is)
 
 **Exercise 7.16:** What, if any, are the constraints on where and how often an access specifier may appear inside a class definition? What kinds of members should be defined after a `public` specifier? What kinds should be `private`?
 
+**Solution:** There are no constraints on where or how often an access specifier may appear inside a class definition. Members that are accessible to all parts of the program should be defined after the `public` specifier. Members that should only be accessible to the member functions of the class and not accessible to the code that uses the class should be after the `private` specifier.
+
 **Exercise 7.17:** What, if any, are the differences between using `class` or `struct`?
+
+**Solution:** The difference between the `class` and `struct` keywords is the access to the members defined before the first access specifier. Members defined before the first access specifier for a class using the `struct` keyword are `public`; members defined before the first access specifier for a class using the `class` keyword are `private`.
 
 **Exercise 7.18:** What is encapsulation? Why is it useful?
 
+**Solution:** Encapsulation is hiding the implementation of members in a class. This is useful if we want to limit the amount users or the program can meddle with a class' implementation.
+
 **Exercise 7.19:** Indicate which members of your `Person` class you would declare as `public` and which you would declare as `private`. Explain your choice.
+
+**Solution:** I would declare the constructors to be `public` as well as the member functions `who` and `where`. the members `name` and `address` I would declare as `private`.
 
 ### Section 7.2.1: Friends
 

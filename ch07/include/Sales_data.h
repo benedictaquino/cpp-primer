@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 
-struct Sales_data; // declared before used in read operator
+class Sales_data; // declared before used in read operator
 std::istream &read(std::istream&, Sales_data&); // declared before used inside class body
 
-struct Sales_data {
+class Sales_data {
+public:
     // constructors
     Sales_data(): bookNo(), units_sold(0), revenue(0.0) { }
     Sales_data(const std::string &s): bookNo(s) { }
@@ -16,9 +17,11 @@ struct Sales_data {
     Sales_data(std::istream &is) {
         read(is, *this);
     }
-    // member functions
+    // public member functions
     std::string isbn() const { return bookNo; }
     Sales_data& combine(const Sales_data&); 
+private:
+    // private member functions
     double avg_price() const;
     // member objects
     std::string bookNo;
