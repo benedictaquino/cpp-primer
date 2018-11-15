@@ -250,13 +250,170 @@ if (read(read(cin, data1), data2))
 
 **Exercise 7.11:** Add constructors to your `Sales_data` class and write a program to use each of the constructurs.
 
+[**Solution:**](src/ex7_11.cpp)
+
+```cpp
+struct Sales_data {
+    // constructors
+    Sales_data() = default;
+    Sales_data(const std::string &s): bookNo(s) { }
+    Sales_data(const std::string &s, unsigned n, double p):
+        bookNo(s), units_sold(n), revenue(p*n) { }
+    Sales_data(std::istream &is);
+    // member functions
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data&); 
+    double avg_price() const;
+    // member objects
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+```
+
+```cpp
+int main()
+{
+    // default constructor
+    cout << "Testing default constructor:\n...\n";
+    Sales_data item_default;
+    print(cout, item_default);
+    cout << "\n";
+
+    // string parameter constructor
+    cout << "Testing single string parameter constructor:\n...\n";
+    Sales_data item_string("0-201-78345-X");
+    print(cout, item_string);
+    cout << "\n";
+
+    // three parameter constructor
+    cout << "Testing full parameter constructor:\n...\n";
+    Sales_data item_params("0-201-78345-X", 3, 20.75);
+    print(cout, item_params);
+    cout << "\n";
+
+    // istream constructor
+    cout << "Testing istream constructor:\n...\n";
+    Sales_data item_istream(cin);
+    print(cout, item_istream);
+    cout << endl;
+
+    return 0;
+}
+```
+
 **Exercise 7.12:** Move the definition of the `Sales_data` constructor that takes an `istream` into the body of the `Sales_data` class.
 
-**Exercise 7.13:** Rewrite the program from page 255 to use the `istream` constructor.
+[**Solution:**](include/Sales_data.h)
+
+```cpp
+struct Sales_data; // declared before used in read operator
+std::istream &read(std::istream&, Sales_data&); // declared before used inside class body
+
+struct Sales_data {
+    // constructors
+    Sales_data() = default;
+    Sales_data(const std::string &s): bookNo(s) { }
+    Sales_data(const std::string &s, unsigned n, double p):
+        bookNo(s), units_sold(n), revenue(p*n) { }
+    Sales_data(std::istream &is) {
+        read(is, *this);
+    }
+    // member functions
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data&); 
+    double avg_price() const;
+    // member objects
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+```
+
+**Exercise 7.13:** Rewrite the [program from page 255](src/pg255.cpp) to use the `istream` constructor.
+
+[**Solution:**](src/ex7_13.cpp)
+
+```cpp
+int main()
+{
+    Sales_data total(cin);       // variable to hold the running sum
+    if (cin) {                   // read the first transaction
+        Sales_data trans(cin);   // variable to hold data for the next transaction
+        while (cin) {            // read the remaining transactions
+            if (total.isbn() == trans.isbn()) // check the isbns
+                total.combine(trans);         // update the running total
+            else {
+                print(cout, total) << endl;   // print the results
+                total = trans;                // process the next book
+            }
+            read(cin, trans);
+        }
+        print (cout, total) << endl;   // print the last transaction
+    } else {                           // there was no input
+        cerr << "No data ?!" << endl; // notify the user
+        return -1;                     // indicate failure
+    }
+    return 0;
+}
+```
 
 **Exercise 7.14:** Write a version of the default constructor that explicitly initializes the members to the values we have provided as in-class initializers.
 
+[**Solution:**](include/Sales_data.h)
+
+```cpp
+struct Sales_data; // declared before used in read operator
+std::istream &read(std::istream&, Sales_data&); // declared before used inside class body
+
+struct Sales_data {
+    // constructors
+    Sales_data(): bookNo(), units_sold(0), revenue(0.0) { }
+    Sales_data(const std::string &s): bookNo(s) { }
+    Sales_data(const std::string &s, unsigned n, double p):
+        bookNo(s), units_sold(n), revenue(p*n) { }
+    Sales_data(std::istream &is) {
+        read(is, *this);
+    }
+    // member functions
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data&); 
+    double avg_price() const;
+    // member objects
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+```
+
 **Exercise 7.15:** Add appropriate constructors to your `Person` class.
+
+[**Solution:**](include/Person.h)
+
+```cpp
+struct Person {
+    // constructors
+    Person() = default;
+    Person(const std::string &s): name(s) { }
+    Person(const std::string &s1, const std::string &s2): name(s1), address(s2) { }
+    Person(std::istream&);
+    // member functions
+    std::string who() const { return name; }
+    std::string where() const { return address; }
+    // member objects
+    std::string name;
+    std::string address;
+};
+```
+
+```cpp
+Person::Person(istream &is)
+{
+    read(is, *this);
+}
+```
 
 ## Section 7.2: Access Control and Encapsulation
 

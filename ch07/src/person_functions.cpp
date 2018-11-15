@@ -3,6 +3,11 @@
 
 using std::istream; using std::ostream; 
 
+Person::Person(istream &is)
+{
+    read(is, *this);
+}
+
 istream &read(istream &is, Person &dude)
 {
     getline(is, dude.name);
