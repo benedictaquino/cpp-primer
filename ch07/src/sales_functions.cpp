@@ -5,11 +5,10 @@
 using std::cin; using std::cout; using std::endl;
 using std::istream; using std::ostream;
 
-// istream constructor moved into Sales_data body
-// Sales_data::Sales_data(std::istream &is)
-// {
-//     read(is, *this);
-// }
+Sales_data::Sales_data(std::istream &is)
+{
+    read(is, *this);
+}
 
 Sales_data& Sales_data::combine(const Sales_data &rhs) 
 {

@@ -430,9 +430,71 @@ Person::Person(istream &is)
 
 **Exercise 7.20:** When are friends useful? Discuss the pros and cons of using friends.
 
+**Solution:** Friends are useful when we want nonmember classes or functions to have access to a class' `private` members. The benefit of friends is that we can allow specific functions or classes to have access to any `private` members of a class. The negative is that it begins to get rid of the benefits of encapsulation; user code can now inadvertently corrupt the state of an encapsulated object and an encapsulated class may require change to user-code to change the implementation.
+
 **Exercise 7.21:** Update your `Sales_data` class to hide its implementation. The programs you've written to use `Sales_data` operations should still continue to work. Recompile those programs with your new class definition to verify that they still work.
 
+[**Solution:**](include/ex7_21.h)
+
+```cpp
+class Sales_data {
+// friend declarations for nonmember operations
+friend Sales_data add(const Sales_data&, const Sales_data&);
+friend std::istream &read(std::istream&, Sales_data&);
+friend std::ostream &print(std::ostream&, const Sales_data&);
+public:
+    // constructors
+    Sales_data(): bookNo(), units_sold(0), revenue(0.0) { }
+    Sales_data(const std::string &s): bookNo(s) { }
+    Sales_data(const std::string &s, unsigned n, double p):
+        bookNo(s), units_sold(n), revenue(p*n) { }
+    Sales_data(std::istream&);
+    // public member functions
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data&); 
+private:
+    // private member functions
+    double avg_price() const { return units_sold ? revenue/units_sold : 0; }
+    // member objects
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+// nonmember declarations
+Sales_data add(const Sales_data&, const Sales_data&);
+std::istream &read(std::istream&, Sales_data&);
+std::ostream &print(std::ostream&, const Sales_data&);
+```
+
 **Exercise 7.22:** Update your `Person` class to hide its implementation.
+
+[**Solution:**](include/ex7_22.h)
+
+```cpp
+class Person {
+// friend declarations
+friend std::istream &read(std::istream&, Person&);
+friend std::ostream &print(std::ostream&, Person&);
+public:
+    // constructors
+    Person() = default;
+    Person(const std::string &s): name(s) { }
+    Person(const std::string &s1, const std::string &s2): name(s1), address(s2) { }
+    Person(std::istream&);
+    // member functions
+    std::string who() const { return name; }
+    std::string where() const { return address; }
+private:
+    // member objects
+    std::string name;
+    std::string address;
+};
+
+// nonmember declarations
+std::istream &read(std::istream&, Person&);
+std::ostream &print(std::ostream&, const Person&);
+```
 
 ## Section 7.3: Additional Class Features
 
