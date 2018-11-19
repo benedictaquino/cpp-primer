@@ -975,7 +975,18 @@ struct X {
 };
 ```
 
-**Exercise 7.37:** Using the version of [`Sales_data`](include/Sales_data.h) from this section, determine which constructor is used to initialize each of the following variables and list the values of the data members in each object:
+[**Solution:**](src/7_36.cpp) `rem` is declared before `base` in the class definition, so it is initialized first. So trying to initialize `rem` with the expression `base % j` will result in undefined behavior.
+
+I would rewrite this constructor to have `rem` before `base` to match the order that the members are declared. As well, I would not use `base` inside the expression to initialize `rem`, I would use `i % j`.
+
+```cpp
+struct X {
+    X (int i, int j): rem(i % j), base(i)  { }
+    int rem, base;
+};
+```
+
+**Exercise 7.37:** Using the version of [`Sales_data`](include/p290.h) from this section, determine which constructor is used to initialize each of the following variables and list the values of the data members in each object:
 
 ```cpp
 Sales_data first_item(cin);
@@ -986,9 +997,24 @@ int main() {
 }
 ```
 
+**Solution:** `next` is initialized with the default constructor `Sales_data(std::string s = "")`.The default values are the empty string for `bookNo`, `0` for `units_sold`, and `0.0` for `revenue`.
+
+`last` is also initialized with the `Sales_data(std::string)` constructor, but it passes in a `string` as an argument. This initializes `bookNo` with the string literal `"9-999-99999-9"` and leaves `units_sold` and `revenue` with their default initializations defined in the class body.
+
 **Exercise 7.38:** We might want to supply `cin` as a default argument to the constructor that takes an `istream&`. Write the constructor declaration that uses `cin` as a default argument.
 
+[**Solution:**](src/ex7_38.cpp)
+
+```cpp
+Sales_data::Sales_data(std::istream &is = cin)
+{
+    read(is, *this);
+}
+```
+
 **Exercise 7.39:** Would it be legal for both the constructor that takes a `string` and the one that takes an `istream&` to have default arguments? If not, why not?
+
+**Solution:** No, because then initializing a `Sales_data` object without any arguments would be ambiguous.
 
 **Exercise 7.40:** Choose one of the following abstractions (or an abstraction of your own choosing). Determine what data are needed in the class. Provide an appropriate set of constructors. Explain your decisions.
 
@@ -999,9 +1025,110 @@ int main() {
 * (e) `Object`
 * (f) `Tree`
 
+
+**Book Solution:** The data I would want in my `Book` class are `title` and `author`. I would default initialize `title` to the empty string and `author` as `"Anonymous"`.
+
+My constructors are as such:
+
+```cpp
+// defines the default constructor as well as one that takes a string argument
+Book(std::string s1 = "", std::string s2 = "Anonymous"): title(s1), author(s2) { }
+// defines a constructor that initializes the members from an istream
+Book(std::istream &is) { read(is, *this); }
+```
+
+The first constructor kills three birds in one stone for me. If I pass in no arguments, the object is default initialized. If I pass in an argument for `title`, then the `author` remains `"Anonymous"`; for some famous novels the true writer is anonymous, such as *Beowulf*. If I know both the title and the author, then I can pass in both of those arguments. The second constructor uses data from the standard input to initialize the members.
+
+[**Book Header File:**](include/ex7_40.h)
+
+```cpp
+class Book;
+std::istream &read(std::istream&, Book&);
+
+class Book {
+friend std::istream &read(std::istream&, Book&);
+friend std::ostream &print(std::ostream&, Book&);
+public:
+    // constructors
+    Book(std::string s1 = "", std::string s2 = "Anonymous"): title(s1), author(s2) { }
+    Book(std::istream &is) { read(is, *this); }
+    // member functions
+private:
+    // private members
+    std::string title, author = "Anonymous";
+};
+
+std::ostream &print(std::ostream&, Book&);
+```
+
+[**Book Source File:**](src/ex7_40.cpp)
+
+```cpp
+using std::istream; using std::ostream;
+using std::string;
+
+istream &read(istream &is, Book &book)
+{
+    getline(is, book.title);
+    getline(is, book.author);
+    return is;
+}
+
+ostream &print(ostream &os, Book &book)
+{
+    os << "Title: " <<  book.title << "\n"
+       << "Author: " << book.author << "\n";
+    return os;
+}
+```
+
+[**Book Constructor Test:**](src/ex7_40_test.cpp)
+
+```cpp
+int main()
+{
+    cout << "Default constructor:\n";
+    Book book_default;
+    print(cout, book_default);
+
+    cout << "Title constructor:\n";
+    Book book_title("Beowulf");
+    print(cout, book_title);
+
+    cout << "Title and Author constructor:\n";
+    Book book_title_author("Harry Potter and the Goblet of Fire", "J. K. Rowling");
+    print(cout, book_title_author);
+
+    cout << "istream constructor:\n";
+    Book book_is(cin);
+    print(cout, book_is);
+
+    return 0;
+}
+```
+
+**Output:**
+
+```
+Default constructor:
+Title:
+Author: Anonymous
+Title constructor:
+Title: Beowulf
+Author: Anonymous
+Title and Author constructor:
+Title: Harry Potter and the Goblet of Fire
+Author: J. K. Rowling
+istream constructor:
+Blood Meridian or Evening Redness in the West
+Cormac McCarthy
+Title: Blood Meridian or Evening Redness in the West
+Author: Cormac McCarthy
+```
+
 ### Section 7.5.2: Delegating Constructors
 
-**Exercise 7.41:** Rewrite your own version of the `Sales_data` class to uyse delegating constructors. Add a statement to the body of each of the constructors that prints a message whenever it is executed. Write declarations to construct a `Sales_data` object in every way possible. Study the output until you are certain you understand the order of execution among delegating constructors.
+**Exercise 7.41:** Rewrite your own version of the `Sales_data` class to use delegating constructors. Add a statement to the body of each of the constructors that prints a message whenever it is executed. Write declarations to construct a `Sales_data` object in every way possible. Study the output until you are certain you understand the order of execution among delegating constructors.
 
 **Exercise 7.42:** For the class you wrote for [exercise 7.40](src/ex7_40.cpp) in [7.5.1](#section-751-constructor-initializer-list), decide whether any of the constructors might use delegation. If so, write the delegating constructor(s) for your class. If not, look at the list of abstractions and choose one that you think would use a delegating constructor. Write the class definition for that abstraction.
 
