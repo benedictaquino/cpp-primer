@@ -13,15 +13,12 @@ public:
     Screen(pos ht, pos wd): height(ht), width(wd), contents(ht * wd, ' ') { }
     Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(ht * wd, c) { }
     // public member functions
-    // get character 
-    char get() const { ++access_ctr; return contents[cursor]; }  // at cursor
-    char get(pos, pos) const; // at specified location
-    // move cursor
-    Screen &move(pos, pos); // to specified location
-    // set character 
-    Screen &set(char); // at cursor
-    Screen &set(pos, pos, char); // at specified location
-    // display contents of Screen
+    char get() const { return contents[cursor]; } // get character at the cursor
+    char get(pos, pos) const; 
+    Screen &move(pos, pos);
+    Screen &set(char);
+    Screen &set(pos, pos, char);
+    // display is overloaded on whether the object is const or not
     Screen &display(std::ostream &os) { do_display(os); return *this; }
     const Screen &display(std::ostream &os) const { do_display(os); return *this; }
 private:
@@ -31,7 +28,7 @@ private:
     std::string contents;
     mutable size_t access_ctr;  // count number of calls to any member function
     // private member functions
-    void do_display(std::ostream &os) const { ++access_ctr; os << contents; }
+    void do_display(std::ostream &os) const { os << contents; }
 };
 
 inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
@@ -51,14 +48,12 @@ inline char Screen::get(pos r, pos c) const
 
 inline Screen &Screen::set(char c)
 {
-    ++access_ctr;
     contents[cursor] = c;  // set the new value at the current cursor location
     return *this;          // return this object as an lvalue
 }
 
 inline Screen &Screen::set(pos r, pos c, char ch)
 {
-    ++access_ctr;
     contents[r * width + c] = ch;  // set specified location to given value
     return *this;                  // return this object as an lvalue
 }

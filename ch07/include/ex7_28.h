@@ -13,17 +13,17 @@ public:
     Screen(pos ht, pos wd): height(ht), width(wd), contents(ht * wd, ' ') { }
     Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(ht * wd, c) { }
     // public member functions
-    // get character 
-    char get() const { ++access_ctr; return contents[cursor]; }  // at cursor
-    char get(pos, pos) const; // at specified location
+    // get character at the cursor
+    char get() const { ++access_ctr; return contents[cursor]; } 
+    char get(pos, pos) const; 
     // move cursor
-    Screen &move(pos, pos); // to specified location
-    // set character 
-    Screen &set(char); // at cursor
-    Screen &set(pos, pos, char); // at specified location
+    Screen move(pos, pos);
+    // set character
+    Screen set(char); // at cursor location
+    Screen set(pos, pos, char); // at specified location
     // display contents of Screen
-    Screen &display(std::ostream &os) { do_display(os); return *this; }
-    const Screen &display(std::ostream &os) const { do_display(os); return *this; }
+    Screen display(std::ostream &os) { do_display(os); return *this; }
+    const Screen display(std::ostream &os) const { do_display(os); return *this; }
 private:
     // private member objects
     pos cursor = 0;
@@ -34,7 +34,7 @@ private:
     void do_display(std::ostream &os) const { ++access_ctr; os << contents; }
 };
 
-inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
+inline Screen Screen::move(pos r, pos c) // define as inline outside of class body
 {
     ++access_ctr;
     pos row = r * width;  // compute the row location
@@ -49,14 +49,14 @@ inline char Screen::get(pos r, pos c) const
     return contents[row + c];  // return character at the given column
 }
 
-inline Screen &Screen::set(char c)
+inline Screen Screen::set(char c)
 {
     ++access_ctr;
     contents[cursor] = c;  // set the new value at the current cursor location
     return *this;          // return this object as an lvalue
 }
 
-inline Screen &Screen::set(pos r, pos c, char ch)
+inline Screen Screen::set(pos r, pos c, char ch)
 {
     ++access_ctr;
     contents[r * width + c] = ch;  // set specified location to given value
