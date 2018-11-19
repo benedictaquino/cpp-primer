@@ -769,12 +769,141 @@ inline Screen Screen::set(pos r, pos c, char ch)
 
 ### Section 7.3.3 Class Types
 
-**Exercise 7.33:** Define a pair of classes `X` and `Y`, in which `X` has a pointer to `Y`, and `Y` has an object of type `X`.
+**Exercise 7.31:** Define a pair of classes `X` and `Y`, in which `X` has a pointer to `Y`, and `Y` has an object of type `X`.
+
+[**Solution:**](include/ex7_31.h)
+
+```cpp
+// class declarations
+struct X;
+struct Y;
+
+// class definitions
+struct X {
+    Y *y_guy;
+};
+
+struct Y {
+    X x_guy;
+};
+```
 
 ### Section 7.3.4: Friendship Revisited
 
 **Exercise 7.32:** Define your own version of `Screen` and `Window_mgr` in which `clear` is a member of `Window_mgr` and a friend of `Screen`.
 
+[**Solution:**](include/ex7_32.h)
+
+```cpp
+class Screen;
+
+class Window_mgr {
+public:
+    // constructors
+    Window_mgr();  // declare outside of class body
+    // location ID for each screen on the window
+    typedef std::vector<Screen>::size_type ScreenIndex;
+    // reset the Screen at the given position to all blanks
+    void clear(ScreenIndex);
+    // add Screen to Window_mgr
+    Window_mgr &add(Screen&);
+    // display Screen at given position
+    Window_mgr &display(std::ostream&, ScreenIndex);
+    const Window_mgr &display(std::ostream&, ScreenIndex) const;
+private:
+    std::vector<Screen> screens;
+};
+
+class Screen {
+friend void Window_mgr::clear(ScreenIndex);
+friend Window_mgr &Window_mgr::display(std::ostream&, ScreenIndex);
+friend const Window_mgr &Window_mgr::display(std::ostream&, ScreenIndex) const;
+public:
+    // define type pos
+    typedef std::string::size_type pos;
+    // constructors
+    Screen() = default;
+    Screen(pos ht, pos wd): height(ht), width(wd), contents(ht * wd, ' ') { }
+    Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(ht * wd, c) { }
+    // public member functions
+    // get character 
+    char get() const { ++access_ctr; return contents[cursor]; }  // at cursor
+    char get(pos, pos) const; // at specified location
+    // move cursor
+    Screen &move(pos, pos); // to specified location
+    // set character 
+    Screen &set(char); // at cursor
+    Screen &set(pos, pos, char); // at specified location
+    // display contents of Screen
+    Screen &display(std::ostream &os) { do_display(os); return *this; }
+    const Screen &display(std::ostream &os) const { do_display(os); return *this; }
+private:
+    // private member objects
+    pos cursor = 0;
+    pos height = 0, width = 0;
+    std::string contents;
+    mutable size_t access_ctr;  // count number of calls to any member function
+    // private member functions
+    void do_display(std::ostream &os) const { ++access_ctr; os << contents; }
+};
+
+Window_mgr::Window_mgr() : screens{Screen(24, 80, ' ')} { }
+
+void Window_mgr::clear(ScreenIndex i)
+{
+    // s is a reference to the Screen we want to clear
+    Screen &s = screens[i];
+    // reset the contents of that Screen to all blanks
+    s.contents = std::string(s.height * s.width, ' ');
+}
+
+Window_mgr &Window_mgr::add(Screen &s)
+{
+    screens.push_back(s);
+    return *this;
+}
+
+Window_mgr &Window_mgr::display(std::ostream &os, ScreenIndex i)
+{
+    screens[i].display(os);
+    return *this;
+}
+
+const Window_mgr &Window_mgr::display(std::ostream &os, ScreenIndex i) const
+{
+    screens[i].display(os);
+    return *this;
+}
+
+inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
+{
+    ++access_ctr;
+    pos row = r * width;  // compute the row location
+    cursor = row * c;     // move cursor to the column within that row
+    return *this;         // return this object as an lvalue
+}
+
+inline char Screen::get(pos r, pos c) const 
+{
+    ++access_ctr;
+    pos row = r * width;      // compute the row location
+    return contents[row + c];  // return character at the given column
+}
+
+inline Screen &Screen::set(char c)
+{
+    ++access_ctr;
+    contents[cursor] = c;  // set the new value at the current cursor location
+    return *this;          // return this object as an lvalue
+}
+
+inline Screen &Screen::set(pos r, pos c, char ch)
+{
+    ++access_ctr;
+    contents[r * width + c] = ch;  // set specified location to given value
+    return *this;                  // return this object as an lvalue
+}
+```
 ## Section 7.4: Class Scope
 
 **Exercise 7.33:** What would happen if we gave the `Screen` a `size` member defined as follows? Fix any problems you identify.
