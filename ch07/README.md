@@ -502,11 +502,121 @@ std::ostream &print(std::ostream&, const Person&);
 
 **Exercise 7.23:** Write your own version of the `Screen` class
 
+[**Solution:**](include/ex7_23.h)
+
+```cpp
+class Screen {
+public:
+    // define type pos
+    typedef std::string::size_type pos;
+    // constructors
+    Screen() = default;
+    Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(ht * wd, c) { }
+    // public member functions
+    char get() const { return contents[cursor]; } // get character at the cursor
+    inline char get(pos ht, pos wd) const; // explicitly inline
+    Screen &move(pos r, pos c);
+private:
+    pos cursor = 0;
+    pos height = 0, width = 0;
+    std::string contents;
+    mutable size_t access_ctr;  // count number of calls to any member function
+};
+
+inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
+{
+    ++access_ctr;
+    pos row = r * width;  // compute the row location
+    cursor = row * c;     // move cursor to the column within that row
+    return *this;         // return this object as an lvalue
+}
+
+char Screen::get(pos r, pos c) const // declared inline inside class body
+{
+    ++access_ctr;
+    pos row = r * width;      // compute the row location
+    return contents[row + c];  // return character at the given column
+}
+```
+
 **Exercise 7.24:** Give your `Screen` class three constructors: a default constructor; a constructor that takes values for height and width and initializes the contents to hold the given number of blanks; and a constructor that takes values for height, width, and a character to use as the contents of the screen.
+
+[**Solution:**](include/ex7_24.h)
+
+```cpp
+class Screen {
+public:
+    // define type pos
+    typedef std::string::size_type pos;
+    // constructors
+    Screen() = default;
+    Screen(pos ht, pos wd): height(ht), width(wd), contents(ht * wd, ' ') { }
+    Screen(pos ht, pos wd, char c): height(ht), width(wd), contents(ht * wd, c) { }
+    // public member functions
+    char get() const { return contents[cursor]; } // get character at the cursor
+    char get(pos ht, pos wd) const; // explicitly inline
+    Screen &move(pos r, pos c);
+private:
+    pos cursor = 0;
+    pos height = 0, width = 0;
+    std::string contents;
+    mutable size_t access_ctr;  // count number of calls to any member function
+};
+
+inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
+{
+    ++access_ctr;
+    pos row = r * width;  // compute the row location
+    cursor = row * c;     // move cursor to the column within that row
+    return *this;         // return this object as an lvalue
+}
+
+inline char Screen::get(pos r, pos c) const // declared inline inside class body
+{
+    ++access_ctr;
+    pos row = r * width;      // compute the row location
+    return contents[row + c];  // return character at the given column
+}
+```
 
 **Exercise 7.25:** Can `Screen` safely rely on the default vesions of copy and assignment? If so, why? If not, why not?
 
+**Solution:** **Yes, `Screen` can safely rely on the default versions of copy and assignment.** `Screen`'s members are using primitive built-in types and a `string` object, which all play nicely with the synthesized default versions of copy and assignment.
+
 **Exercise 7.26:** Define `Sales_data::avg_price` as an `inline` function.
+
+[**Solution:**](include/ex7_26.h)
+
+```cpp
+class Sales_data {
+// friend declarations for nonmember operations
+friend Sales_data add(const Sales_data&, const Sales_data&);
+friend std::istream &read(std::istream&, Sales_data&);
+friend std::ostream &print(std::ostream&, const Sales_data&);
+public:
+    // constructors
+    Sales_data(): bookNo(), units_sold(0), revenue(0.0) { }
+    Sales_data(const std::string &s): bookNo(s) { }
+    Sales_data(const std::string &s, unsigned n, double p):
+        bookNo(s), units_sold(n), revenue(p*n) { }
+    Sales_data(std::istream&);
+    // public member functions
+    std::string isbn() const { return bookNo; }
+    Sales_data& combine(const Sales_data&); 
+private:
+    // private member functions
+    inline double avg_price() const { return units_sold ? revenue/units_sold : 0; }
+    // member objects
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+
+// nonmember declarations
+Sales_data add(const Sales_data&, const Sales_data&);
+std::istream &read(std::istream&, Sales_data&);
+std::ostream &print(std::ostream&, const Sales_data&);
+```
 
 ### Section 7.3.2: Functions That Return `*this`
 
