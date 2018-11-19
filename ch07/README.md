@@ -928,6 +928,8 @@ Screen::pos Screen::size() const
 
 **Exercise 7.34:** What would happen if we put the `typedef` of `pos` in the `Screen` class on page 285 as the last line in the class?
 
+**Solution:** If we put the `typedef` of `pos` as the last line of the class, then we would not be to use the `pos` type name in any of the declarations or definitions above that line. The program would not compile because `pos` was not defined before trying to use it.
+
 **Exercise 7.35:** Explain the following code, indicating which definition of `Type` or `initVal` is used for each of those names. Say how you would fix any errors.
 
 ```cpp
@@ -938,10 +940,23 @@ public:
     typedef double Type;
     Type setVal(Type);
     Type initVal();
-pritvate:
+private:
     int val;
 };
 Type Exercise::setVal(Type parm) {
+    val = parm + initVal();
+    return val;
+}
+```
+
+**Solution:** `Type` is first defined in the outer scope as a type name for `string`. Then `initVal` is declared as a function with return type `Type` (or `string`).
+
+Inside the class body of `Exercise`, `Type` is defined as a name for `double`. This is an error, but since compilers are not required to diagnose this error, some may quietly accept this code. Then `setVal` and `initVal` are declared as a member functions with an `Exercise::Type` and a return type of `Exercise::Type`. These are legal declarations, the name `setVal` is not used yet, and the name `initVal` from the outer scope is masked by the declaration in the inner scope.
+
+I would rename or remove the definition of `Type` on the first line, and in the definition of `setVal` I would specify the scope of `Type`. As well, `Exercise::initVal` needs to be defined before being used in `setVal`'s definition.
+
+```cpp
+Exercise::Type Exercise::setVal(Type parm) {
     val = parm + initVal();
     return val;
 }
@@ -1055,7 +1070,7 @@ Sales_data item = {"978-0590353403", 25, 15.99};
 
 **Exercise 7.57:** Write your own version of the `Account` class.
 
-**Exercise 7.58:** Which, if any, of the following `static` data member declarations and deginitions are errors? Explain why.
+**Exercise 7.58:** Which, if any, of the following `static` data member declarations and definitions are errors? Explain why.
 
 ```cpp
 // example.h
