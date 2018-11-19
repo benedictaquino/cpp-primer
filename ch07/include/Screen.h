@@ -47,6 +47,7 @@ public:
     // display contents of Screen
     Screen &display(std::ostream &os) { do_display(os); return *this; }
     const Screen &display(std::ostream &os) const { do_display(os); return *this; }
+    pos size() const;
 private:
     // private member objects
     pos cursor = 0;
@@ -54,7 +55,7 @@ private:
     std::string contents;
     mutable size_t access_ctr;  // count number of calls to any member function
     // private member functions
-    void do_display(std::ostream &os) const { ++access_ctr; os << contents; }
+    void do_display(std::ostream &os) const;
 };
 
 Window_mgr::Window_mgr() : screens{Screen(24, 80, ' ')} { }
@@ -85,6 +86,12 @@ const Window_mgr &Window_mgr::display(std::ostream &os, ScreenIndex i) const
     return *this;
 }
 
+void Screen::do_display(std::ostream &os = std::cout) const
+{
+    ++access_ctr;
+    os << contents << "\n";
+}
+
 inline Screen &Screen::move(pos r, pos c) // define as inline outside of class body
 {
     ++access_ctr;
@@ -112,6 +119,11 @@ inline Screen &Screen::set(pos r, pos c, char ch)
     ++access_ctr;
     contents[r * width + c] = ch;  // set specified location to given value
     return *this;                  // return this object as an lvalue
+}
+
+Screen::pos Screen::size() const
+{
+    return height * width;
 }
 
 #endif

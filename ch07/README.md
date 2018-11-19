@@ -915,6 +915,15 @@ pos Screen::size() const
 }
 ```
 
+**Solution:** `size` should return the value of the expression `height * width`. However, if we are defining `size` outside of the class body, then we need use the scoping operator to use `pos` from inside `Screen`.
+
+```cpp
+Screen::pos Screen::size() const
+{
+    return height * width;
+}
+```
+
 ### Section 7.4.1: Name Lookup and Class Scope
 
 **Exercise 7.34:** What would happen if we put the `typedef` of `pos` in the `Screen` class on page 285 as the last line in the class?
