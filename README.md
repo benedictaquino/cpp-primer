@@ -138,7 +138,7 @@
     * [7.3.4 Friendship Revisited](ch07#section-734-friendship-revisited)
   * [7.4 Class Scope](ch07#section-74-class-scope)
     * [7.4.1 Name Lookup and Class Scope](ch07#section-741-name-lookup-and-class-scope)
-  * [7.5 Constructors Revisited](ch07#section-75-constructors-revisted)
+  * [7.5 Constructors Revisited](ch07#section-75-constructors-revisited)
     * [7.5.1 Constructor Initializer List](ch07#section-751-constructor-initializer-list)
     * [7.5.2 Delegating Constructors](ch07#section-752-delegating-constructors)
     * [7.5.3 The Role of the Default Constructor](ch07#section-753-the-role-of-the-default-constructor)
