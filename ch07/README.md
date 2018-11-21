@@ -1130,7 +1130,148 @@ Author: Cormac McCarthy
 
 **Exercise 7.41:** Rewrite your own version of the `Sales_data` class to use delegating constructors. Add a statement to the body of each of the constructors that prints a message whenever it is executed. Write declarations to construct a `Sales_data` object in every way possible. Study the output until you are certain you understand the order of execution among delegating constructors.
 
+[**Solution:**](include/ex7_41.h)
+
+```cpp
+// nondelegating constructor
+Sales_data(std::string s, unsigned cnt, double price):
+    bookNo(s), units_sold(cnt), revenue(cnt * price) {
+        std::cout << "Nondelegating constructor.\n";
+    }
+// delegating constructors
+Sales_data(): Sales_data("", 0, 0.0) { 
+    std::cout << "Default constructor\n"; 
+}
+Sales_data(const std::string &s): Sales_data(s, 0, 0.0) { 
+    std::cout << "ISBN constructor.\n";
+}
+Sales_data(unsigned n): Sales_data("", n, 0.0) {
+    std::cout << "Units sold constructor.\n";
+}
+Sales_data(double p): Sales_data("", 0, p) {
+    std::cout << "Price constructor.\n";
+}
+Sales_data(const std::string &s, unsigned n): Sales_data(s, n, 0.0) {
+    std::cout << "ISBN and units sold constructor.\n";
+}
+Sales_data(const std::string &s, double p): Sales_data(s, 0, p) {
+    std::cout << "ISBN and price constructor.\n";
+}
+Sales_data(unsigned n, double p): Sales_data("", n, p) {
+    std::cout << "Units sold and price constructor.\n";
+}
+Sales_data(std::istream &is): Sales_data() { 
+    read(is, *this); 
+    std::cout << "istream constructor.\n";
+}
+```
+
+[**Test Script:**](src/ex7_41.cpp)
+
+```cpp
+cout << "Default constructor:\n";
+Sales_data item_default;
+print(cout, item_default);
+
+cout << "ISBN constructor:\n";
+Sales_data item_isbn("0-201-16209-X");
+print(cout, item_isbn);
+
+cout << "Units sold constructor:\n";
+Sales_data item_units(10u);
+print(cout, item_units);
+
+cout << "Price constructor:\n";
+Sales_data item_price(100.);
+print(cout, item_price);
+
+cout << "ISBN and units sold constructor:\n";
+Sales_data item_isbn_units("0-201-78345-X", 3u);
+print(cout, item_isbn_units);
+
+cout << "ISBN and price constructor:\n";
+Sales_data item_isbn_price("0-201-78345-X", 20.75);
+print(cout, item_isbn_price);
+
+cout << "Units sold and price constructor:\n";
+Sales_data item_units_price(3u, 20.75);
+print(cout, item_units_price);
+
+cout << "Full transaction constructor:\n";
+Sales_data item_full("0-201-78345-X", 3u, 20.75);
+print(cout, item_full);
+
+cout << "istream constructor:\n";
+Sales_data item_is(cin);
+print(cout, item_is);
+```
+
+**Output:**
+
+```
+Default constructor:
+Nondelegating constructor.
+Default constructor
+ 0 0 0
+ISBN constructor:
+Nondelegating constructor.
+ISBN constructor.
+0-201-16209-X 0 0 0
+Units sold constructor:
+Nondelegating constructor.
+Units sold constructor.
+ 10 0 0
+Price constructor:
+Nondelegating constructor.
+Price constructor.
+ 0 0 0
+ISBN and units sold constructor:
+Nondelegating constructor.
+ISBN and units sold constructor.
+0-201-78345-X 3 0 0
+ISBN and price constructor:
+Nondelegating constructor.
+ISBN and price constructor.
+0-201-78345-X 0 0 0
+Units sold and price constructor:
+Nondelegating constructor.
+Units sold and price constructor.
+ 3 62.25 20.75
+Full transaction constructor:
+Nondelegating constructor.
+0-201-78345-X 3 62.25 20.75
+istream constructor:
+Nondelegating constructor.
+Default constructor
+istream constructor.
+0-201-78345-X 3 62.25 20.75
+```
+
 **Exercise 7.42:** For the class you wrote for [exercise 7.40](src/ex7_40.cpp) in [7.5.1](#section-751-constructor-initializer-list), decide whether any of the constructors might use delegation. If so, write the delegating constructor(s) for your class. If not, look at the list of abstractions and choose one that you think would use a delegating constructor. Write the class definition for that abstraction.
+
+[**Solution:**](include/ex7_42.h)
+
+```cpp
+class Employee {
+friend std::istream &read(std::istream&, Employee&);
+friend std::ostream &print(std::ostream&, Employee&);
+public:
+    // nondelegating constructor
+    Employee(std::string s1, std::string s2, unsigned n):
+        name(s1), title(s2), salary(n) { }
+    // delegating constructors
+    Employee(): Employee("", "", 0) { }
+    Employee(const std::string &s): Employee(s, "", 0) { }
+    Employee(unsigned n): Employee("", "", n) { }
+    Employee(const std::string &s1, const std::string &s2): Employee(s1, s2, 0) { }
+    Employee(const std::string &s, unsigned n): Employee(s, "", n) { }
+    Employee(std::istream &is): Employee() { read(is, *this); }
+private:
+    std::string name = "";
+    std::string title = ""; 
+    unsigned salary = 0;
+};
+```
 
 ## Section 7.5.3: The Role of the Default Constructor
 

@@ -5,10 +5,10 @@
 using std::cin; using std::cout; using std::endl;
 using std::istream; using std::ostream;
 
-Sales_data::Sales_data(std::istream &is)
-{
-    read(is, *this);
-}
+// Sales_data::Sales_data(std::istream &is)
+// {
+//     read(is, *this);
+// }
 
 Sales_data& Sales_data::combine(const Sales_data &rhs) 
 {
@@ -44,6 +44,6 @@ ostream &print(ostream &os, const Sales_data &item)
     cout << item.bookNo << " "
          << item.units_sold << " "
          << item.revenue << " "
-         << item.avg_price();
+         << item.avg_price() << "\n";
     return os;
 }
