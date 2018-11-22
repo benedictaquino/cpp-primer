@@ -1277,20 +1277,40 @@ private:
 
 **Exercise 7.43:** Assume we have a class named `NoDefault` that has a constructor that takes an `int`, but has no default constructor. Define a class `C` that has a member of type `NoDefault`. Define the default constructor for `C`.
 
+[**Solution:**](include/ex7_43.h)
+
+```cpp
+struct C {
+    C(): c_member(0) { }
+    NoDefault c_member;
+};
+```
+
 **Exercise 7.44:** Is the following declaration legal? If not, why not?
 
 ```cpp
 vector<NoDefault> vec(10);
 ```
 
+**Solution:** No, because it will try and default initialize the ten `NoDefault` objects in the `vector`, but there is no default constructor for `NoDefault` objects.
+
 **Exercise 7.45:** What if we defined the `vector` in the previous exercise to hold objects of type `C`?
+
+**Solution:** Yes, it would be legal. Since `C` objects have a default constructor theu can be initialized without any arguments.
 
 **Exercise 7.46:** Which, if any, of the following statements are untrue? Why?
 
 * (a) A Class must provide at least one constructor.
 * (b) A default constructor is a constructor with an empty parameter list.
 * (c) If there are no meaningful default values for a class, the class should not provide a default constructor.
-* (d) If a class does not define a default constructor, the compiler generates on that initializes each data member to the default value of its associated type.
+* (d) If a class does not define a default constructor, the compiler generates one that initializes each data member to the default value of its associated type.
+
+**Solution:** 
+
+* (a) **False**. If no constructors are provided and all of the members can be default initialized, then a default constructor will be synthesized.
+* (b) **False**. A constructor that has default arguments for all parameters is also a default constructor.
+* (c) **False**. It is best practice to provide a default constructor if any other constructors are being defined.
+* (d) **False**. The compiler only generates a synthesized default constructor if a class does not define any constructors.
 
 ### Section 7.5.4: Implicit Class-Type Conversions
 
