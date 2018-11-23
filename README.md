@@ -145,4 +145,4 @@
     * [7.5.4 Implicit Class-Type Conversions](ch07#section-754-implicit-class-type-conversions)
     * [7.5.5 Aggregate Classes](ch07#section-755-aggregate-classes)
     * [7.5.6 Literal Classes](ch07#section-756-literal-classes)
-  * [7.6 `static` Class Members](ch07#section-76-statis-class-members)
+  * [7.6 `static` Class Members](ch07#section-76-static-class-members)
