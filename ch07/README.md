@@ -1368,13 +1368,43 @@ If the `Sales_data` constructors are `explicit`, then the same operations occur;
 Sales_data item = {"978-0590353403", 25, 15.99};
 ```
 
+[**Solution:**](src/ex7_52.cpp) The `Sales_data` object `item` is initialized with `bookNo` holding the value `"978-0590353403"`, `units_sold` holding `25`, and `revenue` holding `15.99`. However, we want `revenue` to be the number of units sold times the price of each book, so I would initialize it as such:
+
+```cpp
+Sales_data item = {"978-0590353403", 25, 25 * 15.99};
+```
+
 ### Section 7.5.6: Literal Classes
 
 **Exercise 7.53:** Define your own version of `Debug`.
 
+[**Solution:**](include/Debug.h)
+
+```cpp
+class Debug {
+public:
+    constexpr Debug(bool b = true): hw(b), sw(b), io(b), other(b) { }
+    constexpr Debug(bool h, bool s, bool i, bool o): hw(h), sw(s) io(i), other(o) { }
+    constexpr bool any() { return hw || sw || io || other; }
+    void set_hw(bool b) { hw = b; }
+    void set_sw(bool b) { sw = b; }
+    void set_io(bool b) { io = b; }
+    void set_other(bool b) { hw = b; }
+private:
+    bool hw;    // hardware errors other than IO errors
+    bool sw;    // software errors
+    bool io;    // IO errors
+    bool other; // other errors
+};
+```
+
 **Exercise 7.54:** Should the members of `Debug` that begin with `set_` be declared as `constexpr`? If not, why not?
 
+**Solution:** No, because the body of the those member functions does not contain exactly one return statement.
+
 **Exercise 7.55:** Is the [`Data`](src/Data.h) class from [7.5.5](#section-755-aggregate-classes) a literal class? If not, why not? If so, explain why it is literal.
+
+**Solution:** Yes, it is a literal class. The `Data` class is an aggregate whose data members are all of literal type, so it is a literal class.
 
 ## Section 7.6: `static` Class Members
 
