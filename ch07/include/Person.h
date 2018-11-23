@@ -13,7 +13,7 @@ public:
     Person() = default;
     Person(const std::string &s): name(s) { }
     Person(const std::string &s1, const std::string &s2): name(s1), address(s2) { }
-    Person(std::istream&);
+    explicit Person(std::istream&);
     // member functions
     std::string who() const { return name; }
     std::string where() const { return address; }

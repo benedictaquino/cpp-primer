@@ -3,7 +3,7 @@
 
 using std::istream; using std::ostream; 
 
-Person::Person(istream &is)
+explicit Person::Person(istream &is)
 {
     read(is, *this);
 }

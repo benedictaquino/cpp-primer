@@ -1316,25 +1316,49 @@ vector<NoDefault> vec(10);
 
 **Exercise 7.47:** Explain whether the `Sales_data` constructor that takes a `string` should be `explicit`. What are the benefits of making the constructor `explicit`? What are the drawbacks?
 
+**Solution:** The `Sales_data` constructor that takes a `string` does not need to be `explicit`. It depends on how we expect users of the program will use the conversion. The benefits of making the constructor `explicit` will stop the use of the constructor when it requires an implicit conversion and we are able to define a constructor that can only be used for direct initialization. The drawback is that we must call the constructor explicitly if we want to do any type conversion.
+
 **Exercise 7.48:** Assuming the `Sales_data` constructors are not `explicit`, what operations happen during the following definitions?
 
 ```cpp
-    string null_isbn("9-999-99999-9");
-    Sales_data item1(null_isbn);
-    Sales_data item2("9-999-99999-9");
+string null_isbn("9-999-99999-9");
+Sales_data item1(null_isbn);
+Sales_data item2("9-999-99999-9");
 ```
 
 What happens if the `Sales_data` constructors are `explicit`?
 
+**Solution:** The first line defines a `string` `null_isbn` holding the value `"9-999-99999-9"`. The second line initializes a `Sales_data` object with the `null_isbn` string. The third line returns an error because it requires two implicit conversion. `"9-999-99999-9"` is a must be converted to a `string` and then converted to a `Sales_data` object.
+
+```cpp
+string null_isbn("9-999-99999-9");  // null_isbn is a string object with the value "9-999-99999-9"
+Sales_data item1(null_isbn);        // item1 is initialized with the string "9-999-99999-9"
+Sales_data item2("9-999-99999-9");  // error: requires two user-defined conversions
+```
+If the `Sales_data` constructors are `explicit`, then the same operations occur; the `explicit` constructors are still called the same.
+
+
 **Exercise 7.49:** For each of the three following declarations of `combine`, explain what happens if we call `i.combine(s)`, where `i` is a `Sales_data` and `s` is a `string`:
 
 * (a) `Sales_data &combine(Sales_data);`
+
+**Solution:** If we call `i.combine(s)` here, then `s` is implicitly converted to a `Sales_data` object and the member function operates as usual.
+
 * (b) `Sales_data &combine(Sales_data&);`
+
+**Solution:** If we call `i.combine(s)` here, then we get an error because the `string` will be converted to a `Sales_data` object and the reference to that temporary `Salesdata` object will be passed into `combine`. 
+
 * (c) `Sales_data &combine(const Sales_data&) const;`
+
+**Solution:** If we call `i.combine(s)` here, then we get an error because the trailing `const` will make the function unable to mutate the object's members.
 
 **Exercise 7.50:** Determine whether any of your `Person` class constructors should be `explicit`.
 
+**Solution:** I would make the `Person(std::istream&)` constructor `explicit` because I only want to use that constructor for direct initialization.
+
 **Exercise 7.51:** Why do you think `vector` defines it single-argument constructor as `explicit`, but `string` does not?
+
+**Solution:** The size constructor for `vector` is really only useful for direct initialization. For `string` we likely would want this implicit conversion to work well with string literals being passed into other functions.
 
 ### Section 7.5.5: Aggregate Classes
 
