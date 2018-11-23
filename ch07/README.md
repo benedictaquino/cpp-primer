@@ -1408,9 +1408,55 @@ private:
 
 ## Section 7.6: `static` Class Members
 
-**Exercise 7.56:** What is a `static` class member? What are the advantagses of `static` members? How do they differ from ordinary members?
+**Exercise 7.56:** What is a `static` class member? What are the advantages of `static` members? How do they differ from ordinary members?
+
+**Solution:** A `static` class member that exists outside of any objects of the class type. The objects do not contain the data associated with the `static` data members. They are useful when we want a member associated with the class itself, and not the individual objects of that type. They can also be used in other ways that ordinary members cannot; for example, they can have an incomplete type such as the type of the class it belongs to. As well, we can use `static` members as a default argument for the class.
 
 **Exercise 7.57:** Write your own version of the `Account` class.
+
+[**Header:**](include/Account.h)
+
+```cpp
+class Account {
+    friend std::ostream &print(std::ostream&, Account&);
+public:
+    // constructors
+    Account() = default;
+    explicit Account(const std::string &s, double d = 0.0): 
+        owner(s), amount(d), daily_tbl() { }
+    void calculate() { amount += amount * interestRate; }
+    static double rate() { return interestRate; }
+    static void rate(double);
+    std::ostream &print(std::ostream&);
+private:
+    std::string owner;
+    double amount;
+    static double interestRate;
+    static double initRate();
+    static constexpr int period = 30;
+    double daily_tbl[period];
+};
+
+inline void Account::rate(double newRate) { interestRate = newRate; }
+
+inline std::ostream &print(std::ostream &os, Account &acc)
+{
+    os << acc.owner << " " << acc.amount << " " << acc.daily_tbl[0];
+    return os;
+}
+
+inline std::ostream &Account::print(std::ostream &os = std::cout)
+{
+    os << owner << " " << amount << " " << daily_tbl[0];
+    return os;
+}
+```
+[**Non-inline member functions:**](src/account.cpp)
+
+```cpp
+double Account::initRate() { return 0.07; }
+double Account::interestRate = initRate();
+```
 
 **Exercise 7.58:** Which, if any, of the following `static` data member declarations and definitions are errors? Explain why.
 
@@ -1429,4 +1475,25 @@ public:
 #include "example.h"
 double Example::rate;
 vector<double> Example::vec;
+```
+**Solution:** `rate` needs to be initialized outside of the class body or with a constant expression. Normally, `static` members cannot be initialized in the class body. `vec` cannot be initialized with parentheses in an in-class initializer and it should be initialized outside of the class body or with a constant expression.o
+
+`rate` and `vec` should be initialized in `example.C`.
+
+[**Header:**](include/Example.h)
+
+```cpp
+class Example {
+public:
+    static double rate; // = 6.5;
+    static const int vecSize = 20;
+    static std::vector<double> vec; // (vecSize);
+};
+```
+
+[**Declarations:**](src/example.cpp)
+
+```cpp
+double Example::rate = 6.5;
+vector<double> Example::vec(vecSize);
 ```
