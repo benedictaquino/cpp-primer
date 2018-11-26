@@ -13,6 +13,9 @@
     * [1.5.1 The `Sales_item` Class](ch01#section-151-the-sales_item-class)
     * [1.5.2 A First Look at Member Functions](ch01#section-152-a-first-look-at-member-functions)
   * [1.6 The Bookstore Program](ch01#section-16-the-bookstore-program)
+
+## Part I: The Basics
+
 * [Chapter 2: Variables and Basic Types](ch02#chapter-2-variables-and-basic-types)
   * [2.1 Primitive Built-in Types](ch02#section-21-primitive-built-in-types)
     * [2.1.1 Arithmetic Types](ch02#section-211-arithmetic-types)
@@ -146,3 +149,17 @@
     * [7.5.5 Aggregate Classes](ch07#section-755-aggregate-classes)
     * [7.5.6 Literal Classes](ch07#section-756-literal-classes)
   * [7.6 `static` Class Members](ch07#section-76-static-class-members)
+
+## Part II: The C++ Library
+
+* [Chapter 8: The IO Library](ch08#chapter-8-the-io-library)
+  * [8.1 The IO Classes](ch08#section-81-the-io-classes)
+    * [8.1.1 No Copy or Assign for IO Objects](ch08#section-811-no-copy-or-assign-for-io-objects)
+    * [8.1.2 Condition States](ch08#section-812-condition-states)
+    * [8.1.3 Managing the Output Buffer](ch08#section-813-managing-the-output-buffer)
+  * [8.2 File Input and Output](ch08#section-82-file-input-and-output)
+    * [8.2.1 Using File Stream Objects](ch08#section-821-using-file-stream-objects)
+    * [8.2.2 File Modes](ch08#section-822-file-modes)
+  * [8.3 `string` Streams](ch08#section-83-string-streams)
+    * [8.3.1 Using an `istringstream`](ch08#section-831-using-an-istringstream)
+    * [8.3.2 Using `ostringstream`s](ch08#section-832-using-ostringstreams)
