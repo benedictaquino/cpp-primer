@@ -1,4 +1,4 @@
-# Chapter 8: The C++ Library
+# Chapter 8: The IO Library
 
 ## Section 8.1: The IO Classes
 
@@ -6,11 +6,60 @@
 
 ### Section 8.1.2: Condition States
 
-**Exercise 8.1:** Write a function that takes and returns an `istream&`. The function should read the stream until it hits end-of-file. The function shold print what it reads to the standard output. Reset the stream so that it is valid before returning the stream.
+**Exercise 8.1:** Write a function that takes and returns an `istream&`. The function should read the stream until it hits end-of-file. The function should print what it reads to the standard output. Reset the stream so that it is valid before returning the stream.
+
+[**Solution:**](src/ex8_1.cpp)
+
+```cpp
+istream &read_stream(istream &is)
+{
+    string s;
+    is.clear();   // make istream valid
+    // while istream is valid, print to standard output
+    while (is >> s) cout << s << " ";
+    cout << endl; // newline and flush
+    is.clear();   // reset istream
+    return is;
+}
+```
 
 **Exercise 8.2:** Test your function by calling it, passing `cin` as an argument.
 
+[**Solution:**](src/ex8_2.cpp)
+
+```cpp
+int main()
+{
+    read_stream(cin);
+    return 0;
+}
+```
+
+[**Input:**](data/test/txt)
+
+```
+Who am I? You sure you want to know? The story of my life is not for the faint
+of heart. If somebody told you it was a happy little tale, if somebody told
+you I was just your average ordinary guy, not a care in the world... somebody
+lied. But let me assure you, this, like any story worth telling, is all about
+a girl. That girl, The girl next door. Mary Jane Watson. The woman I loved
+since before I even liked girls. I'd like to tell you that's me next to her.
+Aw, heck, I'd even take him. That's me...
+```
+
+**Output:**
+
+```
+Who am I? You sure you want to know? The story of my life is not for the faint of heart. If somebody told you it was a happy little tale, if somebody told you I was just your average ordinary guy, not a care in the world... somebody lied. But let me assure you, this, like any story worth telling, is all about a girl. That girl, The girl next door. Mary Jane Watson. The woman I loved since before I even liked girls. I'd like to tell you that's me next to her. Aw, heck, I'd even take him. That's me...
+```
+
 **Exercise 8.3:** What causes the following `while` to terminate?
+
+```cpp
+while (cin >> i) /* ... */
+```
+
+**Solution:** If the state of `cin` returned from the `>>` expression is invalid, then the `while` loop terminates. The three condition states that will be considered invalid are `badbit`, `failbit`, or `eofbit`.
 
 ### Section 8.1.3: Managing the Output Buffer
 
