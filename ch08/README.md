@@ -138,7 +138,162 @@ int main(int argc, char *argv[])
 
 **Exercise 8.7:** Revise the bookstore program from the previous section to write its output to a file. Pass the name of that file as a second argument to `main`.
 
+[**Solution:**](src/ex8_7.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1] || !argv[2]) { // check if two filenames were passed in
+        cerr << "Not enough arguments supplied." << endl;
+        return -1;
+    }
+    ifstream infile(argv[1]);
+    ofstream outfile(argv[2]);
+    Sales_data total; // variable to hold data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (read(infile, total)) {
+        Sales_data trans; // variable to hold the running sum
+        // read and process the remaining transactions
+        while (read(infile, trans)) {
+            // if we're still processing the same book
+            if (total.isbn() == trans.isbn()) {
+                // update the running total
+                total.combine(trans);
+            } else { // write the results for the previous books
+                print(outfile, total);
+                total = trans; // total now refers to the next book
+            }
+        }
+        // write the last transaction
+        print(outfile, total);
+    } else { // no input! warn the user
+        cerr << "No Data?!" << endl;
+        return -1; // indicate failure
+    }
+    return 0;
+}
+```
+
+[**Input:**](data/items.txt)
+
+```
+0-201-78345-X 3 20.75
+0-201-78345-X 2 25.50
+0-201-78345-X 1 15.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-16209-X 4 55.00
+0-201-16209-X 6 95.00
+0-201-16209-X 1 35.00
+0-201-16209-X 2 45.00
+```
+
+```bash
+g++ src/sales_data.cpp src/ex8_7.cpp -o bin/ex8_7
+bin/ex8_7 data/items.txt data/ex8_7.txt
+```
+
+[**Output:**](data/ex8_7.txt)
+
+```
+0-201-78345-X 6 128.25 21.375
+0-201-87649-X 14 350 25
+0-201-30957-X 12 300 25
+0-201-16209-X 13 915 70.3846
+```
+
 **Exercise 8.8:** Revise the program from the previous exercise to append its output to its given file. Run the program on the same output file at least twice to ensure the data are preserved.
+
+[**Solution:**](src/ex8_8.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1] || !argv[2]) { // check if two filenames were passed in
+        cerr << "Not enough arguments supplied." << endl;
+        return -1;
+    }
+    ifstream infile(argv[1]);
+    ofstream outfile(argv[2], ofstream::app);
+    Sales_data total; // variable to hold data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (read(infile, total)) {
+        Sales_data trans; // variable to hold the running sum
+        // read and process the remaining transactions
+        while (read(infile, trans)) {
+            // if we're still processing the same book
+            if (total.isbn() == trans.isbn()) {
+                // update the running total
+                total.combine(trans);
+            } else { // write the results for the previous books
+                print(outfile, total);
+                total = trans; // total now refers to the next book
+            }
+        }
+        // write the last transaction
+        print(outfile, total);
+    } else { // no input! warn the user
+        cerr << "No Data?!" << endl;
+        return -1; // indicate failure
+    }
+    return 0;
+}
+```
+
+[**Input:**](data/items.txt)
+
+```
+0-201-78345-X 3 20.75
+0-201-78345-X 2 25.50
+0-201-78345-X 1 15.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-87649-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-30957-X 2 25.00
+0-201-16209-X 4 55.00
+0-201-16209-X 6 95.00
+0-201-16209-X 1 35.00
+0-201-16209-X 2 45.00
+```
+
+```bash
+g++ src/sales_data.cpp src/ex8_8.cpp -o bin/ex8_8
+bin/ex8_8 data/items.txt data/ex8_8.txt
+bin/ex8_8 data/items.txt data/ex8_8.txt
+```
+
+[**Output:**](data/ex8_8.txt)
+
+```
+0-201-78345-X 6 128.25 21.375
+0-201-87649-X 14 350 25
+0-201-30957-X 12 300 25
+0-201-16209-X 13 915 70.3846
+0-201-78345-X 6 128.25 21.375
+0-201-87649-X 14 350 25
+0-201-30957-X 12 300 25
+0-201-16209-X 13 915 70.3846
+```
 
 ## Section 8.3: `string` Streams
 

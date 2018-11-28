@@ -31,9 +31,9 @@ istream &read(istream &is, Sales_data &item)
 
 ostream &print(ostream &os, const Sales_data &item)
 {
-    cout << item.bookNo << " "
-         << item.units_sold << " "
-         << item.revenue << " "
-         << item.avg_price() << "\n";
+    os << item.bookNo << " "
+       << item.units_sold << " "
+       << item.revenue << " "
+       << item.avg_price() << "\n";
     return os;
 }
