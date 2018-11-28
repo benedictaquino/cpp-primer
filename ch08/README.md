@@ -69,9 +69,70 @@ while (cin >> i) /* ... */
 
 **Exercise 8.4:** Write a function to open a file for input and read its contents into a `vector` of `string`s, storing each line as a separate element in the `vector`.
 
-**Exercise 8.5:** Rewrite the previous program to stroe each word in a separate element.
+[**Solution:**](src/ex8_4.cpp)
 
-**Exercise 8.6:** Rewrite the [bookstore program](../ch07/src/ex7_1.cpp) from [7.1.1](../ch07#section-71-defining-abstract-data-types) to read its transactions from a file. PAss the name of the file as an argument to `main`.
+```cpp
+vector<string> read_file(const string &filename)
+{
+    string str;
+    vector<string> str_vec;
+    ifstream infile(filename);
+    while(getline(infile, str)) str_vec.push_back(str);
+    return str_vec;
+}
+```
+
+**Exercise 8.5:** Rewrite the previous program to store each word in a separate element.
+
+[**Solution:**](src/ex8_5.cpp)
+
+```cpp
+vector<string> read_file(const string &filename)
+{
+    string str;
+    vector<string> str_vec;
+    ifstream infile(filename);
+    while(infile >> str) str_vec.push_back(str);
+    return str_vec;
+}
+```
+
+**Exercise 8.6:** Rewrite the [bookstore program](../ch07/src/ex7_1.cpp) from [7.1.1](../ch07#section-71-defining-abstract-data-types) to read its transactions from a file. Pass the name of the file as an argument to `main`.
+
+[**Solution:**](src/ex8_6.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1]) { // check if a filename was passed in
+        cerr << "Not enough arguments supplied." << endl;
+        return -1;
+    }
+    ifstream infile(argv[1]);
+    Sales_data total; // variable to hold data for the next transaction
+    // read the first transaction and ensure there are data to process
+    if (read(infile, total)) {
+        Sales_data trans; // variable to hold the running sum
+        // read and process the remaining transactions
+        while (read(infile, trans)) {
+            // if we're still processing the same book
+            if (total.isbn() == trans.isbn()) {
+                // update the running total
+                total.combine(trans);
+            } else { // print the results for the previous books
+                print(cout, total);
+                total = trans; // total now refers to the next book
+            }
+        }
+        // print the last transaction
+        print(cout, total);
+    } else { // no input! warn the user
+        cerr << "No Data?!" << endl;
+        return -1; // indicate failure
+    }
+    return 0;
+}
+```
 
 ### Section 8.2.2: File Modes
 
