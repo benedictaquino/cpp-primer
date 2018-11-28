@@ -166,10 +166,10 @@ istream &read(istream &is, const Sales_data &item)
 
 ostream &print(ostream &os, const Sales_data &item)
 {
-    cout << item.bookNo << " "
-         << item.units_sold << " "
-         << item.revenue << " "
-         << item.avg_price();
+    os << item.bookNo << " "
+       << item.units_sold << " "
+       << item.revenue << " "
+       << item.avg_price();
     return os;
 }
 ```
@@ -193,7 +193,7 @@ int main()
             else { 
                 // print the results for the previous books
                 print(cout, total);
-                cout << "\n";
+                c<out << "\n";
                 total = trans; // total now refers to the current book
             }
         }

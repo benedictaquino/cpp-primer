@@ -2,7 +2,6 @@
 #include <string>
 #include "../include/Sales_data.h"
 
-using std::cin; using std::cout; using std::endl;
 using std::istream; using std::ostream;
 
 // Sales_data::Sales_data(std::istream &is)
@@ -41,9 +40,9 @@ istream &read(istream &is, Sales_data &item)
 
 ostream &print(ostream &os, const Sales_data &item)
 {
-    cout << item.bookNo << " "
-         << item.units_sold << " "
-         << item.revenue << " "
-         << item.avg_price() << "\n";
+    os << item.bookNo << " "
+       << item.units_sold << " "
+       << item.revenue << " "
+       << item.avg_price() << "\n";
     return os;
 }
