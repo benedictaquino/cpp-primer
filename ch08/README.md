@@ -301,11 +301,81 @@ bin/ex8_8 data/items.txt data/ex8_8.txt
 
 **Exercise 8.9:** Use the function you wrote for the [first exercise](src/ex8_1.cpp) in [8.1.2](#section-812-condition-states) to print your contents of an `istringstream` object.
 
+[**Solution:**](src/ex8_9.cpp)
+
+```cpp
+int main()
+{
+    string str;
+    getline(cin, str);
+    istringstream instring(str);
+    read_stream(instring);
+    return 0;
+}
+```
+
 **Exercise 8.10:** Write a program to store each line from a file in a `vector<string>`. Now use an `istringstream` to read each element from the `vector` a word at a time.
 
-**Exercise 8.11:** The program in this section defined its `istringstream` object inside the outer `while` loop. What changes would you need to make if `record` were defined outside that loop? Rewrite the program, moving the definition of `record` outside the `while`, and see whether you thought all of the changes that are needed.
+[**Solution:**](src/ex8_10.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1]) {
+        cerr << "Not enough arguments supplied." << flush;
+        return -1;
+    }
+    ifstream infile(argv[1]); // input file
+    string line;
+    vector<string> str_vec; // object to hold each line from file 
+    // append each line to str_vec
+    while (getline(infile, line)) str_vec.push_back(line);
+    istringstream instring; // istringstream object to bind to line
+    for (auto &s : str_vec) {  // for each line
+        instring.clear(); // reset instring
+        instring.str(s); // copy line to instring
+        string word;
+        // read each word and print to standard output
+        while (instring >> word) cout << word << " ";
+        cout << "\n";
+    }
+    cout << flush;
+    return 0;
+}
+```
+
+**Exercise 8.11:** The [program](src/person_info.cpp) in this section defined its `istringstream` object inside the outer `while` loop. What changes would you need to make if `record` were defined outside that loop? Rewrite the program, moving the definition of `record` outside the `while`, and see whether you thought all of the changes that are needed.
+
+[**Solution:**](src/ex8_11.cpp) If `record` were defined outside the outer `while` loop, then I would need to use `record.clear()` to reset the condition of `record` and `record.str(line)` inside the `while` loop. If I did not reset the condition of `record`, then the inner `while` loop would evaluate as invalid and the phone numbers would not be stored to `info`. 
+
+```cpp
+int main()
+{
+    string line, word;  // will hold a line and word from input, respectively
+    vector<PersonInfo> people;  // will hold all the records from the input
+    // read the input a line at a time until cin hits end-of-file (or another error)
+    istringstream record;
+    while (getline(cin, line)) {
+        PersonInfo info;      // create an object to hold this record's data
+        record.clear();  // reset record
+        record.str(line); // bind record to the line we just read
+        record >> info.name;  // read the name
+        while (record >> word)       // read the phone numbers
+            info.phones.push_back(word);  // and store them
+        people.push_back(info); // append this record to people
+    }
+    for (auto &person : people) {
+        cout << person.name << "\n";
+        for (auto &phone : person.phones) cout << "  " << phone << "\n";
+    }
+    cout << flush;
+    return 0;
+}
+```
 
 **Exercise 8.12:** Why didn't we use in-class initializers in `PersonInfo`?
+
+**Solution:** We did not use in-class initializers in `PersonInfo` because the members are of type `string` and `vector` of `strings`, which work with the synthesized default initializer since they have default constructors.
 
 ### Section 8.3.2: Using `ostringstream`s
 
