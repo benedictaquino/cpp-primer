@@ -1,10 +1,3 @@
-/* Exercise 8.11
- * Author: Benedict Aquino
- * Date 2018-11-28
- * Description: Thei program reads data from the standard input and builds up
- * a vector of PersonInfo. Each element in the vector corresponds to one
- * record in the file. Then the input is processed in a loop that reads a
- * record and then extracts the name and phone numbers for each person. */
 #include <iostream>
 #include <sstream>
 #include <vector>

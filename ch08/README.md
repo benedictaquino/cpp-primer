@@ -379,6 +379,48 @@ int main()
 
 ### Section 8.3.2: Using `ostringstream`s
 
-**Exercise 8.13:** Rewrite the phone number program from this section to read from a named file rather than a `cin`.
+**Exercise 8.13:** Rewrite the [phone number program](src/phone.cpp) from this section to read from a named file rather than a `cin`.
+
+[**Solution:**](src/ex8_13.cpp)
+
+```cpp
+int main(int argc, char *argv[])
+{
+    if (!argv[1]) {
+        cerr << "No input file supplied." << endl;
+        return -1;
+    }
+    ifstream infile(argv[1]); // input file
+    string line, word;  // will hold a line and word from input, respectively
+    vector<PersonInfo> people;  // will hold all the records from the input
+    // read the input file a line at a time until it hits end-of-file (or another error)
+    while (getline(infile, line)) {
+        PersonInfo info;      // create an object to hold this record's data
+        istringstream record(line); // bind record to the line we just read
+        record >> info.name;  // read the name
+        while (record >> word)       // read the phone numbers
+            info.phones.push_back(word);  // and store them
+        people.push_back(info); // append this record to people
+    }
+    for (const auto &entry : people) {    // for each entry in people
+        ostringstream formatted, badNums; // objects created on each loop 
+        for (const auto &nums : entry.phones) {  // for each number
+            if (!valid(nums)) {
+                badNums << " " << nums;  // string in badNums
+            } else // "writes" to formatted's string
+                formatted << " " << format(nums);
+        }
+        if (badNums.str().empty())     // there were no bad numbers
+            cout << entry.name << " "  // print the name 
+                 << formatted.str() << endl; // and reformatted numbers
+        else
+            cerr << "input error: " << entry.name
+                 << " invalid number(s) " << badNums.str() << endl;
+    }
+    return 0;
+}
+```
 
 **Exercise 8.14:** Why did we declare `entry` and `nums` as `const auto &`?
+
+**Solution:** We declare `entry` and `nums` as `const auto&` because we do not want to manipulate the original values in `people`.
