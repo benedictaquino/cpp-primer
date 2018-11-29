@@ -123,9 +123,51 @@ auto it3 = v1.cbegin(), it4 = v2.cbegin(); // const_iterator
 
 **Exercise 9.11:** Show an example of each of the six ways to create and initialize a `vector`. Explain what values each `vector` contains.
 
+[**Solution:**](src/ex9_11.cpp)
+
+```cpp
+vector<int> v1;           // default constructor; v1 is empty
+vector<int> v2(v1);       // v2 is a copy of v1
+vector<int> v3 = v2;      // v3 is a copy of v2
+vector<int> v4{0,1,2};    // v4 is a copy of the elements in the initializer list
+vector<int> v5 = {0,1,2}; // v5 is a copy of the elements in the initializer list
+auto b(v5.begin()), e(v5.end());
+vector<int> v6(b,e);      // v6 is a copy of the elements in the range 
+                          // denoted by b and e
+```
+
 **Exercise 9.12:** Explain the differences between the constructor that takes a container to copy and the constructor that takes two iterators.
 
+**Solution:** The constructor that takes a container to copy copies all of the elements in the container passed into the constructor. The container passed into this constructor must be the same container type and hold the same element type. The constructor that takes two iterators only copies the elements in the iterator range between the two iterators passed in. The container type does not need to be the same for this constructor, and the element type only needs to be compatible not the same.
+
 **Exercise 9.13:** How would you initialize a `vector<double>` from a `list<int>`? From a `vector<int>`? Write code to check your answers.
+
+[**Solution:**](src/ex9_13.cpp) I would use `cbegin` and `cend` on the `list<int>` and pass those iterators as my arguments to use the container constructor that takes in two iterators to initialize the `vector<double>`.
+
+```cpp
+int main()
+{
+    cout << "Enter integers: ";  // prompt user to enter integers
+    string line;                 // object to store input
+    getline(cin, line);          // read line from standard input
+    istringstream iss(line);     // istringstream holding line
+    int i;                       // object to hold each integer
+    list<int> ilst;              // list to hold the integers
+    // read integers from iss into ilst
+    while (iss >> i) ilst.push_back(i);
+    // print elements of the list
+    cout << "Elements of the list:\n";
+    for (const auto &j : ilst) cout << j << " ";
+    // initialize vector with iterator constructor
+    vector<int> ivec(ilst.cbegin(), ilst.cend());
+    // print elements of the vector 
+    cout << "\n"
+         << "Elements of the vector:\n";
+    for (const auto &j : ilst) cout << j << " ";
+    cout << endl;
+    return 0;
+}
+```
 
 ### Section 9.2.5: Assignment and `swap`
 
