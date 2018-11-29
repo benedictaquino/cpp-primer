@@ -18,6 +18,12 @@
 
 **Exercise 9.2:** Define a `list` that holds elements that are `deque`s that hold `int`s.
 
+[**Solution:**](src/ex9_2.cpp)
+
+```cpp
+list<deque<int>> int_dq_lst;  // a list of deques of ints
+```
+
 ### Section 9.2.1: Iterators
 
 **Exercise 9.3:** What are the constraints on the iterators that form iterator ranges?
