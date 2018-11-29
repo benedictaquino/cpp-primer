@@ -8,6 +8,12 @@
 * (b) Read an unknown number of words. Always insert new words at the back. Remove the next value from the front.
 * (c) Read an unknown number of integers from a file. Sort the numbers and then print them to standard output.
 
+**Solution:**
+
+* (a) A **`list`** would be the best container for this task. Since the words need to be sorted alphabetically, we will need to insert elements in the middle of the container.
+* (b) A **`deque`** would be the best container for this task. A `deque` is best when the program only needs to insert or delete elements at the front and back and not the middle.
+* (c) Either a **`vector`** or a **`list`** would be the best container for this task. If we want to sort the integers after creating the container, then we may need random access so a `vector` is preferred. If we want to sort the integers while inserting them into the container, then a `list` is preferred because we need to insert elements into the middle of the container. However, since we will have many small elements, if space overhead matters, then we do not want to use a `list`. 
+
 ## Section 9.2: Container Library Overview
 
 **Exercise 9.2:** Define a `list` that holds elements that are `deque`s that hold `int`s.
