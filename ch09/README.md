@@ -28,9 +28,39 @@ list<deque<int>> int_dq_lst;  // a list of deques of ints
 
 **Exercise 9.3:** What are the constraints on the iterators that form iterator ranges?
 
+**Solution:** Iterators that form an iterator range must refer to elements of, or one past the end of, the same conainer, and it must be possible to reach the ending iterator by repeatedly incrementing the beginning iterator.
+
 **Exercise 9.4:** Write a function that takes a pair of iterators to a `vector<int>` and an `int` value. Look for that value in the range and return a `bool` indicating whether it was found.
 
+[**Solution:**](src/ex9_4.cpp)
+
+```cpp
+bool findInt(vector<int>::iterator iter1, const vector<int>::iterator &iter2, int i)
+{
+    while (iter1 != iter2) {
+        if (*iter1 == i) return true;
+        ++iter1;
+    }
+    return false;
+}
+```
+
 **Exercise 9.5:** Rewrite the previous program to return an iterator to the requested element. Note that the program must handle the case where the element is not found.
+
+[**Solution:**](src/ex9_5.cpp)
+
+```cpp
+vector<int>::iterator findInt(vector<int>::iterator iter1, 
+                              const vector<int>::iterator &iter2, 
+                              int i)
+{
+    while (iter1 != iter2) {
+        if (*iter1 == i) return iter1;
+        ++iter1;
+    }
+    return iter2;
+}
+```
 
 **Exercise 9.6:** What is wrong with the following program? How might you correct it?
 
@@ -39,6 +69,15 @@ list<int> lst1;
 list<int>::iterator iter1 = lst1.begin(),
                     iter2 = lst1.end();
 while (iter1 < iter2) /* .. */
+```
+
+[**Solution:**](src/ex9_6.cpp) The `<` operator cannot be used on iterators. We need to use the `!=` operator. Also, since `lst1` is empty, then using the `begin` and `end` functions return the same iterator, so the iterator range is empty.
+
+```cpp
+list<int> lst1;
+list<int>::iterator iter1 = lst1.begin,
+                    iter2 = lst1.end,
+while (iter1 != iter2) /* ... */
 ```
 
 ### Section 9.2.2: Container Type Members
