@@ -84,11 +84,17 @@ while (iter1 != iter2) /* ... */
 
 **Exercise 9.7:** What type should be used as the index into a `vector` of `int`s?
 
+**Solution:** `vector<int>::size_type`
+
 **Exercise 9.8:** What type should be used to read elements in a `list` of `string`s? To write them?
+
+**Solution:** `list<string>::const_iterator` for reading and `list<string>::iterator` to write
 
 ### Section 9.2.3: `begin` and `end` Members
 
 **Exercise 9.9:** What is the difference between the `begin` and `cbegin` functions?
+
+**Solution:** `begin` returns an `iterator` or a `const_iterator` since it is an overloaded function. `cbegin` only returns a `const_iterator`. 
 
 **Exercise 9.10:** What are the types of the following four objects?
 
@@ -97,6 +103,20 @@ vector<int> v1;
 const vector<int> v2;
 auto it1 = v1.begin(), it2 = v2.begin();
 auto it3 = v1.cbegin(), it4 = v2.cbegin();
+```
+
+[**Solution:**](src/ex9_10.cpp) 
+* `it1` is a `vector<int>::iterator`. 
+* `it2` is a `vector<int>::const_iterator`. Since `v2` is a `const vector<int>`, it returns references to `const` references. As well, since `it1` and `it2` are different types, they must be defined in separate statements.
+* `it3` is a `vector<int>::const_iterator`.
+* `it4` is a `vector<int>::const_iterator`.
+
+```cpp
+vector<int> v1;
+const vector<int> v2;
+auto it1 = v1.begin(); // iterator 
+auto it2 = v2.begin(); // const_iterator
+auto it3 = v1.cbegin(), it4 = v2.cbegin(); // const_iterator
 ```
 
 ### Section 9.2.4: Defining and Initializing a Container
