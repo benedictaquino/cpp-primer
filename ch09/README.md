@@ -171,7 +171,25 @@ int main()
 
 ### Section 9.2.5: Assignment and `swap`
 
-**Exercise 9.14:** Write a program to assign the elements from a `list` of `char*` pointers to a C-style character strings to a `vector` of `string`s.
+**Exercise 9.14:** Write a program to assign the elements from a `list` of `char*` pointers to C-style character strings to a `vector` of `string`s.
+
+[**Solution:**](src/ex9_14.cpp)
+
+```cpp
+int main()
+{
+    // list of char* pointers to C-style strings
+    list<const char*> clst{"You", "know,", "I'm", "something", "of", "a",
+                           "scientist", "myself."};
+    for (auto &c : clst) cout << c << " "; // print elements of list
+    cout << endl;
+    vector<string> svec;                   // vector of strings
+    svec.assign(clst.begin(), clst.end()); // assign elements of list to vector
+    for (auto &s : svec) cout << s << " "; // print elements of vector
+    cout << endl;
+    return 0;
+}
+```
 
 ### Section 9.2.6: Container Size Operations
 
