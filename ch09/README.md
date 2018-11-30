@@ -197,13 +197,94 @@ int main()
 
 **Exercise 9.15:** Write a program to determine whether two `vector<int>`s are equal.
 
+[**Solution:**](src/ex9_15.cpp)
+
+```cpp
+vector<int> build_vector()
+{
+    string nums;
+    getline(cin,nums);
+    istringstream iss(nums);
+    vector<int> ivec;
+    int i;
+    while (iss >> i) ivec.push_back(i);
+    return ivec;
+}
+
+int main()
+{
+    cout << "Enter integers: ";
+    vector<int> ivec1 = build_vector();
+    cout << "Enter more integers: ";
+    vector<int> ivec2 = build_vector();
+    if (ivec1 == ivec2)
+        cout << "Each element is equal and both vectors have the same size."
+             << endl;
+    else
+        cout << "The vectors are not equal." << endl;
+    return 0;
+}
+```
+
 **Exercise 9.16:** Repeat the previous program, but compare elements in a `list<int>` to a `vector<int>`.
+
+[**Solution:**](src/ex9_16.cpp)
+
+```cpp
+vector<int> build_vector()
+{
+    string nums;
+    getline(cin,nums);
+    istringstream iss(nums);
+    vector<int> ivec;
+    int i;
+    while (iss >> i) ivec.push_back(i);
+    return ivec;
+}
+
+list<int> build_list()
+{
+    string nums;
+    getline(cin,nums);
+    istringstream iss(nums);
+    list<int> ilst;
+    int i;
+    while (iss >> i) ilst.push_back(i);
+    return ilst;
+}
+
+int main()
+{
+    cout << "Enter integers: ";
+    vector<int> iv = build_vector();
+    cout << "Enter more integers: ";
+    list<int> il = build_list();
+    if (iv.size() != il.size()) {
+        cout << "The vector and list are not equal." << endl;
+        return 0;
+    }
+    vector<int>::const_iterator ivit = iv.cbegin();
+    list<int>::const_iterator ilit = il.cbegin();
+    while (ivit != iv.cend() && ilit != il.cend()) {
+        if (*ivit != *ilit) {
+            cout << "The vector and list are not equal." << endl;
+            return 0;
+        }
+        ++ivit, ++ilit;
+    }
+    cout << "Each element is equal and the vector and list have the same size."
+         << endl;
+    return 0;
+}
+```
 
 **Exercise 9.17:** Assuming `c1` and `c2` are containers, what (if any) constraints does the following usage place on the types of `c1` and `c2`?
 
 ```cpp
 if (c1 < c2)
 ```
+
+**Solution:** `c1` and `c2` must be the same type of container and contain the same element type. Also, they `<` operation must be defined for the element type of the containers.
 
 ## Section 9.3: Sequential Container Operations
 
